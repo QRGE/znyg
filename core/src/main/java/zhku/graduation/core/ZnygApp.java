@@ -26,7 +26,7 @@ public class ZnygApp {
         String port = env.getProperty("server.port");
         String path = Optional.ofNullable(env.getProperty("server.servlet.context-path")).orElse(null);
         log.info("\n----------------------------------------------------------\n" +
-                "Application Jeecg-Boot is running! Access URLs:\n\t" +
+                "Application is running! Access URLs:\n\t" +
                 "     Local: http://localhost:" + port + path + "/\n\t" +
                 "  External: http://" + ip + ":" + port + path + "/\n\t" +
                 "Swagger文档: http://" + ip + ":" + port + path + "/doc.html\n" +

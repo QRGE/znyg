@@ -8,6 +8,9 @@ spring:
     password: QRWUDI666
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://127.0.0.1:3306/znyg?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+  application:
+    name: znyg
+
 server:
   port: 80
   servlet:
@@ -16,3 +19,11 @@ server:
 mybatis-plus:
   global-config:
     banner: false
+
+# swagger 自定义配置
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0整合Demo
+  try-host: http://localhost:${server.port}
