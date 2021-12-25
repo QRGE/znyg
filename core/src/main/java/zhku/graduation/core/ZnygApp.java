@@ -29,7 +29,7 @@ public class ZnygApp {
                 "Application is running! Access URLs:\n\t" +
                 "     Local: http://localhost:" + port + path + "/\n\t" +
                 "  External: http://" + ip + ":" + port + path + "/\n\t" +
-                "Swagger文档: http://" + ip + ":" + port + path + "/doc.html\n" +
+                "Swagger文档: http://" + ip + ":" + port + path + "/swagger-ui.html/index.html#/\n" +
                 "----------------------------------------------------------");
     }
 }

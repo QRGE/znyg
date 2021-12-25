@@ -1,14 +1,14 @@
 {
   "properties": [
     {
-      "name": "swagger.enable",
-      "type": "java.lang.Boolean",
-      "description": "是否开启swagger."
-    },
-    {
       "name": "swagger.application-name",
       "type": "java.lang.String",
       "description": "项目名称."
+    },
+    {
+      "name": "swagger.enable",
+      "type": "java.lang.Boolean",
+      "description": "是否开启swagger."
     },
     {
       "name": "swagger.application-version",
@@ -24,6 +24,11 @@
       "name": "swagger.try-host",
       "type": "java.lang.String",
       "description": "项目跟路径."
+    },
+    {
+      "name": "swagger.protocols",
+      "type": "java.util.Set",
+      "description": "允许请求协议."
     }
   ]
 }
