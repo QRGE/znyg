@@ -1,4 +1,4 @@
-package zhku.graduation.core.modules.test.controller;
+package zhku.graduation.core.modules.test;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
