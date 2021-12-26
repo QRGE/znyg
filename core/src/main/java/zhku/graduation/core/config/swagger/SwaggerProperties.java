@@ -8,6 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 
 /**
+ * swagger 的配置类
  * @author qr
  * @date 2021/12/26 00:11
  */
@@ -42,5 +43,8 @@ public class SwaggerProperties {
      */
     private String tryHost;
 
+    /**
+     * 允许的协议
+     */
     private Set<String> protocols;
 }
