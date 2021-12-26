@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
+import springfox.documentation.oas.annotations.EnableOpenApi;
 
 import java.net.InetAddress;
 import java.util.Optional;
@@ -14,6 +15,7 @@ import java.util.Optional;
  * @author qr
  * @date 2021/12/25 20:58
  */
+@EnableOpenApi
 @SpringBootApplication
 @Slf4j
 public class ZnygApp {
@@ -29,7 +31,7 @@ public class ZnygApp {
                 "Application is running! Access URLs:\n\t" +
                 "     Local: http://localhost:" + port + path + "/\n\t" +
                 "  External: http://" + ip + ":" + port + path + "/\n\t" +
-                "Swagger文档: http://" + ip + ":" + port + path + "/swagger-ui.html/index.html#/\n" +
+                "Swagger文档: http://" + ip + ":" + port + path + "/swagger-ui/index.html\n" +
                 "----------------------------------------------------------");
     }
 }

@@ -1,8 +1,4 @@
 spring:
-  security:
-    user:
-      password: 123456
-      name: user
   datasource:
     username: root
     password: QRWUDI666
