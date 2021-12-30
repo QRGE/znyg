@@ -146,7 +146,9 @@ public class CodeGenerator {
             })
             // 策略配置
             .strategyConfig(builder -> builder
+                .enableSkipView()
                 .addInclude(TABLE_NAME.split(","))
+                .addTablePrefix("znyg")
                 .entityBuilder()
                     .disableSerialVersionUID()
                     .enableLombok()
