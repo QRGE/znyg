@@ -1,32 +1,30 @@
 package zhku.graduation.core.modules.user.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zhku.graduation.basic.controller.BaseController;
+import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.UserDetail;
 import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
 import zhku.graduation.core.modules.user.entity.bean.UserListRequest;
 import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
 import zhku.graduation.core.modules.user.service.IUserService;
-import zhku.graduation.basic.vo.Result;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.Api;
-import org.springframework.web.bind.annotation.RestController;
-import zhku.graduation.basic.controller.BaseController;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import java.util.List;
 
-import static zhku.graduation.basic.constant.SystemState.ResponseState.*;
+import static zhku.graduation.basic.constant.SystemState.ResponseState.STATE_OPERATION_FAILURE;
 
 /**
  * @author QR
- * @since 2021-12-30
+ * @since 2022-01-10
  */
 @Api(tags = "用户表")
 @RestController
-@RequestMapping("/user/user")
+@RequestMapping("/user")
 public class UserController extends BaseController {
 
     @Autowired

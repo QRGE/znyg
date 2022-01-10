@@ -17,7 +17,7 @@ import zhku.graduation.core.modules.user.entity.bean.UserDetail;
  * </p>
  *
  * @author QR
- * @since 2021-12-30
+ * @since 2022-01-10
  */
 @Getter
 @Setter
