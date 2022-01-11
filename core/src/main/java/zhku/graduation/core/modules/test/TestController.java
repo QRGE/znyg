@@ -3,7 +3,6 @@ package zhku.graduation.core.modules.test;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import zhku.graduation.basic.vo.Result;
 
@@ -13,12 +12,17 @@ import zhku.graduation.basic.vo.Result;
  */
 @Api(tags = "测试接口")
 @RestController
-@RequestMapping("/")
 public class TestController {
 
     @ApiOperation("测试controller")
-    @GetMapping("/")
+    @GetMapping("/test")
     public Result<?> test(){
+        return Result.OK("测试接口");
+    }
+
+    @ApiOperation("打个招呼")
+    @GetMapping("/hello")
+    public Result<?> hello(){
         return Result.OK("你好哇");
     }
 }
