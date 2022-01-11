@@ -1,4 +1,4 @@
-package zhku.graduation.core.config.shiro;
+package zhku.graduation.core.config.shiro.realm;
 
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -14,6 +14,7 @@ import java.util.Set;
  * @date 2022/1/11 22:15
  */
 public class CustomRealm extends AuthorizingRealm {
+
     private static final Set<String> tomRoleNameSet = new HashSet<>();
     private static final Set<String> tomPermissionNameSet = new HashSet<>();
     private static final Set<String> jerryRoleNameSet = new HashSet<>();
