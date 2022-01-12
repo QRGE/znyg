@@ -18,7 +18,7 @@ import java.io.IOException;
  * onAccessDenied()是没有携带JwtToken的时候进行账号密码登录，登录成功允许访问，登录失败拒绝访问
  * */
 @Slf4j
-public class JwtFilter extends AccessControlFilter {
+public class JwtFilter2 extends AccessControlFilter {
     /*
      * 1. 返回true，shiro就直接允许访问url
      * 2. 返回false，shiro才会根据onAccessDenied的方法的返回值决定是否允许访问url

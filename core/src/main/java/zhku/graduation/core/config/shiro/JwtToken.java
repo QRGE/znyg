@@ -10,23 +10,23 @@ import org.apache.shiro.authc.AuthenticationToken;
 // 类似于 UsernamePasswordToken
 public class JwtToken implements AuthenticationToken {
 
-    private final String jwt;
+    private final String token;
 
-    public JwtToken(String jwt) {
-        this.jwt = jwt;
+    public JwtToken(String token) {
+        this.token = token;
     }
 
     // 相当于用户名
     @Override
     public Object getPrincipal() {
-        return jwt;
+        return token;
     }
 
     // 相当于密码
     // 设置用户名和密码都是返回的都是 jwt
     @Override
     public Object getCredentials() {
-        return jwt;
+        return token;
     }
 
 }

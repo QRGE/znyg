@@ -98,4 +98,9 @@ public interface Constant {
     int STATUS_0 = 0;
     int STATUS_1 = 1;
 
+	/**
+	 * token 标记
+	 */
+	String TOKEN = "token";
+
 }

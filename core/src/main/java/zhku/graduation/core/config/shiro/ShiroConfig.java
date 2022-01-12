@@ -8,7 +8,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import zhku.graduation.core.config.shiro.filter.JwtFilter;
+import zhku.graduation.core.config.shiro.filter.JwtFilter2;
 import zhku.graduation.core.config.shiro.realm.JwtRealm;
 
 import javax.servlet.Filter;
@@ -54,7 +54,7 @@ public class ShiroConfig {
         shiroFilter.setSecurityManager(securityManager());
         Map<String, Filter> filterMap = new HashMap<>();
         // 注册 jwt 拦截器
-        filterMap.put("jwt", new JwtFilter());
+        filterMap.put("jwt", new JwtFilter2());
         shiroFilter.setFilters(filterMap);
         // 拦截器
         Map<String, String> filterRuleMap = new LinkedHashMap<>();
