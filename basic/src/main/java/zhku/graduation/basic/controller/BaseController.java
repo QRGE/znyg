@@ -1,7 +1,7 @@
 package zhku.graduation.basic.controller;
 
 import lombok.extern.slf4j.Slf4j;
-import zhku.graduation.basic.constant.SystemState;
+import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.request.BasePageRequest;
 import zhku.graduation.basic.vo.Result;
 
@@ -17,8 +17,8 @@ import java.io.InputStreamReader;
 @Slf4j
 public class BaseController {
 
-    protected Result error(SystemState.ResponseState response) {
-        return Result.error(response.getCode(), response.getMsg());
+    protected Result error(HttpStatus status) {
+        return Result.error(status.getCode(), status.getMsg());
     }
 
     protected Integer getPageSize(Integer param, Integer defaultValue) {

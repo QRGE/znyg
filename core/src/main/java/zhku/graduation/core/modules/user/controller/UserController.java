@@ -16,7 +16,7 @@ import zhku.graduation.core.modules.user.service.IUserService;
 
 import java.util.List;
 
-import static zhku.graduation.basic.constant.SystemState.ResponseState.STATE_OPERATION_FAILURE;
+import static zhku.graduation.basic.constant.HttpStatus.STATE_OPERATION_FAILURE;
 
 /**
  * @author QR
