@@ -21,31 +21,18 @@ public class BaseController {
         return Result.error(status.getCode(), status.getMsg());
     }
 
-    protected Integer getPageSize(Integer param, Integer defaultValue) {
-        param = getParam(param, defaultValue);
-        if (param < 1) {
-            param = defaultValue;
-        }
-        return param;
+    protected Integer getPageSize(Integer pageSize, Integer defaultPageSize) {
+        pageSize = getParam(pageSize, defaultPageSize);
+        return pageSize < 1 ? defaultPageSize : pageSize;
     }
 
-    protected Integer getIntParam(Integer param, Integer defaultValue) {
-        return getParam(param, defaultValue);
-    }
-
-    protected String getStringParam(String param, String defaultValue) {
-        return getParam(param, defaultValue);
-    }
-
-    protected Double getDoubleParam(Double param, Double defaultValue) {
-        return getParam(param, defaultValue);
+    protected Integer getPage(Integer page, Integer defaultPage) {
+        page = getParam(page, defaultPage);
+        return page < 1 ? defaultPage : page;
     }
 
     private <T> T getParam(T param, T defaultValue) {
-        if (param == null) {
-            param = defaultValue;
-        }
-        return param;
+        return param == null ? defaultValue : param;
     }
 
     protected boolean isIntParamInvalid(Integer value) {
@@ -72,11 +59,11 @@ public class BaseController {
     }
 
     protected void handlePageRequest(BasePageRequest request) {
-        Integer pageNum = request.getPageNum();
+        Integer page = request.getPage();
         Integer pageSize = request.getPageSize();
-        pageNum = getIntParam(pageNum, 1);
+        page = getPage(page, 1);
         pageSize = getPageSize(pageSize, 20);
-        request.setPageNum(pageNum);
+        request.setPage(page);
         request.setPageSize(pageSize);
     }
 

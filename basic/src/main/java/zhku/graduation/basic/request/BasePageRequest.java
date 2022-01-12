@@ -15,7 +15,7 @@ import java.io.Serializable;
 public class BasePageRequest implements Serializable {
 
     @ApiModelProperty("分页页数")
-    private Integer pageNum;
+    private Integer page;
 
     @ApiModelProperty("单页数据量")
     private Integer pageSize;

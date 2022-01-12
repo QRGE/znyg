@@ -1,21 +1,19 @@
 package zhku.graduation.core.modules.user.service.impl;
 
-import zhku.graduation.core.modules.user.entity.po.User;
-import zhku.graduation.core.modules.user.mapper.UserMapper;
-import zhku.graduation.core.modules.user.service.IUserService;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import zhku.graduation.core.modules.user.entity.bean.UserDetail;
 import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
 import zhku.graduation.core.modules.user.entity.bean.UserListRequest;
 import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
-
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
-
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import zhku.graduation.core.modules.user.entity.po.User;
+import zhku.graduation.core.modules.user.mapper.UserMapper;
+import zhku.graduation.core.modules.user.service.IUserService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,7 +46,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public IPage<UserListInfo> pageUser(UserPageRequest request) {
         LambdaQueryWrapper<User> queryWrapper = baseQueryWrapper();
-        IPage<User> page = new Page<>(request.getPageNum(), request.getPageSize());
+        IPage<User> page = new Page<>(request.getPage(), request.getPageSize());
         page = this.page(page, queryWrapper);
         return page.convert(UserListInfo::new);
     }
