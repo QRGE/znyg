@@ -6,7 +6,7 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import zhku.graduation.basic.exception.NoJwtTokenException;
+import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.core.config.shiro.JwtToken;
 import zhku.graduation.core.util.JwtUtil;
 
@@ -41,7 +41,7 @@ public class JwtRealm extends AuthorizingRealm {
 
         String jwt = (String) token.getPrincipal();
         if (jwt == null) {
-            throw new NoJwtTokenException("jwtToken 不允许为空");
+            throw new InValidTokenException("jwtToken 不允许为空");
         }
         //判断
         JwtUtil jwtUtil = new JwtUtil();

@@ -4,9 +4,9 @@ package zhku.graduation.basic.exception;
  * @author qr
  * @date 2022/1/11 23:14
  */
-public class NoJwtTokenException extends RuntimeException{
+public class InValidTokenException extends RuntimeException{
 
-    public NoJwtTokenException(String message) {
+    public InValidTokenException(String message) {
         super(message);
     }
 
