@@ -2,9 +2,9 @@ package zhku.graduation.core.config.shiro.filter;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zhku.graduation.basic.constant.Constant;
+import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.core.config.shiro.JwtToken;
 
@@ -18,12 +18,13 @@ import javax.servlet.http.HttpServletResponse;
  * @date 2022/1/12 09:50
  */
 @Slf4j
-public class JwtFilter1 extends BasicHttpAuthenticationFilter {
+public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     private boolean allowOrigin = true;
 
-    public JwtFilter1(){}
-    public JwtFilter1(boolean allowOrigin){
+    public JwtFilter(){}
+
+    public JwtFilter(boolean allowOrigin){
         this.allowOrigin = allowOrigin;
     }
 
@@ -74,7 +75,7 @@ public class JwtFilter1 extends BasicHttpAuthenticationFilter {
         }
         // 跨域时会首先发送一个option请求，这里我们给option请求直接返回正常状态
         if (httpServletRequest.getMethod().equals(RequestMethod.OPTIONS.name())) {
-            httpServletResponse.setStatus(HttpStatus.OK.value());
+            httpServletResponse.setStatus(HttpStatus.SUCCESS.getCode());
             return false;
         }
         return super.preHandle(request, response);

@@ -16,7 +16,7 @@ import zhku.graduation.core.modules.user.service.IUserService;
 
 import java.util.List;
 
-import static zhku.graduation.basic.constant.HttpStatus.STATE_OPERATION_FAILURE;
+import static zhku.graduation.basic.constant.HttpStatus.OPERATION_FAILURE;
 
 /**
  * @author QR
@@ -56,13 +56,13 @@ public class UserController extends BaseController {
     @PostMapping("edit")
     public Result<?> saveOrUpdateUser(@RequestBody UserDetail dto){
         boolean result = userService.saveOrUpdateUser(dto);
-        return result ? Result.OK() : error(STATE_OPERATION_FAILURE);
+        return result ? Result.OK() : error(OPERATION_FAILURE);
     }
 
     @ApiOperation("删除用户表")
     @DeleteMapping("remove")
     public Result<?> removeUser(@RequestParam Integer id){
         boolean result = userService.removeUser(id);
-        return result ? Result.OK() : error(STATE_OPERATION_FAILURE);
+        return result ? Result.OK() : error(OPERATION_FAILURE);
     }
 }
