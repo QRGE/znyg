@@ -7,11 +7,11 @@ public enum HttpStatus {
 
 
     SUCCESS(200, "OK"),
-    PARAM_ERROR(1001, "Param error"),
-    PARAM_MISSING(1002, "Miss param"),
-    OPERATION_FAILURE(1003, "something fail"),
-    NO_DATA(1005, "no data"),
-    REQUEST_FAILURE(1006, "request error");
+    PARAM_ERROR(10001, "Param error"),
+    PARAM_MISSING(10002, "Miss param"),
+    OPERATION_FAILURE(10003, "something fail"),
+    NO_DATA(10004, "no data"),
+    REQUEST_FAILURE(10005, "request error");
 
     private int code;
 
