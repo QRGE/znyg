@@ -7,6 +7,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
+import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.UserDetail;
 import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
@@ -16,7 +17,7 @@ import zhku.graduation.core.modules.user.service.IUserService;
 
 import java.util.List;
 
-import static zhku.graduation.basic.constant.HttpStatus.OPERATION_FAILURE;
+import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 
 /**
  * @author QR
@@ -29,6 +30,15 @@ public class UserController extends BaseController {
 
     @Autowired
     private IUserService userService;
+
+    @ApiOperation("用户登陆接口")
+    @PostMapping("/login")
+    public Result<?> login(@RequestParam("type") Integer type) {
+        if (type == 1) {
+            throw new InValidTokenException();
+        }
+        return Result.OK("登陆成功");
+    }
 
     @ApiOperation(value = "查询用户表详情", response = UserDetail.class)
     @GetMapping("get")
@@ -56,13 +66,13 @@ public class UserController extends BaseController {
     @PostMapping("edit")
     public Result<?> saveOrUpdateUser(@RequestBody UserDetail dto){
         boolean result = userService.saveOrUpdateUser(dto);
-        return result ? Result.OK() : error(OPERATION_FAILURE);
+        return result ? Result.OK() : error(ERROR);
     }
 
     @ApiOperation("删除用户表")
     @DeleteMapping("remove")
     public Result<?> removeUser(@RequestParam Integer id){
         boolean result = userService.removeUser(id);
-        return result ? Result.OK() : error(OPERATION_FAILURE);
+        return result ? Result.OK() : error(ERROR);
     }
 }

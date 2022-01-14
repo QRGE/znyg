@@ -6,6 +6,9 @@ package zhku.graduation.basic.exception;
  */
 public class InValidTokenException extends RuntimeException{
 
+    public InValidTokenException() {
+    }
+
     public InValidTokenException(String message) {
         super(message);
     }

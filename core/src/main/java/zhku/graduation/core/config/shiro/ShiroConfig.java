@@ -8,7 +8,7 @@ import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import zhku.graduation.core.config.shiro.filter.JwtFilter2;
+import zhku.graduation.core.config.shiro.filter.JwtFilter;
 import zhku.graduation.core.config.shiro.realm.JwtRealm;
 
 import javax.servlet.Filter;
@@ -53,13 +53,13 @@ public class ShiroConfig {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager());
         Map<String, Filter> filterMap = new HashMap<>();
-        // 注册 jwt 拦截器
-        filterMap.put("jwt", new JwtFilter2());
+        // 注册 jwt 拦截器, 即自定义拦截规则
+        filterMap.put("jwt", new JwtFilter());
         shiroFilter.setFilters(filterMap);
         // 拦截器
         Map<String, String> filterRuleMap = new LinkedHashMap<>();
-        filterRuleMap.put("/login", "anon");
-        filterRuleMap.put("/logout", "logout");
+        filterRuleMap.put("/user/login", "anon");
+        filterRuleMap.put("/user/logout", "logout");
         // 所有的接口都要走 jwt 拦截规则
         filterRuleMap.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterRuleMap);

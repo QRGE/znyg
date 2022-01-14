@@ -6,12 +6,13 @@ import java.util.Objects;
 public enum HttpStatus {
 
 
-    SUCCESS(200, "OK"),
-    PARAM_ERROR(10001, "Param error"),
-    PARAM_MISSING(10002, "Miss param"),
-    OPERATION_FAILURE(10003, "something fail"),
-    NO_DATA(10004, "no data"),
-    REQUEST_FAILURE(10005, "request error");
+    SUCCESS(200, "操作成功"),
+    ERROR(10000, "操作失败"),
+    PARAM_ERROR(10001, "请求参数错误"),
+    PARAM_MISSING(10002, "缺少必要参数"),
+    NO_DATA(10004, "查无数据"),
+    REQUEST_FAILURE(10005, "请求失败"),
+    NO_AUTH_ERROR(10006, "认证错误");
 
     private int code;
 
@@ -26,7 +27,7 @@ public enum HttpStatus {
         return Arrays.stream(values())
                 .filter(httpStatus -> Objects.equals(code, httpStatus.code))
                 .findAny()
-                .orElse(OPERATION_FAILURE);
+                .orElse(ERROR);
     }
 
     public int getCode() {

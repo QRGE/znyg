@@ -1,11 +1,11 @@
 package zhku.graduation.core.config.shiro.filter;
 
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.constant.HttpStatus;
-import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.core.config.shiro.JwtToken;
 
 import javax.servlet.ServletRequest;
@@ -31,6 +31,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     /**
      * 执行登录认证
      */
+    @SneakyThrows
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
         try {
@@ -38,7 +39,9 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
             // return true will allow access
             return true;
         } catch (Exception e) {
-            throw new InValidTokenException("InValid Token");
+            HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+            httpServletResponse.sendRedirect("/znyg/error");
+            return false;
         }
     }
 
