@@ -13,7 +13,7 @@ import javax.validation.ValidatorFactory;
  * @date 2022/1/15 15:08
  */
 @Configuration
-public class FastValidatorConf {
+public class FastValidator {
 
     /**
      * 自定义校验Bean，设置快速校验，只要有一个不符合规定的参数就直接进行判断
