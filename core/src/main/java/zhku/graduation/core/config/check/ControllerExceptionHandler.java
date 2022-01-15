@@ -1,4 +1,4 @@
-package zhku.graduation.core.config;
+package zhku.graduation.core.config.check;
 
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
