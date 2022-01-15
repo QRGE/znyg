@@ -30,6 +30,7 @@ public class UserController extends BaseController {
     @ApiOperation("用户登陆")
     @PostMapping("login")
     public Result<?> login(@RequestBody LoginInfo loginInfo) {
+
         return Result.OK("登陆成功");
     }
 

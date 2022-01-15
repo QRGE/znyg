@@ -2,6 +2,7 @@ package zhku.graduation.core.config;
 
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -9,6 +10,8 @@ import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.basic.vo.Result;
+
+import static zhku.graduation.basic.constant.HttpStatus.PARAM_MISSING;
 
 /**
  * ControllerAdvice 只能处理 Controller 层的抛出的异常
@@ -37,6 +40,11 @@ public class ExceptionHandlers extends BaseController {
         return Result.error(10005, result);
     }
 
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public Result<?> handleHttpMessageNotReadableException(){
+        return error(PARAM_MISSING);
+    }
+
     @ExceptionHandler(InValidTokenException.class)
     public Result<?> handleInvalidTokenException() {
         return error(HttpStatus.NO_AUTH_ERROR);
@@ -47,10 +55,11 @@ public class ExceptionHandlers extends BaseController {
         return error(HttpStatus.NO_AUTH_ERROR);
     }
 
-    @ExceptionHandler(Exception.class)
-    public Result<?> handleException() {
-        return error(HttpStatus.ERROR);
-    }
+//    建议上线了再开这个
+//    @ExceptionHandler(Exception.class)
+//    public Result<?> handleException() {
+//        return error(HttpStatus.ERROR);
+//    }
 
 
 }
