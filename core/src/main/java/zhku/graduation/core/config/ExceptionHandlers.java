@@ -1,5 +1,8 @@
 package zhku.graduation.core.config;
 
+import org.apache.shiro.authz.AuthorizationException;
+import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import zhku.graduation.basic.constant.HttpStatus;
@@ -23,5 +26,29 @@ public class ExceptionHandlers extends BaseController {
     @ExceptionHandler(InValidTokenException.class)
     public Result<?> handleInvalidTokenException() {
         return error(HttpStatus.NO_AUTH_ERROR);
+    }
+
+    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
+    public Result<?> handleAuthorizationException(AuthorizationException e){
+        return error(HttpStatus.NO_AUTH_ERROR);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public Result<?> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
+        StringBuilder sb = new StringBuilder();
+        sb.append("不支持 ");
+        sb.append(e.getMethod());
+        sb.append(" 请求方法，");
+        sb.append("支持: ");
+        String [] methods = e.getSupportedMethods();
+        assert methods != null;
+        for(String str:methods){
+            sb.append(str);
+            sb.append("、");
+        }
+        String result = sb.toString();
+        // 把最后一个顿号去掉
+        result = result.substring(0, result.length()-1);
+        return Result.error(10005, result);
     }
 }

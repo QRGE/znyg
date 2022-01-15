@@ -35,7 +35,7 @@ public class JwtRealm extends AuthorizingRealm {
     }
 
     //认证
-    //这个token就是从过滤器中传入的jwtToken
+    //这个 token 就是从过滤器中传入的 jwtToken
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) throws AuthenticationException {
 
@@ -45,7 +45,7 @@ public class JwtRealm extends AuthorizingRealm {
         }
         //判断
         JwtUtil jwtUtil = new JwtUtil();
-        if (!jwtUtil.isVerify(jwt)) {
+        if (jwtUtil.isNotVerify(jwt)) {
             throw new UnknownAccountException();
         }
         //下面是验证这个user是否是真实存在的

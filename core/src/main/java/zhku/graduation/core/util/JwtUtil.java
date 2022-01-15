@@ -102,4 +102,8 @@ public class JwtUtil {
         //判断合法的标准：1. 头部和荷载部分没有篡改过。2. 没有过期
         return true;
     }
+
+    public boolean isNotVerify(String jwtToken) {
+        return !isVerify(jwtToken);
+    }
 }
