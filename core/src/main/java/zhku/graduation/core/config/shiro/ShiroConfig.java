@@ -52,17 +52,18 @@ public class ShiroConfig {
     public ShiroFilterFactoryBean shiroFilterFactoryBean() {
         ShiroFilterFactoryBean shiroFilter = new ShiroFilterFactoryBean();
         shiroFilter.setSecurityManager(securityManager());
-        Map<String, Filter> filterMap = new HashMap<>();
+        Map<String, Filter> filters = new HashMap<>();
         // 注册 jwt 拦截器, 即自定义拦截规则
-        filterMap.put("jwt", new JwtFilter());
-        shiroFilter.setFilters(filterMap);
+        filters.put("jwt", new JwtFilter());
+        shiroFilter.setFilters(filters);
         // 拦截器
-        Map<String, String> filterRuleMap = new LinkedHashMap<>();
-        filterRuleMap.put("/user/login", "anon");
-        filterRuleMap.put("/user/logout", "logout");
+        Map<String, String> filterUrls = new LinkedHashMap<>();
+        filterUrls.put("/user/login", "anon");
+        filterUrls.put("/test/**", "anon");
+        filterUrls.put("/user/logout", "logout");
         // 所有的接口都要走 jwt 拦截规则
-        filterRuleMap.put("/**", "jwt");
-        shiroFilter.setFilterChainDefinitionMap(filterRuleMap);
+        filterUrls.put("/**", "jwt");
+        shiroFilter.setFilterChainDefinitionMap(filterUrls);
         return shiroFilter;
     }
 }
