@@ -17,6 +17,7 @@ import zhku.graduation.basic.vo.Result;
  */
 @RestControllerAdvice
 public class ExceptionHandlers extends BaseController {
+
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Result<?> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
         StringBuilder sb = new StringBuilder();
