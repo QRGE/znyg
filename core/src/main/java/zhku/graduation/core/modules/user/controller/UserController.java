@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
-import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.UserDetail;
 import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
@@ -25,19 +24,22 @@ import static zhku.graduation.basic.constant.HttpStatus.ERROR;
  */
 @Api(tags = "用户表")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/")
 public class UserController extends BaseController {
 
     @Autowired
     private IUserService userService;
 
     @ApiOperation("用户登陆接口")
-    @PostMapping("/login")
-    public Result<?> login(@RequestParam("type") Integer type) {
-        if (type == 1) {
-            throw new InValidTokenException();
-        }
+    @PostMapping("login")
+    public Result<?> login() {
         return Result.OK("登陆成功");
+    }
+
+    @ApiOperation("用户退出接口")
+    @GetMapping("logout")
+    public Result<?> logout(){
+        return Result.OK("退出成功");
     }
 
     @ApiOperation(value = "查询用户表详情", response = UserDetail.class)

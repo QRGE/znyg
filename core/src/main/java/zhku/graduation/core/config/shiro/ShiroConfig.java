@@ -63,7 +63,6 @@ public class ShiroConfig {
         // 所有的接口都要走 jwt 拦截规则
         filterRuleMap.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterRuleMap);
-
         return shiroFilter;
     }
 }
