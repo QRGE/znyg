@@ -41,8 +41,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }else {
             queryWrapper1.eq(User::getUsername, account);
         }
-        User user = getOne(queryWrapper1);
-        return !user.getPassword().equals(SecureUtil.md5(password + user.getSalt()));
+        User queryUser = getOne(queryWrapper1);
+        if (queryUser == null) {
+            return false;
+        }
+        return !queryUser.getPassword().equals(SecureUtil.md5(password + queryUser.getSalt()));
     }
 
     @Override

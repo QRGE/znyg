@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.basic.constant.Constant;
+import zhku.graduation.basic.constant.HttpStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -64,6 +65,16 @@ public class Result<T> implements Serializable {
 		r.setCode(Constant.SC_SERVER_ERROR);
 		r.setMessage(msg);
 		r.setResult(data);
+		return r;
+	}
+
+	public static<T> Result<T> paramError(String msg) {
+		Result<T> r = new Result<>();
+		r.setSuccess(false);
+		HttpStatus paramError = HttpStatus.PARAM_ERROR;
+		r.setCode(paramError.getCode());
+		r.setMessage(paramError.getMsg() + ", " + msg);
+		r.setResult(null);
 		return r;
 	}
 

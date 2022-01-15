@@ -17,10 +17,10 @@ import javax.validation.constraints.NotEmpty;
 public class LoginInfo {
 
     @ApiModelProperty("账户, 目前为用户名或邮箱")
-    @NotEmpty
+    @NotEmpty(message = "账号不能为空")
     private String account;
 
     @ApiModelProperty("密码")
-    @NotEmpty
+    @NotEmpty(message = "密码不能为空")
     private String password;
 }

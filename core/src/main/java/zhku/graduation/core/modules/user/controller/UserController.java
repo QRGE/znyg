@@ -11,6 +11,7 @@ import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.*;
 import zhku.graduation.core.modules.user.service.IUserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
@@ -29,8 +30,12 @@ public class UserController extends BaseController {
 
     @ApiOperation("用户登陆")
     @PostMapping("login")
-    public Result<?> login(@RequestBody LoginInfo loginInfo) {
-
+    public Result<?> login(
+            @Valid @RequestBody LoginInfo loginInfo
+    ) {
+        if (userService.checkUser(loginInfo.getAccount(), loginInfo.getPassword())) {
+            return Result.error("登陆失败");
+        }
         return Result.OK("登陆成功");
     }
 

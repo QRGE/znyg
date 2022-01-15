@@ -3,7 +3,10 @@ package zhku.graduation.core.config;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import zhku.graduation.basic.constant.HttpStatus;
@@ -19,7 +22,7 @@ import static zhku.graduation.basic.constant.HttpStatus.PARAM_MISSING;
  * @date 2022/1/14 23:47
  */
 @RestControllerAdvice
-public class ExceptionHandlers extends BaseController {
+public class ControllerExceptionHandler extends BaseController {
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public Result<?> HttpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException e){
@@ -53,6 +56,24 @@ public class ExceptionHandlers extends BaseController {
     @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
     public Result<?> handleAuthorizationException(AuthorizationException e){
         return error(HttpStatus.NO_AUTH_ERROR);
+    }
+
+    /**
+     * 处理参数校验失败异常
+     * @param e 异常对象
+     * @return 如果有错误则返回参数错误提示
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public Result<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        BindingResult bindingResult = e.getBindingResult();
+        if (bindingResult.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            for (ObjectError error : bindingResult.getAllErrors()) {
+                sb.append(error.getDefaultMessage());
+            }
+            return Result.paramError(sb.toString());
+        }
+        return null;
     }
 
 //    建议上线了再开这个
