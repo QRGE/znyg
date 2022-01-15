@@ -7,7 +7,7 @@ public enum HttpStatus {
 
 
     SUCCESS(200, "操作成功"),
-    ERROR(10000, "操作失败"),
+    ERROR(500, "操作失败"),
     PARAM_ERROR(10001, "请求参数错误"),
     PARAM_MISSING(10002, "缺少必要参数"),
     NO_DATA(10004, "查无数据"),
