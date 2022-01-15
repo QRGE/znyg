@@ -1,15 +1,14 @@
 package zhku.graduation.core.modules.user.service;
 
-import zhku.graduation.core.modules.user.entity.po.User;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 import zhku.graduation.core.modules.user.entity.bean.UserDetail;
 import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
 import zhku.graduation.core.modules.user.entity.bean.UserListRequest;
 import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
+import zhku.graduation.core.modules.user.entity.po.User;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import java.util.List;
 
 /**
  * <p>
@@ -20,6 +19,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @since 2022-01-10
  */
 public interface IUserService extends IService<User> {
+
+    /**
+     * 校验用户的有效性
+     * @param account 用户名
+     * @param password
+     * @return 校验
+     */
+    boolean checkUser(String account, String password);
 
     List<UserListInfo> getUserList(UserListRequest request);
 

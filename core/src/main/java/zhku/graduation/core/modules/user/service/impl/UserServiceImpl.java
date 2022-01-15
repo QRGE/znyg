@@ -1,5 +1,6 @@
 package zhku.graduation.core.modules.user.service.impl;
 
+import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -31,6 +32,18 @@ import java.util.stream.Collectors;
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
+    @Override
+    public boolean checkUser(String account, String password) {
+        LambdaQueryWrapper<User> queryWrapper1 = baseQueryWrapper();
+        if (account.contains("@")) {
+            queryWrapper1.eq(User::getEMail, account);
+        }else {
+            queryWrapper1.eq(User::getUsername, account);
+        }
+        User user = getOne(queryWrapper1);
+        return !user.getPassword().equals(SecureUtil.md5(password + user.getSalt()));
+    }
 
     @Override
     public List<UserListInfo> getUserList(UserListRequest request) {

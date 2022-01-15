@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
-import zhku.graduation.core.modules.user.entity.bean.UserDetail;
-import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
-import zhku.graduation.core.modules.user.entity.bean.UserListRequest;
-import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
+import zhku.graduation.core.modules.user.entity.bean.*;
 import zhku.graduation.core.modules.user.service.IUserService;
 
 import java.util.List;
@@ -30,13 +27,13 @@ public class UserController extends BaseController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation("用户登陆接口")
+    @ApiOperation("用户登陆")
     @PostMapping("login")
-    public Result<?> login() {
+    public Result<?> login(@RequestBody LoginInfo loginInfo) {
         return Result.OK("登陆成功");
     }
 
-    @ApiOperation("用户退出接口")
+    @ApiOperation("用户退出")
     @GetMapping("logout")
     public Result<?> logout(){
         return Result.OK("退出成功");
