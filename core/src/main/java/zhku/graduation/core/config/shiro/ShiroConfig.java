@@ -9,7 +9,7 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import zhku.graduation.core.config.shiro.filter.JwtFilter;
-import zhku.graduation.core.config.shiro.realm.JwtRealm;
+import zhku.graduation.core.config.shiro.realm.ShiroRealm;
 
 import javax.servlet.Filter;
 import java.util.HashMap;
@@ -29,7 +29,7 @@ public class ShiroConfig {
 
     @Bean
     public Realm realm() {
-        return new JwtRealm();
+        return new ShiroRealm();
     }
 
     @Bean
