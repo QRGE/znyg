@@ -2,13 +2,15 @@ package zhku.graduation.core.config.shiro.realm;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.AuthenticationInfo;
+import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.core.config.shiro.JwtToken;
-import zhku.graduation.core.util.JwtUtil;
 
 /**
  * @author qr
@@ -43,14 +45,7 @@ public class JwtRealm extends AuthorizingRealm {
         if (jwt == null) {
             throw new InValidTokenException("jwtToken 不允许为空");
         }
-        //判断
-        JwtUtil jwtUtil = new JwtUtil();
-        if (jwtUtil.isNotVerify(jwt)) {
-            throw new UnknownAccountException();
-        }
-        //下面是验证这个user是否是真实存在的
-        String username = (String) jwtUtil.decode(jwt).get("username");//判断数据库中username是否存在
-        log.info("在使用token登录"+username);
+        // TODO 待增加校验
         return new SimpleAuthenticationInfo(jwt,jwt,"JwtRealm");
         //这里返回的是类似账号密码的东西，但是jwtToken都是jwt字符串。还需要一个该Realm的类名
 
