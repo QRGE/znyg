@@ -28,6 +28,8 @@ public class LoginUser {
     @Length(max = 30, message = "密码不能超出30个字符")
     private String password;
 
+
+
     public LoginUser parseFromPO(User user) {
         account = user.getUsername();
         password = user.getPassword();

@@ -7,8 +7,7 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.PBEParameterSpec;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.security.SecureRandom;
-import java.util.Arrays;
+import java.util.Random;
 
 /**
  * JAVA6支持以下任意一种算法:
@@ -21,38 +20,30 @@ import java.util.Arrays;
 @SuppressWarnings("unused")
 public class PasswordUtil {
 
-	public static void main(String[] args) {
-		byte[] bytes = getSalt();
-		String s = Arrays.toString(bytes);
-		String a = new String(bytes);
-		System.out.println(s);
-	}
-
 	/**
 	 * 定义使用的算法为:PBEWitHMD5andDES算法
 	 */
 	public static final String ALGORITHM = "PBEWithMD5AndDES";//加密算法
-	public static final String Salt = "795428";//密钥
 
 	/**
 	 * 定义迭代次数为1000次
 	 */
 	private static final int ITERATION_COUNT = 1000;
 
-	/**
-	 * 获取加密算法中使用的盐值,解密中使用的盐值必须与加密中使用的相同才能完成操作. 盐长度必须为8字节
-	 * @return byte[] 盐值
-	 * */
-	public static byte[] getSalt() {
-		// 实例化安全随机数
-		SecureRandom random = new SecureRandom();
-		// 产出盐
-		return random.generateSeed(8);
-	}
+	private final static int SALT_DIGIT = 8;
 
-	public static byte[] getStaticSalt() {
-		// 产出盐
-		return Salt.getBytes();
+	/**
+	 * 随机生成 8 个字符的盐值
+	 * @return 随机生成的盐值
+	 * */
+	public static String getSalt() {
+		String base = "qwertyuioplkjhgfdsazxcvbnmQAZWSXEDCRFVTGBYHNUJMIKLOP0123456789";
+		StringBuilder sb = new StringBuilder();
+		Random rd = new Random();
+		for(int i = 0;i < SALT_DIGIT;i++) {
+			sb.append(base.charAt(rd.nextInt(base.length())));
+		}
+		return sb.toString();
 	}
 
 	/**
@@ -74,7 +65,6 @@ public class PasswordUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return secretKey;
 	}
 
@@ -87,7 +77,6 @@ public class PasswordUtil {
 	 * @return 加密后的密文字符串
 	 */
 	public static String encrypt(String plaintext, String password, String salt) {
-
 		Key key = getPBEKey(password);
 		byte[] encipheredData = null;
 		PBEParameterSpec parameterSpec = new PBEParameterSpec(salt.getBytes(), ITERATION_COUNT);

@@ -41,4 +41,12 @@ public interface IUserService extends IService<User> {
     boolean saveOrUpdateUser(UserDetail dto);
 
     boolean removeUser(Integer dataId);
+
+    /**
+     * 新增用户
+     * @param account 账号
+     * @param password 密码
+     * @return 操作结果
+     */
+    boolean addUser(String account, String password);
 }

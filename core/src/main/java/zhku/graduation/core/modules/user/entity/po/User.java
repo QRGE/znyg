@@ -1,14 +1,12 @@
 package zhku.graduation.core.modules.user.entity.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import zhku.graduation.core.modules.user.entity.bean.UserDetail;
+
+import java.util.Date;
 
 
 /**
@@ -22,6 +20,7 @@ import zhku.graduation.core.modules.user.entity.bean.UserDetail;
 @Getter
 @Setter
 @TableName("znyg_user")
+@NoArgsConstructor
 public class User {
 
     @TableId(value = "id", type = IdType.AUTO)
@@ -100,10 +99,10 @@ public class User {
     @TableLogic
     private Integer isDel;
 
-    public User init() {
-        createTime = new Date();
-        isDel = 0;
-        return this;
+    public User(String username, String password, String salt) {
+        this.username = username;
+        this.password = password;
+        this.salt = salt;
     }
 
     public User parseFromDto(UserDetail dto) {

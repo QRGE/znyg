@@ -12,6 +12,7 @@ import zhku.graduation.core.modules.user.entity.bean.*;
 import zhku.graduation.core.modules.user.entity.po.User;
 import zhku.graduation.core.modules.user.mapper.UserMapper;
 import zhku.graduation.core.modules.user.service.IUserService;
+import zhku.graduation.core.util.PasswordUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,17 +83,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public boolean saveOrUpdateUser(UserDetail dto) {
-        User user = new User();
-        if(dto.getId() == null){
-            user = user.init();
-        }
-        user.parseFromDto(dto);
-        return saveOrUpdate(user);
+        return saveOrUpdate(new User().parseFromDto(dto));
     }
 
     @Override
     public boolean removeUser(Integer dataId) {
         return removeById(dataId);
+    }
+
+    @Override
+    public boolean addUser(String account, String password) {
+        String salt = PasswordUtil.getSalt();
+        password = SecureUtil.md5(password + salt);
+        return save(new User(account, password, salt));
     }
 
     private LambdaQueryWrapper<User> baseQueryWrapper() {
