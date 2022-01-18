@@ -38,6 +38,8 @@ public interface IUserService extends IService<User> {
 
     UserDetail getUser(Integer dataId);
 
+    UserDetail getUserByUsername(String  username);
+
     boolean saveOrUpdateUser(UserDetail dto);
 
     boolean removeUser(Integer dataId);

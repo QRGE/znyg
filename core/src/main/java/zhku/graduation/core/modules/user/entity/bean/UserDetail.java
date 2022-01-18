@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.user.entity.po.User;
-import java.util.Date;
 
 /**
  * <p>
@@ -25,12 +24,6 @@ public class UserDetail {
     @ApiModelProperty("用户名")
     private String username;
 
-    @ApiModelProperty("密码")
-    private String password;
-
-    @ApiModelProperty("密码盐, 加密用")
-    private String salt;
-
     @ApiModelProperty("性别, 1-男, 2-女")
     private Integer gender;
 
@@ -44,19 +37,9 @@ public class UserDetail {
     private Integer role;
 
 
-    @ApiModelProperty("创建者id")
-    private Integer createBy;
-
-
-    @ApiModelProperty("更新者id")
-    private Integer updateBy;
-
-
     public UserDetail parseFromPo(User po) {
         id = po.getId();
         username = po.getUsername();
-        password = po.getPassword();
-        salt = po.getSalt();
         gender = po.getGender();
         phoneNumber = po.getPhoneNumber();
         eMail = po.getEMail();

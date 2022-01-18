@@ -108,8 +108,6 @@ public class User {
     public User parseFromDto(UserDetail dto) {
         id = dto.getId();
         username = dto.getUsername();
-        password = dto.getPassword();
-        salt = dto.getSalt();
         gender = dto.getGender();
         phoneNumber = dto.getPhoneNumber();
         eMail = dto.getEMail();

@@ -82,6 +82,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    public UserDetail getUserByUsername(String username) {
+        LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery(User.class)
+                .eq(User::getUsername, username);
+        User user = getOne(queryWrapper);
+        return Optional.ofNullable(user).map(po -> new UserDetail().parseFromPo(po)).orElse(null);
+    }
+
+    @Override
     public boolean saveOrUpdateUser(UserDetail dto) {
         return saveOrUpdate(new User().parseFromDto(dto));
     }

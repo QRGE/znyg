@@ -56,14 +56,14 @@ public class UserController extends BaseController {
     }
 
     @ApiOperation("新增用户")
-    @PostMapping("/add")
+    @PostMapping("add")
     public Result<?> addUser(
             @Valid @RequestBody LoginUser user
     ){
         String account = user.getAccount();
         String password = user.getPassword();
         boolean result = userService.addUser(account, password);
-        return Result.OK();
+        return result ? Result.OK() : error(ERROR);
     }
 
     @ApiOperation(value = "查询用户表列表", response = UserListInfo.class)
