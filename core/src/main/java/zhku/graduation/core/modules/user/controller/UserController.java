@@ -1,8 +1,6 @@
 package zhku.graduation.core.modules.user.controller;
 
 
-import cn.hutool.jwt.JWT;
-import cn.hutool.jwt.JWTUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -35,25 +33,13 @@ public class UserController extends BaseController {
     public Result<?> login(
             @Valid @RequestBody LoginUser loginInfo
     ) {
-        if (userService.checkUser(loginInfo.getAccount(), loginInfo.getPassword())) {
+        String account = loginInfo.getAccount();
+        String password = loginInfo.getPassword();
+        if (userService.checkUser(account, password)) {
             return Result.error("登陆失败");
         }
-        return Result.OK("登陆成功");
-    }
 
-    public static void main(String[] args) {
-        // 密钥
-        byte[] key = "1234567890".getBytes();
-        String username = "QR";
-        String sign = JWT.create()
-                .setPayload("username", username)
-                .setPayload("admin", true)
-                .setPayload("sub", key)
-                .setKey(key)
-                .sign();
-        System.out.println(sign);
-        JWT jwt = JWTUtil.parseToken(sign);
-        System.out.println(JWTUtil.verify(sign, key));
+        return Result.OK("登陆成功");
     }
 
     @ApiOperation("用户退出")

@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 import zhku.graduation.core.modules.user.entity.po.User;
 
 import javax.validation.constraints.NotEmpty;
@@ -19,10 +20,12 @@ public class LoginUser {
 
     @ApiModelProperty("账户, 目前为用户名或邮箱")
     @NotEmpty(message = "账号不能为空")
+    @Length(max = 30, message = "账号不能超出30个字符")
     private String account;
 
     @ApiModelProperty("密码")
     @NotEmpty(message = "密码不能为空")
+    @Length(max = 30, message = "密码不能超出30个字符")
     private String password;
 
     public LoginUser parseFromPO(User user) {
