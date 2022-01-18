@@ -12,6 +12,7 @@ public class JwtDefaultSubjectFactory extends DefaultWebSubjectFactory {
 
     @Override
     public Subject createSubject(SubjectContext context) {
+        // 关闭 shiro 的会话
         context.setSessionCreationEnabled(false);
         return super.createSubject(context);
     }
