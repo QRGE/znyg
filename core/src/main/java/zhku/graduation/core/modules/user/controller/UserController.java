@@ -1,6 +1,7 @@
 package zhku.graduation.core.modules.user.controller;
 
 
+import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -10,6 +11,7 @@ import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.*;
 import zhku.graduation.core.modules.user.service.IUserService;
+import zhku.graduation.core.util.JwtUtil;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -35,11 +37,14 @@ public class UserController extends BaseController {
     ) {
         String account = loginInfo.getAccount();
         String password = loginInfo.getPassword();
-        if (userService.checkUser(account, password)) {
+        if (userService.isValidUser(account, password)) {
             return Result.error("登陆失败");
         }
-
-        return Result.OK("登陆成功");
+        UserDetail userDetail = userService.getUserByUsername(account);
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.set("userInfo", userDetail);
+        jsonObject.set("token", JwtUtil.sign(account, password));
+        return Result.OK("登陆成功", jsonObject);
     }
 
     @ApiOperation("用户退出")

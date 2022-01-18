@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Override
-    public boolean checkUser(String account, String password) {
+    public boolean isValidUser(String account, String password) {
         LambdaQueryWrapper<User> queryWrapper1 = baseQueryWrapper();
         if (account.contains("@")) {
             queryWrapper1.eq(User::getEMail, account);
@@ -41,7 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         User queryUser = getOne(queryWrapper1);
         if (queryUser == null) {
-            return false;
+            return true;
         }
         return !queryUser.getPassword().equals(SecureUtil.md5(password + queryUser.getSalt()));
     }

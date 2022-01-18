@@ -23,7 +23,7 @@ public interface IUserService extends IService<User> {
      * @param password
      * @return 校验
      */
-    boolean checkUser(String account, String password);
+    boolean isValidUser(String account, String password);
 
     /**
      * 通过用户名获取 user 对象
