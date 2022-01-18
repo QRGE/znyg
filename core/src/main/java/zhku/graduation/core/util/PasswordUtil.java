@@ -72,7 +72,6 @@ public class PasswordUtil {
 			// 生成密钥
 			secretKey = keyFactory.generateSecret(keySpec);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
