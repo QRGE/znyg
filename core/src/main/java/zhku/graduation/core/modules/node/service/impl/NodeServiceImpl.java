@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
-import zhku.graduation.core.modules.node.entity.bean.NodeListRequest;
 import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 import zhku.graduation.core.modules.node.entity.po.Node;
 import zhku.graduation.core.modules.node.mapper.NodeMapper;
@@ -33,7 +32,7 @@ import java.util.stream.Collectors;
 public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements INodeService {
 
     @Override
-    public List<NodeListInfo> getNodeList(NodeListRequest request) {
+    public List<NodeListInfo> getNodeList() {
         LambdaQueryWrapper<Node> queryWrapper = baseQueryWrapper();
         List<Node> poList = list(queryWrapper);
         List<NodeListInfo> dtoList = new ArrayList<>(poList.size());

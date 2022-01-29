@@ -6,7 +6,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import java.util.List;
 import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
-import zhku.graduation.core.modules.node.entity.bean.NodeListRequest;
 import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -21,7 +20,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  */
 public interface INodeService extends IService<Node> {
 
-    List<NodeListInfo> getNodeList(NodeListRequest request);
+    List<NodeListInfo> getNodeList();
 
     IPage<NodeListInfo> pageNode(NodePageRequest request);
 

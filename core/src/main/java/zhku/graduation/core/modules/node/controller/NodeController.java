@@ -1,7 +1,6 @@
 package zhku.graduation.core.modules.node.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +9,6 @@ import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
-import zhku.graduation.core.modules.node.entity.bean.NodeListRequest;
-import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 import zhku.graduation.core.modules.node.service.INodeService;
 
 import java.util.List;
@@ -24,7 +21,7 @@ import static zhku.graduation.basic.constant.HttpStatus.ERROR;
  */
 @Api(tags = "鱼缸节点信息表")
 @RestController
-@RequestMapping("/node/node")
+@RequestMapping("/node")
 public class NodeController extends BaseController {
 
     @Autowired
@@ -38,18 +35,10 @@ public class NodeController extends BaseController {
     }
 
     @ApiOperation(value = "查询鱼缸节点信息表列表", response = NodeListInfo.class)
-    @PostMapping("list")
-    public Result<?> getNodeList(@RequestBody NodeListRequest request){
-        List<NodeListInfo> list = nodeService.getNodeList(request);
+    @GetMapping("list")
+    public Result<?> getNodeList(){
+        List<NodeListInfo> list = nodeService.getNodeList();
         return Result.OK(list);
-    }
-
-    @ApiOperation(value = "分页查询鱼缸节点信息表列表", response = NodeListInfo.class)
-    @PostMapping("page")
-    public Result<?> getNodeList(@RequestBody NodePageRequest request){
-        handlePageRequest(request);
-        IPage<NodeListInfo> page = nodeService.pageNode(request);
-        return Result.OK(page);
     }
 
     @ApiOperation("新增或修改鱼缸节点信息表")

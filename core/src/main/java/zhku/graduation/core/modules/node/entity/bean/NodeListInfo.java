@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.node.entity.po.Node;
-import java.util.Date;
 
 /**
  * <p>
@@ -30,15 +29,6 @@ public class NodeListInfo {
 
     @ApiModelProperty("描述")
     private String description;
-
-
-    @ApiModelProperty("更新者id")
-    private Integer updateBy;
-
-
-    @ApiModelProperty("创建者id")
-    private Integer createBy;
-
 
     public NodeListInfo (Node po) {
         id = po.getId();

@@ -60,6 +60,7 @@ public class ShiroConfig {
         Map<String, String> filterUrls = new LinkedHashMap<>();
         filterUrls.put("/user/login", "anon");
         filterUrls.put("/user/**", "anon");
+        filterUrls.put("/node/**", "anon");
         filterUrls.put("/test", "anon");
         filterUrls.put("/hello", "anon");
         filterUrls.put("/user/logout", "logout");
