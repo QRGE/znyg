@@ -75,14 +75,14 @@ public class ${table.controllerName}{
     @PostMapping("edit")
     public Result<?> saveOrUpdate${entitySuffixNameBigHump}(@RequestBody ${dtoFullName} dto){
         boolean result = ${entitySuffixNameSmallHump}Service.saveOrUpdate${entitySuffixNameBigHump}(dto);
-        return result ? Result.OK() : error(STATE_OPERATION_FAILURE);
+        return result ? Result.OK() : error(ERROR);
     }
 
     @ApiOperation("删除${table.comment!}")
     @DeleteMapping("remove")
     public Result<?> remove${entitySuffixNameBigHump}(@RequestParam Integer id){
         boolean result = ${entitySuffixNameSmallHump}Service.remove${entitySuffixNameBigHump}(id);
-        return result ? Result.OK() : error(STATE_OPERATION_FAILURE);
+        return result ? Result.OK() : error(ERROR);
     }
 }
 </#if>

@@ -56,7 +56,7 @@ public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.m
     @Override
     public IPage<${listInfo}> page${entitySuffixNameBigHump}(${pageRequestName} request) {
         LambdaQueryWrapper<${entity}> queryWrapper = baseQueryWrapper();
-        IPage<${entity}> page = new Page<>(request.getPageNum(), request.getPageSize());
+        IPage<${entity}> page = new Page<>(request.getPage(), request.getPageSize());
         page = this.page(page, queryWrapper);
         return page.convert(${listInfo}::new);
     }
