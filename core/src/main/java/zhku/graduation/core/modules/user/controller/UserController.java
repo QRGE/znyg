@@ -6,13 +6,17 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.*;
 import zhku.graduation.core.modules.user.service.IUserService;
 import zhku.graduation.core.util.JwtUtil;
+import zhku.graduation.core.util.RedisUtil;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -27,6 +31,10 @@ import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 @RequestMapping("/user/")
 public class UserController extends BaseController {
 
+
+    @Lazy
+    @Resource
+    private RedisUtil redisUtil;
     @Autowired
     private IUserService userService;
 
@@ -43,7 +51,10 @@ public class UserController extends BaseController {
         UserDetail userDetail = userService.getUserByUsername(account);
         JSONObject jsonObject = new JSONObject();
         jsonObject.set("userInfo", userDetail);
-        jsonObject.set("token", JwtUtil.sign(account, password));
+        String token = JwtUtil.sign(account, password);
+        redisUtil.set(Constant.TOKEN + "_" + account, token);
+        redisUtil.expire(Constant.TOKEN + "_" + account, JwtUtil.EXPIRE_TIME);
+        jsonObject.set("token", token);
         return Result.OK("登陆成功", jsonObject);
     }
 
