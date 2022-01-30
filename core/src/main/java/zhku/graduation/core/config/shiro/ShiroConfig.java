@@ -61,8 +61,8 @@ public class ShiroConfig {
         filterUrls.put("/user/login", "anon");
         filterUrls.put("/user/**", "anon");
         filterUrls.put("/node/**", "anon");
-        filterUrls.put("/test", "anon");
-        filterUrls.put("/hello", "anon");
+        // 先放行
+        filterUrls.put("/vue-admin-template/**", "anon");
         filterUrls.put("/user/logout", "logout");
         // 所有的接口都要走 jwt 拦截规则
         filterUrls.put("/**", "jwt");

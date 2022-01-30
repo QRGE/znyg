@@ -18,8 +18,6 @@ import zhku.graduation.core.util.JwtUtil;
 import zhku.graduation.core.util.RedisUtil;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -46,7 +44,6 @@ public class UserController extends BaseController {
     @ApiOperation("用户登陆")
     @PostMapping("login")
     public Result<?> login(
-            HttpServletResponse response,
             @Valid @RequestBody LoginUser loginInfo
     ) {
         String account = loginInfo.getAccount();
@@ -61,7 +58,7 @@ public class UserController extends BaseController {
         String token = JwtUtil.sign(account, password);
         redisUtil.set(Constant.TOKEN + "_" + account, token);
         redisUtil.expire(Constant.TOKEN + "_" + account, JwtUtil.EXPIRE_TIME);
-        response.addCookie(new Cookie("token", token));
+        jsonObject.set("token", token);
         log.info("账户: {} 登陆", account);
         return Result.OK("登陆成功", jsonObject);
     }
