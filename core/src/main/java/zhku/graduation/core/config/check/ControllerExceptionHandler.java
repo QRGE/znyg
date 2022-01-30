@@ -50,12 +50,12 @@ public class ControllerExceptionHandler extends BaseController {
 
     @ExceptionHandler(InValidTokenException.class)
     public Result<?> handleInvalidTokenException() {
-        return error(HttpStatus.NO_AUTH_ERROR);
+        return error(HttpStatus.AUTH_ERROR);
     }
 
     @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
     public Result<?> handleAuthorizationException(AuthorizationException e){
-        return error(HttpStatus.NO_AUTH_ERROR);
+        return error(HttpStatus.AUTH_ERROR);
     }
 
     /**

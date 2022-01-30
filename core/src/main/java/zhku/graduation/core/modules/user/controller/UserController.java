@@ -5,6 +5,7 @@ import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
@@ -17,15 +18,19 @@ import zhku.graduation.core.util.JwtUtil;
 import zhku.graduation.core.util.RedisUtil;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 
+import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 
 /**
  * @author QR
  * @since 2022-01-10
  */
+@Slf4j
 @Api(tags = "用户表")
 @RestController
 @RequestMapping("/user/")
@@ -41,12 +46,14 @@ public class UserController extends BaseController {
     @ApiOperation("用户登陆")
     @PostMapping("login")
     public Result<?> login(
+            HttpServletResponse response,
             @Valid @RequestBody LoginUser loginInfo
     ) {
         String account = loginInfo.getAccount();
         String password = loginInfo.getPassword();
         if (userService.isValidUser(account, password)) {
-            return Result.error("登陆失败");
+            log.error("用户：{} 登陆失败", account);
+            return error(AUTH_ERROR);
         }
         UserDetail userDetail = userService.getUserByUsername(account);
         JSONObject jsonObject = new JSONObject();
@@ -54,7 +61,8 @@ public class UserController extends BaseController {
         String token = JwtUtil.sign(account, password);
         redisUtil.set(Constant.TOKEN + "_" + account, token);
         redisUtil.expire(Constant.TOKEN + "_" + account, JwtUtil.EXPIRE_TIME);
-        jsonObject.set("token", token);
+        response.addCookie(new Cookie("token", token));
+        log.info("账户: {} 登陆", account);
         return Result.OK("登陆成功", jsonObject);
     }
 

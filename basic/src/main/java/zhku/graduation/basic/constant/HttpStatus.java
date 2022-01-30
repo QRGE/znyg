@@ -12,7 +12,7 @@ public enum HttpStatus {
     PARAM_MISSING(10002, "缺少必要参数"),
     NO_DATA(10004, "查无数据"),
     REQUEST_FAILURE(10005, "请求失败"),
-    NO_AUTH_ERROR(10006, "认证错误");
+    AUTH_ERROR(10006, "认证错误");
 
     private int code;
 
