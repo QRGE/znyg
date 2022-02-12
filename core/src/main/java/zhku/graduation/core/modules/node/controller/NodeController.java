@@ -1,6 +1,7 @@
 package zhku.graduation.core.modules.node.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -47,6 +48,10 @@ public class NodeController extends BaseController {
     @ApiOperation("新增或修改鱼缸节点信息表")
     @PostMapping("edit")
     public Result<?> saveOrUpdateNode(@RequestBody NodeDetail dto){
+        String name = dto.getName();
+        if (StrUtil.isBlank(name)) {
+            return error(PARAM_MISSING);
+        }
         boolean result = nodeService.saveOrUpdateNode(dto);
         return result ? Result.OK() : error(ERROR);
     }
