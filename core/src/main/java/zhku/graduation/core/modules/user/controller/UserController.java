@@ -41,6 +41,15 @@ public class UserController extends BaseController {
     @Autowired
     private IUserService userService;
 
+    @ApiOperation("获取用户信息")
+    @GetMapping("info")
+    public Result<?> getUserInfo(){
+        JSONObject result = new JSONObject();
+        result.set("name", "QR");
+        result.set("avatar","https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif");
+        return Result.OK(result);
+    }
+
     @ApiOperation("用户登陆")
     @PostMapping("login")
     public Result<?> login(
