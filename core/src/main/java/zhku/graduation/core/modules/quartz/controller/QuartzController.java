@@ -37,6 +37,7 @@ public class QuartzController extends BaseController {
         } catch (Exception e) {
             log.error(e.getMessage(), e);
         }
+        log.info("删除任务成功");
         return Result.OK();
     }
 }

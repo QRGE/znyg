@@ -1,39 +1,35 @@
 package zhku.graduation.core.modules.quartz.config;
 
 import org.quartz.*;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
+import org.springframework.stereotype.Component;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.quartz.job.MockRecordJob;
 
-/**
- * 自动配置 quartz
- * @author qr
- * @date 2022/2/14 09:20
- */
-@Configuration
-public class QuartzConfig {
+@Component
+public class QuartzConfig implements ApplicationRunner {
 
-    @Bean
-    public JobDetail job() {
-        return JobBuilder.newJob(MockRecordJob.class)
-                .withIdentity("JobDetail-1")
+    @Autowired
+    private Scheduler scheduler;
+
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
+        JobDetail jobDetail = JobBuilder.newJob(MockRecordJob.class)
+                .withIdentity(Constant.JOB_DETAIL)
                 .storeDurably()
                 .build();
-    }
-
-    @Bean
-    public Trigger trigger() {
-        // 简单的调度计划的构造器
-        SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder.simpleSchedule()
-                // 频率
-                .withIntervalInSeconds(5)
-                // 次数
-                .repeatForever();
-        return TriggerBuilder.newTrigger()
-                .forJob(job())
-                .withIdentity("Trigger-1")
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ? *");
+        // 创建任务触发器
+        Trigger trigger = TriggerBuilder.newTrigger()
+                .forJob(jobDetail)
+                .withIdentity(Constant.TRIGGER)
                 .withSchedule(scheduleBuilder)
-                .startNow()
+                .startNow() //立即執行一次任務
                 .build();
+        // 手动将触发器与任务绑定到调度器内
+        scheduler.scheduleJob(jobDetail, trigger);
     }
 }
+
