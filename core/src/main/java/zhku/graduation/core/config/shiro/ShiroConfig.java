@@ -62,6 +62,7 @@ public class ShiroConfig {
         filterUrls.put("/user/**", "anon");
         filterUrls.put("/node/**", "anon");
         filterUrls.put("/quartz/**","anon");
+        filterUrls.put("/socket/**", "anon");
         // 先放行
         filterUrls.put("/vue-admin-template/**", "anon");
         filterUrls.put("/user/logout", "logout");
