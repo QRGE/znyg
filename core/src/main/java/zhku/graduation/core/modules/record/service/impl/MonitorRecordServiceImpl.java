@@ -50,7 +50,7 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
         if(dto.getId() == null){
             monitorRecord = monitorRecord.init();
         }
-        monitorRecord.parseFromDTO(dto);
+        monitorRecord.parseFromDto(dto);
         return saveOrUpdate(monitorRecord);
     }
 

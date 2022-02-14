@@ -3,6 +3,10 @@ package zhku.graduation.basic.constant;
 @SuppressWarnings("unused")
 public interface Constant {
 
+	String JOB_DETAIL = "jobDetail-1";
+
+	String TRIGGER = "Trigger-1";
+
 	/**
 	 * 正常状态
 	 */

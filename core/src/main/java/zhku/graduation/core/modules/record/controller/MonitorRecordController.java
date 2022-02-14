@@ -21,7 +21,7 @@ import static zhku.graduation.basic.constant.HttpStatus.ERROR;
  */
 @Api(tags = "监测记录表")
 @RestController
-@RequestMapping("/record/")
+@RequestMapping("/record/monitor-record")
 public class MonitorRecordController extends BaseController {
 
     @Autowired

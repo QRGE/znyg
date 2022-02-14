@@ -1,11 +1,14 @@
 package zhku.graduation.core.modules.record.entity.po;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableName;
+import java.util.Date;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
-
-import java.util.Date;
 
 
 /**
@@ -69,11 +72,10 @@ public class MonitorRecord {
 
     public MonitorRecord init() {
         isDel = 0;
-        recordTime = new Date();
         return this;
     }
 
-    public MonitorRecord parseFromDTO(MonitorRecordDetail dto) {
+    public MonitorRecord parseFromDto(MonitorRecordDetail dto) {
         id = dto.getId();
         nodeId = dto.getNodeId();
         temperature = dto.getTemperature();
