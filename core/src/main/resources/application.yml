@@ -6,6 +6,26 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/znyg?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
   application:
     name: znyg
+  quartz:
+    # 将任务等保存化到内存
+    job-store-type: memory
+    # 自动启动
+    auto-startup: true
+    # 程序结束时会等待quartz相关的内容结束
+    wait-for-jobs-to-complete-on-shutdown: true
+    # QuartzScheduler启动时更新己存在的Job,这样就不用每次修改targetObject后删除qrtz_job_details表对应记录
+    overwrite-existing-jobs: true
+    properties:
+      org:
+        quartz:
+          # 线程池相关
+          threadPool:
+            class: org.quartz.simpl.SimpleThreadPool
+            # 线程数
+            threadCount: 5
+            # 线程优先级
+            threadPriority: 5
+            threadsInheritContextClassLoaderOfInitializingThread: true
 
 server:
   port: 80
