@@ -24,22 +24,22 @@ public class WebSocket {
 
     private Session session;
 
-    private static final CopyOnWriteArraySet<WebSocket> webSockets =new CopyOnWriteArraySet<>();
+    private static final CopyOnWriteArraySet<WebSocket> WEB_SOCKETS =new CopyOnWriteArraySet<>();
 
-    private static final Map<String,Session> sessionPool = new HashMap<>();
+    private static final Map<String,Session> SESSION_POOL = new HashMap<>();
 
     @OnOpen
     public void onOpen(Session session, @PathParam(value="username")String username) {
         this.session = session;
-        webSockets.add(this);
-        sessionPool.put(username, session);
-        System.out.println(username+"【websocket消息】有新的连接，总数为:" + webSockets.size());
+        WEB_SOCKETS.add(this);
+        SESSION_POOL.put(username, session);
+        System.out.println(username+"【websocket消息】有新的连接，总数为:" + WEB_SOCKETS.size());
     }
 
     @OnClose
     public void onClose() {
-        webSockets.remove(this);
-        System.out.println("连接断开，总数为:" + webSockets.size());
+        WEB_SOCKETS.remove(this);
+        System.out.println("连接断开，总数为:" + WEB_SOCKETS.size());
     }
 
     @OnMessage
@@ -50,7 +50,7 @@ public class WebSocket {
     // 广播消息
     public void sendAllMessage(String message) {
         log.info("广播消息: {}", message);
-        for(WebSocket webSocket : webSockets) {
+        for(WebSocket webSocket : WEB_SOCKETS) {
             try {
                 webSocket.session.getAsyncRemote().sendText(message);
             } catch (Exception e) {
@@ -62,7 +62,7 @@ public class WebSocket {
     // 单点消息
     public void sendOneMessage(String username, String message) {
         log.info("单点消息, 发送用户: {}, 内容: {}", username, message);
-        Session session = sessionPool.get(username);
+        Session session = SESSION_POOL.get(username);
         if (session != null) {
             try {
                 session.getAsyncRemote().sendText(message);
