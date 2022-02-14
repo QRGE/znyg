@@ -1,14 +1,12 @@
 package zhku.graduation.core.modules.record.entity.po;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
+
+import java.util.Date;
 
 
 /**
@@ -22,6 +20,7 @@ import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 @Getter
 @Setter
 @TableName("znyg_monitor_record")
+@ToString
 public class MonitorRecord {
 
     @TableId(value = "id", type = IdType.AUTO)
