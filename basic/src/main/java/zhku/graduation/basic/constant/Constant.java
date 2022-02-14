@@ -3,9 +3,18 @@ package zhku.graduation.basic.constant;
 @SuppressWarnings("unused")
 public interface Constant {
 
-	String JOB_DETAIL = "jobDetail-1";
+	/**
+	 * 生成 mock 数据任务
+	 */
+	String JOB_MOCK = "jobDetail-1";
+	/**
+	 * 获取最新的监控记录
+	 */
+	String JOB_GET_LATEST_RECORD = "jobDetail-2";
 
-	String TRIGGER = "Trigger-1";
+	String TRIGGER_1 = "Trigger-1";
+
+	String TRIGGER_2 = "Trigger-2";
 
 	/**
 	 * 正常状态

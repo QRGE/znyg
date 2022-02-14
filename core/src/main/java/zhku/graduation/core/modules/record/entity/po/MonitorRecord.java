@@ -1,6 +1,7 @@
 package zhku.graduation.core.modules.record.entity.po;
 
 import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -60,6 +61,7 @@ public class MonitorRecord {
      * 记录时间
      */
     @TableField("record_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date recordTime;
 
     /**
