@@ -24,7 +24,7 @@ public class WebSocket {
 
     private Session session;
 
-    private static final CopyOnWriteArraySet<WebSocket> WEB_SOCKETS =new CopyOnWriteArraySet<>();
+    private static final CopyOnWriteArraySet<WebSocket> WEB_SOCKETS = new CopyOnWriteArraySet<>();
 
     private static final Map<String,Session> SESSION_POOL = new HashMap<>();
 
@@ -33,21 +33,24 @@ public class WebSocket {
         this.session = session;
         WEB_SOCKETS.add(this);
         SESSION_POOL.put(username, session);
-        System.out.println(username+"【websocket消息】有新的连接，总数为:" + WEB_SOCKETS.size());
+        log.info("新添加连接: {}, 当前连接总数: {}", username, WEB_SOCKETS.size());
     }
 
     @OnClose
     public void onClose() {
         WEB_SOCKETS.remove(this);
-        System.out.println("连接断开，总数为:" + WEB_SOCKETS.size());
+        log.info("连接断开，当前连接总数: {}", WEB_SOCKETS.size());
     }
 
     @OnMessage
     public void onMessage(String message) {
-        System.out.println("收到客户端消息:" + message);
+        log.info("收到客户端消息: {}", message);
     }
 
-    // 广播消息
+    /**
+     * 广播消息
+     * @param message 消息内容
+     */
     public void sendAllMessage(String message) {
         log.info("广播消息: {}", message);
         for(WebSocket webSocket : WEB_SOCKETS) {
@@ -59,7 +62,11 @@ public class WebSocket {
         }
     }
 
-    // 单点消息
+    /**
+     * 单点消息
+     * @param username 用户名
+     * @param message 消息
+     */
     public void sendOneMessage(String username, String message) {
         log.info("单点消息, 发送用户: {}, 内容: {}", username, message);
         Session session = SESSION_POOL.get(username);
