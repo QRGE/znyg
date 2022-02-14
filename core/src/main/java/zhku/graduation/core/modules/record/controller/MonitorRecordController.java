@@ -11,6 +11,7 @@ import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordPageRequest;
+import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
@@ -21,7 +22,7 @@ import static zhku.graduation.basic.constant.HttpStatus.ERROR;
  */
 @Api(tags = "监测记录表")
 @RestController
-@RequestMapping("/record/monitor-record")
+@RequestMapping("/record/")
 public class MonitorRecordController extends BaseController {
 
     @Autowired
@@ -30,8 +31,9 @@ public class MonitorRecordController extends BaseController {
     @ApiOperation(value = "查询监测记录表详情", response = MonitorRecordDetail.class)
     @GetMapping("get")
     public Result<?> getMonitorRecord(@RequestParam Integer id){
-        MonitorRecordDetail info = monitorRecordService.getMonitorRecord(id);
-        return Result.OK(info);
+//        MonitorRecordDetail info = monitorRecordService.getMonitorRecord(id);
+        MonitorRecord record = monitorRecordService.getById(id);
+        return Result.OK(record);
     }
 
     @ApiOperation(value = "分页查询监测记录表列表", response = MonitorRecordListInfo.class)
