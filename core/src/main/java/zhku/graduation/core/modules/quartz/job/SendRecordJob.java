@@ -1,5 +1,6 @@
 package zhku.graduation.core.modules.quartz.job;
 
+import cn.hutool.json.JSONArray;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.extern.slf4j.Slf4j;
@@ -36,16 +37,20 @@ public class SendRecordJob extends QuartzJobBean {
      */
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
+        // 发送消息对象
+        JSONArray msg = new JSONArray();
+        // 查询没个鱼缸节点的最新的十条数据
         Integer size = nodeService.getNodeSize();
-        for (int nodeId = 0; nodeId < size; nodeId++) {
+        for (int nodeId = 1; nodeId <= size; nodeId++) {
             LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
                     .eq(MonitorRecord::getNodeId, nodeId)
                     .orderByDesc(MonitorRecord::getRecordTime)
                     .last("limit 10");
             List<MonitorRecord> records = monitorRecordService.list(wrapper);
-            List<MonitorRecordListInfo> list = records.stream().map(MonitorRecordListInfo::new)
+            List<MonitorRecordListInfo> infos = records.stream().map(MonitorRecordListInfo::new)
                     .collect(Collectors.toList());
+            msg.add(infos);
         }
-        webSocket.sendAllMessage("");
+        webSocket.sendAllMessage(msg.toString());
     }
 }
