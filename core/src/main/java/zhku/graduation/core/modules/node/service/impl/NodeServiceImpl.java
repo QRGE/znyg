@@ -32,6 +32,11 @@ import java.util.stream.Collectors;
 public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements INodeService {
 
     @Override
+    public Integer getNodeSize() {
+        return baseMapper.selectCount(Wrappers.lambdaQuery(Node.class));
+    }
+
+    @Override
     public List<NodeListInfo> getNodeList() {
         LambdaQueryWrapper<Node> queryWrapper = baseQueryWrapper();
         List<Node> poList = list(queryWrapper);

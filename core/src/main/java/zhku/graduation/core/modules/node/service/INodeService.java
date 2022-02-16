@@ -1,14 +1,13 @@
 package zhku.graduation.core.modules.node.service;
 
-import zhku.graduation.core.modules.node.entity.po.Node;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
 import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
 import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
+import zhku.graduation.core.modules.node.entity.po.Node;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import java.util.List;
 
 /**
  * <p>
@@ -19,6 +18,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
  * @since 2022-01-29
  */
 public interface INodeService extends IService<Node> {
+
+    Integer getNodeSize();
 
     List<NodeListInfo> getNodeList();
 

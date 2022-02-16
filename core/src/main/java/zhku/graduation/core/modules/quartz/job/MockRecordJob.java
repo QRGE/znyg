@@ -6,6 +6,7 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
+import zhku.graduation.core.modules.node.service.INodeService;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
@@ -24,6 +25,8 @@ public class MockRecordJob extends QuartzJobBean {
 
     @Autowired
     private IMonitorRecordService monitorRecordService;
+    @Autowired
+    private INodeService nodeService;
 
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
@@ -35,7 +38,8 @@ public class MockRecordJob extends QuartzJobBean {
         // 灯光状态
         monitorRecord.setLightStatus(RandomUtil.randomInt(0, 2));
         // 鱼缸节点
-        monitorRecord.setNodeId(RandomUtil.randomInt(1, 5));
+        Integer nodeSize = nodeService.getNodeSize();
+        monitorRecord.setNodeId(RandomUtil.randomInt(1, nodeSize+1));
         // 温度
         monitorRecord.setTemperature(BigDecimal.valueOf(RandomUtil.randomDouble(12.1, 28.4)).setScale(1, RoundingMode.HALF_UP).doubleValue());
         // 记录日期

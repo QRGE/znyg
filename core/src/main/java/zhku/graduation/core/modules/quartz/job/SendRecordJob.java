@@ -7,6 +7,7 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
+import zhku.graduation.core.modules.node.service.INodeService;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 import zhku.graduation.core.modules.socket.WebSocket;
@@ -22,6 +23,8 @@ public class SendRecordJob extends QuartzJobBean {
     @Autowired
     private IMonitorRecordService monitorRecordService;
     @Autowired
+    private INodeService nodeService;
+    @Autowired
     private WebSocket webSocket;
 
     /**
@@ -29,6 +32,8 @@ public class SendRecordJob extends QuartzJobBean {
      */
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
+        Integer size = nodeService.getNodeSize();
+        log.info("鱼缸节点个数: {}", size);
         LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
                 .orderByDesc(MonitorRecord::getRecordTime)
                 .last("limit 1");
