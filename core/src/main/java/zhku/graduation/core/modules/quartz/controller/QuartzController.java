@@ -48,7 +48,7 @@ public class QuartzController extends BaseController {
                 .withIdentity(Constant.JOB_MOCK)
                 .storeDurably()
                 .build();
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/5 * * * * ? *");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/2 * * * * ? *");
         // 创建任务触发器
         Trigger trigger = TriggerBuilder.newTrigger()
                 .forJob(jobDetail)
@@ -84,7 +84,7 @@ public class QuartzController extends BaseController {
                 .storeDurably()
                 .build();
         // 每秒钟推送一次最新的记录
-        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/1 * * * * ? *");
+        CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule("0/2 * * * * ? *");
         // 创建任务触发器
         Trigger trigger = TriggerBuilder.newTrigger()
                 .forJob(jobDetail)

@@ -8,9 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
 import zhku.graduation.core.modules.node.service.INodeService;
+import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 import zhku.graduation.core.modules.socket.WebSocket;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author qr
@@ -33,10 +37,15 @@ public class SendRecordJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
         Integer size = nodeService.getNodeSize();
-        LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
-                .orderByDesc(MonitorRecord::getRecordTime)
-                .last("limit 1");
-        MonitorRecord record = monitorRecordService.getOne(wrapper);
-        webSocket.sendAllMessage(record.toString());
+        for (int nodeId = 0; nodeId < size; nodeId++) {
+            LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
+                    .eq(MonitorRecord::getNodeId, nodeId)
+                    .orderByDesc(MonitorRecord::getRecordTime)
+                    .last("limit 10");
+            List<MonitorRecord> records = monitorRecordService.list(wrapper);
+            List<MonitorRecordListInfo> list = records.stream().map(MonitorRecordListInfo::new)
+                    .collect(Collectors.toList());
+        }
+        webSocket.sendAllMessage("");
     }
 }

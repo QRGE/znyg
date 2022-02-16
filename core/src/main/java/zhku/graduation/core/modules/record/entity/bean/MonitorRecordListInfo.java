@@ -1,10 +1,12 @@
 package zhku.graduation.core.modules.record.entity.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
+
 import java.util.Date;
 
 /**
@@ -38,6 +40,7 @@ public class MonitorRecordListInfo {
     private Integer degermingStatus;
 
     @ApiModelProperty("记录时间")
+    @JsonFormat(pattern = "HH:mm:ss", timezone = "GMT+8")
     private Date recordTime;
 
 
