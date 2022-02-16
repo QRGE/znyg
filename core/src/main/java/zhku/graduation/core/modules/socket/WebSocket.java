@@ -52,7 +52,6 @@ public class WebSocket {
      * @param message 消息内容
      */
     public void sendAllMessage(String message) {
-        log.info("广播消息: {}", message);
         for(WebSocket webSocket : WEB_SOCKETS) {
             try {
                 webSocket.session.getAsyncRemote().sendText(message);

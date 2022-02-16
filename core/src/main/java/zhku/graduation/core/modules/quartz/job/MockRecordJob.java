@@ -46,7 +46,6 @@ public class MockRecordJob extends QuartzJobBean {
         monitorRecord.setRecordTime(new Date());
         // 保存到数据库
         monitorRecordService.save(monitorRecord);
-        log.info("生成mock记录数据：{}", monitorRecord);
     }
 
 }

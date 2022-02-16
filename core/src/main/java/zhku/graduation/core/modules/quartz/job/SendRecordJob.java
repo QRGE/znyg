@@ -33,12 +33,10 @@ public class SendRecordJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
         Integer size = nodeService.getNodeSize();
-        log.info("鱼缸节点个数: {}", size);
         LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
                 .orderByDesc(MonitorRecord::getRecordTime)
                 .last("limit 1");
         MonitorRecord record = monitorRecordService.getOne(wrapper);
         webSocket.sendAllMessage(record.toString());
-        log.info("发送最新监控历史数据: {}", record);
     }
 }
