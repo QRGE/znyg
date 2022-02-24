@@ -34,6 +34,7 @@ public class SendRecordJob extends QuartzJobBean {
 
     /**
      * 推送最新的监控历史记录
+     * 或许这种方法不是很方便, 也不是很有效, 还得用前端定时器轮训吧。。。
      */
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
