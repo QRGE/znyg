@@ -44,13 +44,13 @@ public class MonitorRecordController extends BaseController {
         return Result.OK(record);
     }
 
-    @ApiOperation("获取某个鱼缸节点的最新的10条数据")
+    @ApiOperation("获取某个鱼缸节点的最新的5条数据")
     @GetMapping("node/{nodeId}")
     public Result<?> get(@PathVariable Integer nodeId){
         LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
                 .eq(MonitorRecord::getNodeId, nodeId)
                 .orderByDesc(MonitorRecord::getRecordTime)
-                .last("limit 10");
+                .last("limit 5");
         List<MonitorRecord> recordList = monitorRecordService.list(wrapper);
         JSONObject result = new JSONObject();
         result.set("temperatures", recordList.stream()

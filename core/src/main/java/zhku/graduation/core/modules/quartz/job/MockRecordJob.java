@@ -41,7 +41,7 @@ public class MockRecordJob extends QuartzJobBean {
         Integer nodeSize = nodeService.getNodeSize();
         monitorRecord.setNodeId(RandomUtil.randomInt(1, nodeSize+1));
         // 温度
-        monitorRecord.setTemperature(BigDecimal.valueOf(RandomUtil.randomDouble(12.1, 28.4)).setScale(1, RoundingMode.HALF_UP).doubleValue());
+        monitorRecord.setTemperature(BigDecimal.valueOf(RandomUtil.randomDouble(9.1, 38.4)).setScale(1, RoundingMode.HALF_UP).doubleValue());
         // 记录日期
         monitorRecord.setRecordTime(new Date());
         // 保存到数据库
