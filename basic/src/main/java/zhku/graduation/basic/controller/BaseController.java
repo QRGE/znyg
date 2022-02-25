@@ -1,6 +1,7 @@
 package zhku.graduation.basic.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.request.BasePageRequest;
 import zhku.graduation.basic.vo.Result;
@@ -61,8 +62,8 @@ public class BaseController {
     protected void handlePageRequest(BasePageRequest request) {
         Integer page = request.getPage();
         Integer pageSize = request.getPageSize();
-        page = getPage(page, 1);
-        pageSize = getPageSize(pageSize, 20);
+        page = getPage(page, Constant.DEFAULT_PAGE);
+        pageSize = getPageSize(pageSize, Constant.DEFAULT_PAGE_SIZE);
         request.setPage(page);
         request.setPageSize(pageSize);
     }

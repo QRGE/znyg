@@ -10,6 +10,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
@@ -20,6 +21,7 @@ import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
@@ -73,6 +75,11 @@ public class MonitorRecordController extends BaseController {
     @PostMapping("page")
     public Result<?> getMonitorRecordList(@RequestBody MonitorRecordPageRequest request){
         handlePageRequest(request);
+        // 默认是正序, 除非传入倒序传入其他乱七八糟的都是正序
+        if (request.getOrderType() == null
+                || !Objects.equals(request.getOrderType(), Constant.OrderType.DESC.getType())) {
+            request.setOrderType(Constant.OrderType.ASC.getType());
+        }
         IPage<MonitorRecordListInfo> page = monitorRecordService.pageMonitorRecord(request);
         return Result.OK(page);
     }

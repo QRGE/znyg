@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 
 /**
@@ -22,6 +23,9 @@ import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 @ToString
 public class MonitorRecordListInfo {
 
+    @ApiModelProperty("记录id")
+    private Integer id;
+
     @ApiModelProperty("温度")
     private Double temperature;
 
@@ -29,24 +33,25 @@ public class MonitorRecordListInfo {
     private Integer nodeId;
 
     @ApiModelProperty("加热器状态, 0-关闭, 1-开启")
-    private Integer heaterStatus;
+    private String heaterStatus;
 
     @ApiModelProperty("灯光状态, 0-关闭, 1-开启")
-    private Integer lightStatus;
+    private String lightStatus;
 
     @ApiModelProperty("除菌器状态, 0-关闭, 1-开启")
-    private Integer degermingStatus;
+    private String degermingStatus;
 
     @ApiModelProperty("记录时间")
     private String recordTime;
 
 
     public MonitorRecordListInfo (MonitorRecord po) {
+        id = po.getId();
         temperature = po.getTemperature();
         nodeId = po.getNodeId();
-        heaterStatus = po.getHeaterStatus();
-        lightStatus = po.getLightStatus();
-        degermingStatus = po.getDegermingStatus();
-        recordTime = DateUtil.format(po.getRecordTime(), "HH:mm:ss");
+        heaterStatus = Constant.Status.valueOf(po.getHeaterStatus()).getName();
+        lightStatus = Constant.Status.valueOf(po.getLightStatus()).getName();
+        degermingStatus = Constant.Status.valueOf(po.getDegermingStatus()).getName();
+        recordTime = DateUtil.format(po.getRecordTime(), Constant.dateTimeFormat);
     }
 }

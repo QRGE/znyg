@@ -19,8 +19,6 @@ public interface IMonitorRecordService extends IService<MonitorRecord> {
 
     IPage<MonitorRecordListInfo> pageMonitorRecord(MonitorRecordPageRequest request);
 
-    MonitorRecordDetail getMonitorRecord(Integer dataId);
-
     boolean saveOrUpdateMonitorRecord(MonitorRecordDetail dto);
 
     boolean removeMonitorRecord(Integer dataId);

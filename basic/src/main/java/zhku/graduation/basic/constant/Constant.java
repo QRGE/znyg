@@ -1,7 +1,48 @@
 package zhku.graduation.basic.constant;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.Objects;
+
 @SuppressWarnings("unused")
 public interface Constant {
+
+	Integer DEFAULT_PAGE = 1;
+
+	Integer DEFAULT_PAGE_SIZE = 20;
+
+	@AllArgsConstructor
+	@Getter
+	public enum OrderType {
+
+	    ASC(1),
+		DESC(2);
+
+	    int type;
+
+	    public static OrderType valueOf(Integer type) {
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(ASC);
+	    }
+	}
+
+	@AllArgsConstructor
+	@Getter
+	public enum Status {
+	    CLOSE(0, "关闭"),
+		OPEN(1, "开启")
+	    ;
+
+	    int type;
+	    String name;
+
+	    public static Status valueOf(Integer type) {
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(CLOSE);
+	    }
+	}
+
+	String dateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * 生成 mock 数据任务

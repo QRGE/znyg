@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordPageRequest;
@@ -14,7 +16,7 @@ import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.mapper.MonitorRecordMapper;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
-import java.util.Optional;
+import java.util.Date;
 
 
 /**
@@ -25,23 +27,34 @@ import java.util.Optional;
  * @author QR
  * @since 2022-02-14
  */
+@Slf4j
 @Service
 public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, MonitorRecord> implements IMonitorRecordService {
 
     @Override
     public IPage<MonitorRecordListInfo> pageMonitorRecord(MonitorRecordPageRequest request) {
         LambdaQueryWrapper<MonitorRecord> queryWrapper = baseQueryWrapper();
+        Date startTime = request.getStartTime();
+        if (startTime != null) {
+            queryWrapper.ge(MonitorRecord::getRecordTime, startTime);
+        }
+        Date endTime = request.getEndTime();
+        if (endTime != null) {
+            queryWrapper.le(MonitorRecord::getRecordTime, endTime);
+        }
+        Constant.OrderType type = Constant.OrderType.valueOf(request.getOrderType());
+        switch (type) {
+            case ASC:
+                queryWrapper.orderByAsc(MonitorRecord::getRecordTime);
+                break;
+            case DESC:
+                queryWrapper.orderByDesc(MonitorRecord::getRecordTime);
+                break;
+        }
         IPage<MonitorRecord> page = new Page<>(request.getPage(), request.getPageSize());
-        page = this.page(page, queryWrapper);
+        page = page(page, queryWrapper);
+        log.info("查询记录条数{}", page.getTotal());
         return page.convert(MonitorRecordListInfo::new);
-    }
-
-    @Override
-    public MonitorRecordDetail getMonitorRecord(Integer dataId) {
-        MonitorRecord monitorRecord = getById(dataId);
-        return Optional.ofNullable(monitorRecord)
-                        .map(po -> new MonitorRecordDetail().parseFromPo(po))
-                        .orElse(null);
     }
 
     @Override
