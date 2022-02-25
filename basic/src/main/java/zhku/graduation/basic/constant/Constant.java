@@ -114,6 +114,6 @@ public interface Constant {
 	/**
 	 * token 标记
 	 */
-	String TOKEN = "token";
+	String TOKEN = "X-Access-Token";
 
 }
