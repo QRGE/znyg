@@ -4,6 +4,7 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
 import springfox.documentation.oas.annotations.EnableOpenApi;
@@ -17,6 +18,7 @@ import java.util.Optional;
  */
 @EnableOpenApi
 @SpringBootApplication
+@ServletComponentScan
 @Slf4j
 public class ZnygApp {
 

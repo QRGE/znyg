@@ -9,8 +9,9 @@ import java.io.IOException;
  * @author qr
  * @date 2022/2/25 10:58
  */
-@WebFilter("/**")
+@WebFilter(value = "/*", filterName = "global-filter")
 public class GlobalFilter implements Filter {
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         Filter.super.init(filterConfig);
@@ -24,8 +25,4 @@ public class GlobalFilter implements Filter {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-    @Override
-    public void destroy() {
-        Filter.super.destroy();
-    }
 }

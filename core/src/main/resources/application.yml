@@ -36,9 +36,6 @@ mybatis-plus:
   global-config:
     banner: false
 
-logging:
-  level: info
-
 # swagger 自定义配置
 swagger:
   enable: true
