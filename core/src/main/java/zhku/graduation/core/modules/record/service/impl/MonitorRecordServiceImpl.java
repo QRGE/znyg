@@ -52,8 +52,7 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
                 break;
         }
         IPage<MonitorRecord> page = new Page<>(request.getPage(), request.getPageSize());
-        page = page(page, queryWrapper);
-        log.info("查询记录条数：{}", page.getTotal());
+        page = baseMapper.selectPage(page, queryWrapper);
         return page.convert(MonitorRecordListInfo::new);
     }
 

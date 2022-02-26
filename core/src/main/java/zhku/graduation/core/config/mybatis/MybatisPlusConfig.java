@@ -1,4 +1,4 @@
-package zhku.graduation.core.config;
+package zhku.graduation.core.config.mybatis;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @date 2022/2/25 17:51
  */
 @Configuration
-public class MybatisConfig {
+public class MybatisPlusConfig {
 
     @Bean
     public PaginationInnerInterceptor paginationInnerInterceptor() {
@@ -18,4 +18,5 @@ public class MybatisConfig {
         page.setDbType(DbType.MYSQL);
         return page;
     }
+
 }

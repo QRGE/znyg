@@ -33,7 +33,7 @@ public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements IN
 
     @Override
     public Integer getNodeSize() {
-        return baseMapper.selectCount(Wrappers.lambdaQuery(Node.class));
+        return baseMapper.selectCount(Wrappers.lambdaQuery(Node.class)).intValue();
     }
 
     @Override
