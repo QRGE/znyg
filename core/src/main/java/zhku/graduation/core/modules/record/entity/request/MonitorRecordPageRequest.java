@@ -1,4 +1,4 @@
-package zhku.graduation.core.modules.record.entity.bean;
+package zhku.graduation.core.modules.record.entity.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import zhku.graduation.basic.request.BasePageRequest;
+import zhku.graduation.basic.request.BaseTimeRequest;
 
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @ToString
 @ApiModel(value = "监测记录表分页请求")
-public class MonitorRecordPageRequest extends BasePageRequest{
+public class MonitorRecordPageRequest extends BasePageRequest implements BaseTimeRequest {
 
     @ApiModelProperty("鱼缸节点id")
     private Integer nodeId;

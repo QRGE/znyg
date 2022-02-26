@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
 import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
-import zhku.graduation.core.modules.record.entity.bean.MonitorRecordPageRequest;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
+import zhku.graduation.core.modules.record.entity.request.MonitorRecordPageRequest;
 import zhku.graduation.core.modules.record.mapper.MonitorRecordMapper;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
@@ -53,7 +53,7 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
         }
         IPage<MonitorRecord> page = new Page<>(request.getPage(), request.getPageSize());
         page = page(page, queryWrapper);
-        log.info("查询记录条数{}", page.getTotal());
+        log.info("查询记录条数：{}", page.getTotal());
         return page.convert(MonitorRecordListInfo::new);
     }
 

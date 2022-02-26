@@ -4,8 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
-import zhku.graduation.core.modules.record.entity.bean.MonitorRecordPageRequest;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
+import zhku.graduation.core.modules.record.entity.request.MonitorRecordPageRequest;
 
 /**
  * <p>
