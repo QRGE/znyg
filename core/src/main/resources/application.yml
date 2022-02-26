@@ -33,7 +33,7 @@ server:
     context-path: /znyg
 
 mybatis-plus:
-  mapper-locations: classpath*:zhku/graduation/core/modules/**/xml/*Mapper.xml
+  mapper-locations: classpath*:mapper/*Mapper.xml
   global-config:
     banner: false
     db-config:
@@ -43,7 +43,7 @@ mybatis-plus:
       table-underline: true
   configuration:
     # 执行的sql 输出到控制台
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     # 返回类型为Map,显示null对应的字段
     call-setters-on-nulls: true
 
