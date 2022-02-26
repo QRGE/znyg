@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="zhku.graduation.core.modules.record.mapper.MonitorRecordMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="zhku.graduation.core.modules.record.entity.po.MonitorRecord">
+        <id column="id" property="id" />
+        <result column="node_id" property="nodeId" />
+        <result column="temperature" property="temperature" />
+        <result column="heater_status" property="heaterStatus" />
+        <result column="light_status" property="lightStatus" />
+        <result column="degerming_status" property="degermingStatus" />
+        <result column="record_time" property="recordTime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, node_id, temperature, heater_status, light_status, degerming_status, record_time, is_del
+    </sql>
+
+    <select id="countMonitorRecords" resultType="java.lang.Integer">
+        select count(1) from znyg_monitor_record
+        where true
+        <if test="nodeId != null">
+            and node_id = #{nodeId}
+        </if>
+        <if test="startTime != null">
+            and record_time <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and record_time <![CDATA[<=]]> #{endTime}
+        </if>
+    </select>
+
+</mapper>
