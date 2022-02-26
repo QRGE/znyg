@@ -19,4 +19,18 @@
         id, node_id, temperature, heater_status, light_status, degerming_status, record_time, is_del
     </sql>
 
+    <select id="countMonitorRecords" resultType="java.lang.Integer">
+        select count(1) from znyg_monitor_record
+        where true
+        <if test="nodeId != null">
+            and node_id = #{nodeId}
+        </if>
+        <if test="startTime != null">
+            and record_time <![CDATA[>=]]> #{startTime}
+        </if>
+        <if test="endTime != null">
+            and record_time <![CDATA[<=]]> #{endTime}
+        </if>
+    </select>
+
 </mapper>

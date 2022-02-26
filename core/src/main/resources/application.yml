@@ -33,6 +33,7 @@ server:
     context-path: /znyg
 
 mybatis-plus:
+  mapper-locations: classpath*:zhku/graduation/core/modules/**/xml/*Mapper.xml
   global-config:
     banner: false
     db-config:

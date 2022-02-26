@@ -4,13 +4,13 @@ package zhku.graduation.core.modules.record.controller;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
+import zhku.graduation.basic.vo.Page;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
@@ -75,8 +75,15 @@ public class MonitorRecordController extends BaseController {
         handlePageRequest(request);
         // 默认是正序, 除非传入倒序传入其他乱七八糟的都是正序
         request.handleOrderType();
-        IPage<MonitorRecordListInfo> page = monitorRecordService.pageMonitorRecord(request);
-        return Result.OK(page);
+        Date startTime = request.getStartTime();
+        Date endTime = request.getEndTime();
+        Integer nodeId = request.getNodeId();
+        Integer orderType = request.getOrderType();
+        Integer pageStart = request.getPageStart();
+        Integer pageSize = request.getPageSize();
+        Page<MonitorRecordListInfo> result = monitorRecordService.pageMonitorRecords(nodeId, startTime, endTime,
+                orderType, pageStart, pageSize);
+        return Result.OK(result);
     }
 
     @ApiOperation("新增或修改监测记录表")
