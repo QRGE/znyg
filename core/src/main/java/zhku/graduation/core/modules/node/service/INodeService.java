@@ -8,6 +8,7 @@ import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 import zhku.graduation.core.modules.node.entity.po.Node;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -20,6 +21,8 @@ import java.util.List;
 public interface INodeService extends IService<Node> {
 
     Integer getNodeSize();
+
+    Map<Integer, String> getIdToName();
 
     List<NodeListInfo> getNodeList();
 

@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.vo.Page;
+import zhku.graduation.core.modules.node.service.INodeService;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
@@ -17,6 +19,7 @@ import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -31,6 +34,9 @@ import java.util.stream.Collectors;
 @Slf4j
 @Service
 public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, MonitorRecord> implements IMonitorRecordService {
+
+    @Autowired
+    private INodeService nodeService;
 
     @Override
     public boolean saveOrUpdateMonitorRecord(MonitorRecordDetail dto) {
@@ -69,9 +75,16 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
             queryWrapper.orderByAsc(MonitorRecord::getRecordTime);
         }
         List<MonitorRecord> list = list(queryWrapper);
+        Map<Integer, String> nodeIdToName = nodeService.getIdToName();
         if (CollectionUtil.isNotEmpty(list)) {
-            List<MonitorRecordListInfo> resultList = list.stream().map(MonitorRecordListInfo::new)
-                    .collect(Collectors.toList());
+            List<MonitorRecordListInfo> resultList = list.stream().map(
+                po -> {
+                    MonitorRecordListInfo info = new MonitorRecordListInfo(po);
+                    info.setNodeName(nodeIdToName.get(po.getNodeId()));
+                    return info;
+                }
+            )
+            .collect(Collectors.toList());
             page.setRecords(resultList);
         }
         Long totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;

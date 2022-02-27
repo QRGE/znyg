@@ -14,9 +14,7 @@ import zhku.graduation.core.modules.node.entity.po.Node;
 import zhku.graduation.core.modules.node.mapper.NodeMapper;
 import zhku.graduation.core.modules.node.service.INodeService;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -34,6 +32,16 @@ public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements IN
     @Override
     public Integer getNodeSize() {
         return baseMapper.selectCount(Wrappers.lambdaQuery(Node.class)).intValue();
+    }
+
+    @Override
+    public Map<Integer, String> getIdToName() {
+        List<Node> nodes = list();
+        HashMap<Integer, String> idToName = new HashMap<>();
+        nodes.forEach(node -> {
+            idToName.put(node.getId(), node.getName());
+        });
+        return idToName;
     }
 
     @Override
