@@ -68,12 +68,12 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
         }
         long count = count(queryWrapper);
         page.setCount(count);
-        queryWrapper.last("limit " + pageSize+ " offset " + pageStart);
         if (orderType.equals(Constant.OrderType.DESC.getType())) {
             queryWrapper.orderByDesc(MonitorRecord::getRecordTime);
         }else {
             queryWrapper.orderByAsc(MonitorRecord::getRecordTime);
         }
+        queryWrapper.last("limit " + pageSize+ " offset " + pageStart);
         List<MonitorRecord> list = list(queryWrapper);
         Map<Integer, String> nodeIdToName = nodeService.getIdToName();
         if (CollectionUtil.isNotEmpty(list)) {

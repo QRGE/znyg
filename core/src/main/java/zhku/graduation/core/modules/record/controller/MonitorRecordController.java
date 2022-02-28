@@ -94,9 +94,9 @@ public class MonitorRecordController extends BaseController {
     }
 
     @ApiOperation("删除监测记录表")
-    @DeleteMapping("remove")
-    public Result<?> removeMonitorRecord(@RequestParam Integer id){
-        boolean result = monitorRecordService.removeMonitorRecord(id);
+    @DeleteMapping("remove/{recordId}")
+    public Result<?> removeMonitorRecord(@PathVariable Integer recordId){
+        boolean result = monitorRecordService.removeMonitorRecord(recordId);
         return result ? Result.OK() : error(ERROR);
     }
 }
