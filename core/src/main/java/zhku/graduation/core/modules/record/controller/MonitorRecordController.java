@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
@@ -31,6 +32,7 @@ import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 @Api(tags = "监测记录表")
 @RestController
 @RequestMapping("/record/")
+@Slf4j
 public class MonitorRecordController extends BaseController {
 
     @Autowired
@@ -83,6 +85,7 @@ public class MonitorRecordController extends BaseController {
         Integer pageSize = request.getPageSize();
         Page<MonitorRecordListInfo> result = monitorRecordService.pageMonitorRecords(nodeId, startTime, endTime,
                 orderType, pageStart, pageSize);
+        log.info("分页参数：page: {}，pageSize: {}", request.getPage(), request.getPageSize());
         return Result.OK(result);
     }
 

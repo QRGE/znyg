@@ -3,6 +3,7 @@ package zhku.graduation.basic.request;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.ToString;
 
 import java.io.Serializable;
 
@@ -12,6 +13,7 @@ import java.io.Serializable;
  **/
 @ApiModel("基础分页请求")
 @Data
+@ToString
 public class BasePageRequest implements Serializable {
 
     @ApiModelProperty("分页页数")
