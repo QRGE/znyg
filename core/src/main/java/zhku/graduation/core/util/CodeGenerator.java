@@ -27,11 +27,11 @@ public class CodeGenerator {
 
     /***************************************看着改******************************************/
     // 表名
-    private static final String TABLE_NAME = "znyg_monitor_record";
+    private static final String TABLE_NAME = "znyg_command_record_web";
     // 表前缀
     private static final String TABLE_PREFIX = "znyg_";
     // 模块名
-    private static final String FUNCTION_MODULE = "record";
+    private static final String FUNCTION_MODULE = "command";
     // 用来接受数据的名字后缀
     private static String DTO_SUFFIX = "Detail";
     // 存放模版的文件夹路径

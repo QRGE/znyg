@@ -64,6 +64,7 @@ public class ShiroConfig {
         filterUrls.put("/quartz/**","anon");
         filterUrls.put("/socket/**", "anon");
         filterUrls.put("/record/**", "anon");
+        filterUrls.put("/command/**", "anon");
         filterUrls.put("/user/logout", "logout");
         // 所有的接口都要走 jwt 拦截规则
         filterUrls.put("/**", "jwt");
