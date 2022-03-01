@@ -1,12 +1,16 @@
 package zhku.graduation.core.modules.command.entity.bean;
 
 import cn.hutool.core.util.StrUtil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
 import zhku.graduation.core.modules.command.util.AnalysisCommandUtil;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -32,27 +36,31 @@ public class CommandRecordWebListInfo {
 
     private String degerming;
 
-    @ApiModelProperty("控制命令格式为“KxxddssB”，“K”为数据包开始标志，“xx”为鱼缸编号，范围为“00-99”，“dd”为设置的温度目标值，“ss”分别代表要求灯光和除菌器开启或者关闭，“s”取值为”Y”表示开启，取值为“N”表示关闭，字母“B”为数据包结束标志和表示控制命令来自web程序。")
-    private String commandText;
+    @ApiModelProperty("命令状态文本")
+    private String commandStatusText;
 
     @ApiModelProperty("命令状态, 0-未执行, 1-已发送, 2-已执行")
     private Integer commandStatus;
 
+    @ApiModelProperty
+    private String tagType;
 
-    @ApiModelProperty("创建者id")
-    private Integer createBy;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date createTime;
 
 
     public CommandRecordWebListInfo (CommandRecordWeb po) {
         id = po.getId();
         String commandText = po.getCommandText();
         if (StrUtil.isNotBlank(commandText)) {
-            this.commandText = commandText;
             this.nodeId = AnalysisCommandUtil.getNodeId(commandText);
             this.temperature = AnalysisCommandUtil.getTemperature(commandText);
-            this.light = AnalysisCommandUtil.getLight(commandText);
-            this.degerming = AnalysisCommandUtil.getDegerming(commandText);
+            this.light = Constant.CommandInstrumentStatus.select(AnalysisCommandUtil.getLight(commandText)).getName();
+            this.degerming = Constant.CommandInstrumentStatus.select(AnalysisCommandUtil.getDegerming(commandText)).getName();
         }
         commandStatus = po.getCommandStatus();
+        commandStatusText = Constant.CommandStatus.valueOf(po.getCommandStatus()).getName();
+        tagType = Constant.TagType.valueOf(po.getCommandStatus()).getName();
+        createTime = po.getCreateTime();
     }
 }

@@ -5,6 +5,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Page;
@@ -39,7 +40,7 @@ public class CommandRecordWebController extends BaseController {
         handlePageRequest(request);
         request.handleOrderType();
         Page<CommandRecordWebListInfo> result = commandRecordWebService.pageCommandRecords(request.getNodeId(),
-                request.getStartTime(), request.getEndTime(), request.getOrderType(),
+                request.getStartTime(), request.getEndTime(), Constant.OrderType.DESC.getType(),
                 request.getPageStart(), request.getPageSize());
         return Result.OK(result);
     }
@@ -52,8 +53,8 @@ public class CommandRecordWebController extends BaseController {
     }
 
     @ApiOperation("删除Web 端控制命令记录")
-    @DeleteMapping("remove")
-    public Result<?> removeCommandRecordWeb(@RequestParam Integer id){
+    @DeleteMapping("remove/{id}")
+    public Result<?> removeCommandRecordWeb(@PathVariable Integer id){
         boolean result = commandRecordWebService.removeCommandRecordWeb(id);
         return result ? Result.OK() : error(HttpStatus.ERROR);
     }
