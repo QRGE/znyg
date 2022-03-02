@@ -10,6 +10,8 @@ import zhku.graduation.core.modules.command.mapper.CommandRecordWebMapper;
 import zhku.graduation.core.modules.command.service.ICommandRecordWebService;
 
 import java.util.Optional;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 /**
@@ -38,7 +40,22 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
         CommandRecordWeb newCommand = new CommandRecordWeb();
         newCommand.setCommandText(command);
         newCommand.setCommandStatus(Constant.CommandStatus.HAD_SENT.getType());
-        return save(newCommand);
+        boolean result = save(newCommand);
+        // 3秒后查询状态
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                CommandRecordWeb web = getOne(Wrappers.lambdaQuery(CommandRecordWeb.class)
+                        .orderByDesc(CommandRecordWeb::getCreateTime)
+                        .last("limit 1"));
+                if (!web.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
+                    web.setCommandStatus(Constant.CommandStatus.NOT_START.getType());
+                }
+                updateById(web);
+            }
+        }, 3000);
+        return result;
     }
 
     @Override
