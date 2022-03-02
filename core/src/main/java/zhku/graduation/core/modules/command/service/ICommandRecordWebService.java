@@ -1,12 +1,8 @@
 package zhku.graduation.core.modules.command.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import zhku.graduation.basic.vo.Page;
 import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebDetail;
-import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebListInfo;
 import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
-
-import java.util.Date;
 
 /**
  * <p>
@@ -18,11 +14,10 @@ import java.util.Date;
  */
 public interface ICommandRecordWebService extends IService<CommandRecordWeb> {
 
-    CommandRecordWebDetail getCommandRecordWeb(Integer dataId);
+    CommandRecordWebDetail getCommandRecordWeb();
 
     boolean saveOrUpdateCommandRecordWeb(CommandRecordWebDetail dto);
 
     boolean removeCommandRecordWeb(Integer dataId);
 
-    Page<CommandRecordWebListInfo> pageCommandRecords(Integer nodeId, Date startTime, Date endTime, Integer orderType, Integer pageStart, Integer pageSize);
 }
