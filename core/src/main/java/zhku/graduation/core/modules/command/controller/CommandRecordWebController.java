@@ -1,6 +1,7 @@
 package zhku.graduation.core.modules.command.controller;
 
 
+import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebDetail;
+import zhku.graduation.core.modules.command.entity.request.CommandBody;
 import zhku.graduation.core.modules.command.service.ICommandRecordWebService;
 
 /**
@@ -31,9 +33,12 @@ public class CommandRecordWebController extends BaseController {
     }
 
     @ApiOperation("新增或修改Web 端控制命令记录")
-    @PostMapping("edit")
-    public Result<?> saveOrUpdateCommandRecordWeb(@RequestBody CommandRecordWebDetail dto){
-        boolean result = commandRecordWebService.saveOrUpdateCommandRecordWeb(dto);
+    @PostMapping("save")
+    public Result<?> saveOrUpdateCommandRecordWeb(@RequestBody CommandBody body){
+        if (StrUtil.isBlank(body.getCommand())) {
+            return error(HttpStatus.PARAM_MISSING);
+        }
+        boolean result = commandRecordWebService.saveOrUpdateCommandRecordWeb(body.getCommand());
         return result ? Result.OK() : error(HttpStatus.ERROR);
     }
 

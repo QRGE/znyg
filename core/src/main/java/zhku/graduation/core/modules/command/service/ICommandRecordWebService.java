@@ -16,7 +16,7 @@ public interface ICommandRecordWebService extends IService<CommandRecordWeb> {
 
     CommandRecordWebDetail getCommandRecordWeb();
 
-    boolean saveOrUpdateCommandRecordWeb(CommandRecordWebDetail dto);
+    boolean saveOrUpdateCommandRecordWeb(String command);
 
     boolean removeCommandRecordWeb(Integer dataId);
 

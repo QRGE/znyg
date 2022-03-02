@@ -3,6 +3,7 @@ package zhku.graduation.core.modules.command.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebDetail;
 import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
 import zhku.graduation.core.modules.command.mapper.CommandRecordWebMapper;
@@ -33,13 +34,11 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
     }
 
     @Override
-    public boolean saveOrUpdateCommandRecordWeb(CommandRecordWebDetail dto) {
-        CommandRecordWeb commandRecordWeb = new CommandRecordWeb();
-        if(dto.getId() == null){
-            commandRecordWeb = commandRecordWeb.init();
-        }
-        commandRecordWeb.parseFromDto(dto);
-        return saveOrUpdate(commandRecordWeb);
+    public boolean saveOrUpdateCommandRecordWeb(String command) {
+        CommandRecordWeb newCommand = new CommandRecordWeb();
+        newCommand.setCommandText(command);
+        newCommand.setCommandStatus(Constant.CommandStatus.HAD_SENT.getType());
+        return save(newCommand);
     }
 
     @Override
