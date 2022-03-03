@@ -26,7 +26,6 @@
         <dependency>
             <groupId>zhku.graduation</groupId>
             <artifactId>basic</artifactId>
-            <version>1.0</version>
         </dependency>
         <dependency>
             <groupId>org.freemarker</groupId>
