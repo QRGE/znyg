@@ -1,6 +1,5 @@
 package zhku.graduation.core.modules.user.service.impl;
 
-import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -43,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (queryUser == null) {
             return true;
         }
-        return !queryUser.getPassword().equals(SecureUtil.md5(password + queryUser.getSalt()));
+        return !queryUser.getPassword().equals(PasswordUtil.encrypt(account, password, queryUser.getSalt()));
     }
 
     @Override
@@ -102,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public boolean addUser(String account, String password) {
         String salt = PasswordUtil.getSalt();
-        password = SecureUtil.md5(password + salt);
+        password = PasswordUtil.encrypt(account, password, salt);
         return save(new User(account, password, salt));
     }
 
