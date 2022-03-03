@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.user.entity.po.User;
-import java.util.Date;
 
 /**
  * <p>
@@ -35,7 +34,7 @@ public class UserListInfo {
     private Integer gender;
 
     @ApiModelProperty("手机号")
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @ApiModelProperty("邮箱")
     private String eMail;

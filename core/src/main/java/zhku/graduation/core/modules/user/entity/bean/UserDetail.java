@@ -33,7 +33,7 @@ public class UserDetail {
     private String genderText;
 
     @ApiModelProperty("手机号")
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     @ApiModelProperty("邮箱")
     private String eMail;

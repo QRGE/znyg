@@ -54,7 +54,7 @@ public class User {
      * 手机号
      */
     @TableField("phone_number")
-    private Integer phoneNumber;
+    private String phoneNumber;
 
     /**
      * 邮箱
