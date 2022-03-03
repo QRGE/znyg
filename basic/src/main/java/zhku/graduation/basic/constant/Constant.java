@@ -60,7 +60,7 @@ public interface Constant {
 	@AllArgsConstructor
 	@Getter
 	enum Role {
-	    ADMIN(1, "无"),
+	    ADMIN(1, "管理员"),
 		COMMON_USER(2, "普通用户")
 	    ;
 
