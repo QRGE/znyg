@@ -63,7 +63,6 @@ public class ShiroRealm extends AuthorizingRealm {
     /**
      * 用户进行登录的时候进行验证(不存redis)
      * 也就是说验证用户输入的账号和密码是否正确，错误抛出异常
-     *
      * @param auth 用户登录的账号密码信息
      * @return 返回封装了用户信息的 AuthenticationInfo 实例
      */
@@ -89,10 +88,9 @@ public class ShiroRealm extends AuthorizingRealm {
         // 解密获得username，用于和数据库进行对比
         String username = JwtUtil.getUsername(token);
         if (username == null) {
-            throw new AuthenticationException("token非法无效!");
+            throw new AuthenticationException("token 无效, 校验失败!");
         }
         // 查询用户信息
-        log.debug("———校验token是否有效————checkUserTokenIsEffect——————— "+ token);
         LoginUser loginUser = userService.getUser(username);
         if (loginUser == null) {
             throw new AuthenticationException("用户不存在!");
@@ -106,11 +104,11 @@ public class ShiroRealm extends AuthorizingRealm {
 
     /**
      * JWT 刷新
-     * 1、登录成功后将用户生成的Token作为 k、v 存储到缓存里面(这时候 k、v 值一样)，缓存有效期设置为Jwt有效时间的2倍
-     * 2、当该用户再次请求时，通过JWTFilter层层校验之后会进入到doGetAuthenticationInfo进行身份验证
-     * 3、当该用户这次请求jwt生成的token值已经超时，但该 token 对应 cache 中的k还是存在，则表示该用户一直在操作只是 token 失效了，
+     * 1、登录成功后将用户生成的Token作为 k、v 存储到缓存里面(这时候 k、v 值一样, k:v token:token)，缓存有效期设置为Jwt有效时间的2倍
+     * 2、用户再次请求时，通过JWTFilter层层校验之后会进入到 doGetAuthenticationInfo 进行身份验证
+     * 3、用户请求的 jwt 已超时，但该 token 对应 cache 中的k还是存在，则表示该用户一直在操作只是 token 失效了，
      *    程序会给 token 对应的 k 映射的 v 值重新生成 JWT 并覆盖v值，该缓存生命周期重新计算
-     * 4、当该用户这次请求jwt在生成的token值已经超时，并在cache中不存在对应的k，则表示该用户账户空闲超时，返回用户信息已失效，请重新登录。
+     * 4、用户请求 jwt 经超时，并在cache中不存在对应的k，则表示该用户账户空闲超时，返回用户信息已失效，请重新登录。
      */
     public boolean jwtTokenRefresh(String token, String userName, String passWord) {
         String cacheToken = String.valueOf(redisUtil.get(token));
@@ -121,7 +119,7 @@ public class ShiroRealm extends AuthorizingRealm {
                 // 设置超时时间
                 redisUtil.set(token, newAuthorization);
                 redisUtil.expire(token, JwtUtil.EXPIRE_TIME * 2 / 1000);
-                log.debug("==========用户在线操作，更新token保证不掉线==========" + token);
+                log.info("==========用户: {}在线操作，更新token保证不掉线==========", userName);
             }
             return true;
         }
