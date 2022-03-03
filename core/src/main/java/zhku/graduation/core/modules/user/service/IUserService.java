@@ -2,10 +2,11 @@ package zhku.graduation.core.modules.user.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
-import zhku.graduation.core.modules.user.entity.bean.*;
+import zhku.graduation.core.modules.user.entity.bean.LoginUser;
+import zhku.graduation.core.modules.user.entity.bean.UserDetail;
+import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
+import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
 import zhku.graduation.core.modules.user.entity.po.User;
-
-import java.util.List;
 
 /**
  * <p>
@@ -31,8 +32,6 @@ public interface IUserService extends IService<User> {
      * @return user 对象
      */
     LoginUser getUser(String username);
-
-    List<UserListInfo> getUserList(UserListRequest request);
 
     IPage<UserListInfo> pageUser(UserPageRequest request);
 

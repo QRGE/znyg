@@ -11,14 +11,16 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
-import zhku.graduation.core.modules.user.entity.bean.*;
+import zhku.graduation.core.modules.user.entity.bean.LoginUser;
+import zhku.graduation.core.modules.user.entity.bean.UserDetail;
+import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
+import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
 import zhku.graduation.core.modules.user.service.IUserService;
 import zhku.graduation.core.util.JwtUtil;
 import zhku.graduation.core.util.RedisUtil;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 
 import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
@@ -94,13 +96,6 @@ public class UserController extends BaseController {
         String password = user.getPassword();
         boolean result = userService.addUser(account, password);
         return result ? Result.OK() : error(ERROR);
-    }
-
-    @ApiOperation(value = "查询用户表列表", response = UserListInfo.class)
-    @PostMapping("list")
-    public Result<?> getUserList(@RequestBody UserListRequest request){
-        List<UserListInfo> list = userService.getUserList(request);
-        return Result.OK(list);
     }
 
     @ApiOperation(value = "分页查询用户表列表", response = UserListInfo.class)

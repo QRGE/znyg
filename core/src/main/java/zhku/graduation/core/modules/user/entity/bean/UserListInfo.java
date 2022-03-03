@@ -4,7 +4,10 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.user.entity.po.User;
+
+import java.util.Optional;
 
 /**
  * <p>
@@ -24,14 +27,10 @@ public class UserListInfo {
     @ApiModelProperty("用户名")
     private String username;
 
-    @ApiModelProperty("密码")
-    private String password;
-
-    @ApiModelProperty("密码盐, 加密用")
-    private String salt;
-
     @ApiModelProperty("性别, 1-男, 2-女")
     private Integer gender;
+    @ApiModelProperty("性别文本")
+    private String genderText;
 
     @ApiModelProperty("手机号")
     private String phoneNumber;
@@ -41,24 +40,24 @@ public class UserListInfo {
 
     @ApiModelProperty("角色, 1-管理员, 2-普通用户")
     private Integer role;
+    @ApiModelProperty("角色文本")
+    private String roleText;
 
 
-    @ApiModelProperty("创建者id")
-    private Integer createBy;
-
-
-    @ApiModelProperty("更新者id")
-    private Integer updateBy;
-
-
-    public UserListInfo (User po) {
+    public UserListInfo(User po) {
         id = po.getId();
         username = po.getUsername();
-        password = po.getPassword();
-        salt = po.getSalt();
-        gender = po.getGender();
+        Integer gender = po.getGender();
+        Optional.ofNullable(gender).ifPresent(g -> {
+            this.gender = g;
+            this.genderText = Constant.Sex.valueOf(g).getName();
+        });
         phoneNumber = po.getPhoneNumber();
         eMail = po.getEMail();
-        role = po.getRole();
+        Integer role = po.getRole();
+        Optional.ofNullable(role).ifPresent(r -> {
+            this.role = r;
+            this.roleText = Constant.Role.valueOf(r).getName();
+        });
     }
 }
