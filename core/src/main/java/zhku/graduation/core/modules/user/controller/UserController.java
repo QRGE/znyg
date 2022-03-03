@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
-import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.*;
@@ -65,8 +64,8 @@ public class UserController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.set("userInfo", userDetail);
         String token = JwtUtil.sign(account, password);
-        redisUtil.set(Constant.TOKEN + "_" + account, token);
-        redisUtil.expire(Constant.TOKEN + "_" + account, JwtUtil.EXPIRE_TIME);
+        redisUtil.set(account, token);
+        redisUtil.expire(account, JwtUtil.EXPIRE_TIME);
         jsonObject.set("token", token);
         log.info("账户: {} 登陆", account);
         return Result.OK("登陆成功", jsonObject);
