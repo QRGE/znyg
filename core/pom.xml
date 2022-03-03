@@ -38,4 +38,17 @@
         </dependency>
     </dependencies>
 
+    <!--被依赖的模块需要加上下面配置-->
+    <!--https://www.jianshu.com/p/65b1b025d46d-->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <classifier>exec</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
