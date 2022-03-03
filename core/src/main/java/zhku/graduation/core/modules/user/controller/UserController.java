@@ -64,10 +64,11 @@ public class UserController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.set("userInfo", userDetail);
         String token = JwtUtil.sign(account, password);
-        redisUtil.set(account, token);
-        redisUtil.expire(account, JwtUtil.EXPIRE_TIME);
+        // token:token , 可以实现 token 刷新
+        redisUtil.set(token, token);
+        redisUtil.expire(token, JwtUtil.EXPIRE_TIME);
         jsonObject.set("token", token);
-        log.info("账户: {} 登陆", account);
+        log.info("账户: {} 登陆, 生成token: {}", account, token);
         return Result.OK("登陆成功", jsonObject);
     }
 
