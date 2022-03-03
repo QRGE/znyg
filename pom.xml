@@ -166,7 +166,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>2.3.7.RELEASE</version>
                 <configuration>
-                    <mainClass>zhku.graduation.znyg.ZnygApplication</mainClass>
+                    <mainClass>zhku.graduation.core.ZnygApp</mainClass>
                     <excludes>
                         <exclude>
                             <groupId>org.springframework.boot</groupId>
