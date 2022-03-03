@@ -20,8 +20,8 @@ public interface IUserService extends IService<User> {
     /**
      * 校验用户的有效性
      * @param account 用户名
-     * @param password
-     * @return 校验
+     * @param password 密码
+     * @return 校验结果
      */
     boolean isValidUser(String account, String password);
 
