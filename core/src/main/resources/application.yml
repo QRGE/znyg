@@ -1,9 +1,9 @@
 spring:
   datasource:
-    username: root
-    password: QRWUDI666
+    username: qr
+    password: QRwudi666!!!
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/znyg?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://rm-uf689n11q0q059b678o.mysql.rds.aliyuncs.com:3306/znyg?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
   application:
     name: znyg
   quartz:
@@ -28,7 +28,7 @@ spring:
             threadsInheritContextClassLoaderOfInitializingThread: true
 
 server:
-  port: 80
+  port: 10000
   servlet:
     context-path: /znyg
 
