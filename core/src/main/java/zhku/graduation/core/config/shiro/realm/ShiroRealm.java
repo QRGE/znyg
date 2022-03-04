@@ -71,6 +71,7 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         log.debug("============用户登陆身份认证开始============");
         String token = (String) auth.getCredentials();
+        log.info("请求传入的token{}", token);
         if (token == null) {
             String ip = InetAddress.getLocalHost().getHostAddress();
             log.info("————————身份认证失败——————————IP地址: {} ", ip);
