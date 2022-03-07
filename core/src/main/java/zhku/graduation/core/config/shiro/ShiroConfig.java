@@ -59,6 +59,9 @@ public class ShiroConfig {
         // 拦截器
         Map<String, String> filterUrls = new LinkedHashMap<>();
         filterUrls.put("/user/login", "anon");
+        filterUrls.put("/command/**", "anon");
+        filterUrls.put("/node/**", "anon");
+        filterUrls.put("/record/**", "anon");
         filterUrls.put("/user/logout", "logout");
         // 所有的接口都要走 jwt 拦截规则
         filterUrls.put("/**", "jwt");
