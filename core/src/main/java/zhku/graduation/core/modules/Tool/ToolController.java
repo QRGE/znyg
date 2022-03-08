@@ -27,12 +27,12 @@ public class ToolController {
     private final static Integer captchaExpireTime = 600;
 
     @GetMapping("/mail/send")
-    public Result<?> get(@RequestParam String toEmail){
-        if (!Validator.isEmail(toEmail)) {
+    public Result<?> get(@RequestParam String email){
+        if (!Validator.isEmail(email)) {
             return Result.error("邮箱格式错误");
         }
-        String captcha = MailTool.sendCaptcha(toEmail);
-        redisUtil.set(toEmail, captcha, captchaExpireTime);
+        String captcha = MailTool.sendCaptcha(email);
+        redisUtil.set(email, captcha, captchaExpireTime);
         return Result.OK("成功发送验证码");
     }
 }
