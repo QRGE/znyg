@@ -27,6 +27,11 @@ public interface IUserService extends IService<User> {
     boolean isValidUser(String account, String password);
 
     /**
+     * 查看 username 是否有效
+     */
+    boolean isValidUser(String username);
+
+    /**
      * 通过用户名获取 user 对象
      * @param username 用户名
      * @return user 对象
@@ -50,4 +55,9 @@ public interface IUserService extends IService<User> {
      * @return 操作结果
      */
     boolean addUser(String account, String password);
+
+    /**
+     * 更新密码
+     */
+    boolean updatePwd(String newPwd, String username);
 }

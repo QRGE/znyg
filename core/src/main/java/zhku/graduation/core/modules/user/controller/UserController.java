@@ -1,6 +1,8 @@
 package zhku.graduation.core.modules.user.controller;
 
 
+import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -19,8 +21,7 @@ import zhku.graduation.core.util.RedisUtil;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
-import static zhku.graduation.basic.constant.HttpStatus.ERROR;
+import static zhku.graduation.basic.constant.HttpStatus.*;
 
 /**
  * @author QR
@@ -42,7 +43,17 @@ public class UserController extends BaseController {
     @ApiOperation("更新用户密码")
     @PostMapping("updatePwd")
     public Result<?> updatePwd(@Valid @RequestBody UpdatePwdBean request){
-        return Result.OK();
+        String email = request.getEmail();
+        if (!Validator.isEmail(email)
+            || !userService.isValidUser(request.getUsername())) {
+            return error(PARAM_ERROR);
+        }
+        String realRequest = (String) redisUtil.get(email);
+        if (StrUtil.isBlank(realRequest) || !realRequest.equals(request.getCaptcha())) {
+            return Result.error("验证码无效");
+        }
+        boolean result = userService.updatePwd(request.getNewPwd(), request.getUsername());
+        return result ? Result.OK() : error(ERROR);
     }
 
     @ApiOperation("获取用户信息")

@@ -46,6 +46,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    public boolean isValidUser(String username) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery(User.class)
+                .eq(User::getUsername, username);
+        User user = getOne(wrapper);
+        return user != null;
+    }
+
+    @Override
     public LoginUser getUser(String username) {
         LambdaQueryWrapper<User> queryWrapper = baseQueryWrapper()
                 .eq(User::getUsername, username);
@@ -92,6 +100,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String salt = PasswordUtil.getSalt();
         password = PasswordUtil.encrypt(account, password, salt);
         return save(new User(account, password, salt));
+    }
+
+    @Override
+    public boolean updatePwd(String newPwd, String username) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery(User.class)
+                .eq(User::getUsername, username);
+        User user = getOne(wrapper);
+        String newPassword = PasswordUtil.encrypt(username, newPwd, user.getSalt());
+        user.setPassword(newPassword);
+        return updateById(user);
     }
 
     private LambdaQueryWrapper<User> baseQueryWrapper() {
