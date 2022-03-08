@@ -53,7 +53,7 @@ public class UserController extends BaseController {
             return Result.error("验证码无效");
         }
         boolean result = userService.updatePwd(request.getNewPwd(), request.getUsername());
-        return result ? Result.OK() : error(ERROR);
+        return result ? Result.OK("修改密码成功！") : error(ERROR);
     }
 
     @ApiOperation("获取用户信息")
