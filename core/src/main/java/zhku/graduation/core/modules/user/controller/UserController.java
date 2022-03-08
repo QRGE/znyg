@@ -42,6 +42,12 @@ public class UserController extends BaseController {
     @Autowired
     private IUserService userService;
 
+    @ApiOperation("更新用户密码")
+    @PostMapping("")
+    public Result<?> updatePwd(){
+        return Result.OK();
+    }
+
     @ApiOperation("获取用户信息")
     @GetMapping("info")
     public Result<?> getUserInfo(){

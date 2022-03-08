@@ -26,6 +26,10 @@ spring:
             # 线程优先级
             threadPriority: 5
             threadsInheritContextClassLoaderOfInitializingThread: true
+  mail:
+    host: smtp.163.com
+    username: qr
+    password: DTYMUYXGCOKSIYEU
 
 server:
   port: 10000
