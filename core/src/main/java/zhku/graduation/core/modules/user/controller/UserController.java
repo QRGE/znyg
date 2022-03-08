@@ -11,10 +11,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
-import zhku.graduation.core.modules.user.entity.bean.LoginUser;
-import zhku.graduation.core.modules.user.entity.bean.UserDetail;
-import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
-import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
+import zhku.graduation.core.modules.user.entity.bean.*;
 import zhku.graduation.core.modules.user.service.IUserService;
 import zhku.graduation.core.util.JwtUtil;
 import zhku.graduation.core.util.RedisUtil;
@@ -43,8 +40,8 @@ public class UserController extends BaseController {
     private IUserService userService;
 
     @ApiOperation("更新用户密码")
-    @PostMapping("")
-    public Result<?> updatePwd(){
+    @PostMapping("updatePwd")
+    public Result<?> updatePwd(@Valid @RequestBody UpdatePwdBean request){
         return Result.OK();
     }
 
