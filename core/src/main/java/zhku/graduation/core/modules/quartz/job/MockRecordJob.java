@@ -32,11 +32,11 @@ public class MockRecordJob extends QuartzJobBean {
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
         MonitorRecord monitorRecord = new MonitorRecord();
         // 除菌器状态
-        monitorRecord.setDegermingStatus(RandomUtil.randomInt(0, 2));
+        monitorRecord.setDegermingStatus(1);
         // 加热器状态
-        monitorRecord.setHeaterStatus(RandomUtil.randomInt(0, 2));
+        monitorRecord.setHeaterStatus(1);
         // 灯光状态
-        monitorRecord.setLightStatus(RandomUtil.randomInt(0, 2));
+        monitorRecord.setLightStatus(1);
         // 鱼缸节点
         Integer nodeSize = nodeService.getNodeSize();
         monitorRecord.setNodeId(RandomUtil.randomInt(1, nodeSize+1));
