@@ -51,7 +51,7 @@ public class MonitorRecordController extends BaseController {
     public Result<?> get(@PathVariable Integer nodeId){
         LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
                 .eq(MonitorRecord::getNodeId, nodeId)
-                .orderByDesc(MonitorRecord::getRecordTime)
+                .orderByAsc(MonitorRecord::getRecordTime)
                 .last("limit 5");
         List<MonitorRecord> recordList = monitorRecordService.list(wrapper);
         JSONObject result = new JSONObject();
