@@ -11,6 +11,7 @@ import zhku.graduation.core.util.MailTool;
 import zhku.graduation.core.util.RedisUtil;
 
 import javax.annotation.Resource;
+import java.util.UUID;
 
 /**
  * @author qr
@@ -34,5 +35,9 @@ public class ToolController {
         String captcha = MailTool.sendCaptcha(email);
         redisUtil.set(email, captcha, captchaExpireTime);
         return Result.OK("成功发送验证码");
+    }
+
+    public static void main(String[] args) {
+        System.out.println(UUID.randomUUID());
     }
 }
