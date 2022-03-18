@@ -1,5 +1,6 @@
 package zhku.graduation.core.modules.node.service.impl;
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -32,6 +33,16 @@ public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements IN
     @Override
     public Integer getNodeSize() {
         return baseMapper.selectCount(Wrappers.lambdaQuery(Node.class)).intValue();
+    }
+
+    @Override
+    public List<Integer> getNodeIds() {
+        List<Node> nodes = list();
+        List<Integer> ids = null;
+        if (CollectionUtil.isNotEmpty(nodes)) {
+            ids = nodes.stream().map(Node::getId).collect(Collectors.toList());
+        }
+        return ids;
     }
 
     @Override

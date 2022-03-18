@@ -22,6 +22,8 @@ public interface INodeService extends IService<Node> {
 
     Integer getNodeSize();
 
+    List<Integer> getNodeIds();
+
     Map<Integer, String> getIdToName();
 
     List<NodeListInfo> getNodeList();
