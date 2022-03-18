@@ -22,7 +22,7 @@ public class JobInit implements ApplicationRunner {
                 .withIdentity(Constant.JOB_MOCK)
                 .storeDurably()
                 .build();
-        CronScheduleBuilder cron1 = CronScheduleBuilder.cronSchedule("0/1 * * * * ? *");
+        CronScheduleBuilder cron1 = CronScheduleBuilder.cronSchedule("0/5 * * * * ? *");
         Trigger trigger1 = TriggerBuilder.newTrigger()
                 .forJob(jobMock)
                 .withIdentity(Constant.TRIGGER_1)
