@@ -48,6 +48,7 @@ public class MonitorRecordController extends BaseController {
     @GetMapping("node")
     public Result<?> getNodeLatestRecord(@RequestParam Integer nodeId){
         RealTimeRecord record = nodeService.getNodeLatestRecord(nodeId);
+        log.info("查询鱼缸节点id={}, 最新温度={}", nodeId, record.getTemperature());
         return Result.OK(record);
     }
 
