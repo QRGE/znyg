@@ -1,8 +1,8 @@
 package zhku.graduation.core.modules.record.controller;
 
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
@@ -15,6 +15,7 @@ import zhku.graduation.basic.vo.Page;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
+import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.entity.request.MonitorRecordPageRequest;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
@@ -47,28 +48,30 @@ public class MonitorRecordController extends BaseController {
     }
 
     @ApiOperation("获取某个鱼缸节点的最新的5条数据")
-    @GetMapping("node/{nodeId}")
-    public Result<?> get(@PathVariable Integer nodeId){
+    @GetMapping("node")
+    public Result<?> get(@RequestParam Integer nodeId){
         LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
                 .eq(MonitorRecord::getNodeId, nodeId)
                 .orderByAsc(MonitorRecord::getRecordTime)
                 .last("limit 5");
         List<MonitorRecord> recordList = monitorRecordService.list(wrapper);
-        JSONObject result = new JSONObject();
-        result.set("temperatures", recordList.stream()
-                .map(MonitorRecord::getTemperature)
-                .collect(Collectors.toList()));
-        result.set("dates", recordList.stream()
-                .map(po -> {
-                    Date recordTime = po.getRecordTime();
-                    return DateUtil.format(recordTime, "HH:mm:ss");
-                })
-                .collect(Collectors.toList()));
-        int first = 0;
-        result.set("heater", recordList.get(first).getHeaterStatus());
-        result.set("light", recordList.get(first).getLightStatus());
-        result.set("degerming", recordList.get(first).getDegermingStatus());
-        return Result.OK(result);
+        RealTimeRecord record = new RealTimeRecord();
+        if (CollectionUtil.isNotEmpty(recordList)) {
+            int size = recordList.size();
+            List<Double> temperatures = recordList.stream()
+                    .map(MonitorRecord::getTemperature)
+                    .collect(Collectors.toList());
+            record.setTemperatures(temperatures);
+            List<String> dates = recordList.stream()
+                    .map(po -> {
+                        Date recordTime = po.getRecordTime();
+                        return DateUtil.format(recordTime, "HH:mm:ss");
+                    }).collect(Collectors.toList());
+            record.setDates(dates);
+            // 设置最新的一条数据
+            record = record.parseFromPO(recordList.get(size-1));
+        }
+        return Result.OK(record);
     }
 
     @ApiOperation(value = "分页查询监测记录表列表", response = MonitorRecordListInfo.class)
