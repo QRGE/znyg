@@ -6,6 +6,7 @@ import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
 import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 import zhku.graduation.core.modules.node.entity.po.Node;
+import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
 
 import java.util.List;
 import java.util.Map;
@@ -35,4 +36,6 @@ public interface INodeService extends IService<Node> {
     boolean saveOrUpdateNode(NodeDetail dto);
 
     boolean removeNode(Integer dataId);
+
+    RealTimeRecord getNodeLatestRecord(Integer nodeId);
 }

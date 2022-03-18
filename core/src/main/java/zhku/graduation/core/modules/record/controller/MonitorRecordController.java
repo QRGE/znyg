@@ -1,10 +1,6 @@
 package zhku.graduation.core.modules.record.controller;
 
 
-import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.date.DateUtil;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -13,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Page;
 import zhku.graduation.basic.vo.Result;
+import zhku.graduation.core.modules.node.service.INodeService;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
 import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
@@ -21,8 +18,6 @@ import zhku.graduation.core.modules.record.entity.request.MonitorRecordPageReque
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 
@@ -38,6 +33,8 @@ public class MonitorRecordController extends BaseController {
 
     @Autowired
     private IMonitorRecordService monitorRecordService;
+    @Autowired
+    private INodeService nodeService;
 
     @ApiOperation(value = "查询监测记录表详情", response = MonitorRecordDetail.class)
     @GetMapping("get")
@@ -49,28 +46,8 @@ public class MonitorRecordController extends BaseController {
 
     @ApiOperation("获取某个鱼缸节点的最新的5条数据")
     @GetMapping("node")
-    public Result<?> get(@RequestParam Integer nodeId){
-        LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
-                .eq(MonitorRecord::getNodeId, nodeId)
-                .orderByAsc(MonitorRecord::getRecordTime)
-                .last("limit 5");
-        List<MonitorRecord> recordList = monitorRecordService.list(wrapper);
-        RealTimeRecord record = new RealTimeRecord();
-        if (CollectionUtil.isNotEmpty(recordList)) {
-            int size = recordList.size();
-            List<Double> temperatures = recordList.stream()
-                    .map(MonitorRecord::getTemperature)
-                    .collect(Collectors.toList());
-            record.setTemperatures(temperatures);
-            List<String> dates = recordList.stream()
-                    .map(po -> {
-                        Date recordTime = po.getRecordTime();
-                        return DateUtil.format(recordTime, "HH:mm:ss");
-                    }).collect(Collectors.toList());
-            record.setDates(dates);
-            // 设置最新的一条数据
-            record = record.parseFromPO(recordList.get(size-1));
-        }
+    public Result<?> getNodeLatestRecord(@RequestParam Integer nodeId){
+        RealTimeRecord record = nodeService.getNodeLatestRecord(nodeId);
         return Result.OK(record);
     }
 
