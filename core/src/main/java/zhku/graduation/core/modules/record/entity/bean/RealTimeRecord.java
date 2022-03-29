@@ -20,18 +20,9 @@ public class RealTimeRecord {
 
     private List<String> dates;
 
-    private Integer heater;
-
-    private Integer light;
-
-    private Integer degerming;
-
     private Double temperature;
 
     public RealTimeRecord parseFromPO(MonitorRecord po) {
-        heater = po.getHeaterStatus();
-        light = po.getLightStatus();
-        degerming = po.getDegermingStatus();
         temperature = po.getTemperature();
         return this;
     }
