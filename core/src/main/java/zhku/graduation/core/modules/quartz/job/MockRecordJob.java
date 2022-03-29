@@ -32,12 +32,6 @@ public class MockRecordJob extends QuartzJobBean {
     @Override
     protected void executeInternal(JobExecutionContext jobExecutionContext) {
         MonitorRecord monitorRecord = new MonitorRecord();
-        // 除菌器状态
-        monitorRecord.setDegermingStatus(1);
-        // 加热器状态
-        monitorRecord.setHeaterStatus(1);
-        // 灯光状态
-        monitorRecord.setLightStatus(1);
         // 鱼缸节点id
         List<Integer> nodeIds = nodeService.getNodeIds();
         Integer nodeId = RandomUtil.randomEle(nodeIds);
