@@ -63,6 +63,7 @@ public class ShiroConfig {
         filterUrls.put("/node/**", "anon");
         filterUrls.put("/record/**", "anon");
         filterUrls.put("/tool/**", "anon");
+        filterUrls.put("/socket/**", "anon");
         // 所有的接口都要走 jwt 拦截规则
         filterUrls.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterUrls);
