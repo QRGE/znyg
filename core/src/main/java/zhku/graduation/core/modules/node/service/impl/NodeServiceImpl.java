@@ -109,9 +109,11 @@ public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements IN
     public RealTimeRecord getNodeLatestRecord(Integer nodeId) {
         LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
                 .eq(MonitorRecord::getNodeId, nodeId)
-                .orderByAsc(MonitorRecord::getRecordTime)
+                .orderByDesc(MonitorRecord::getRecordTime)
                 .last("limit 5");
         List<MonitorRecord> recordList = monitorRecordService.list(wrapper);
+        // 按时间正序排序
+        recordList.sort(Comparator.comparing(MonitorRecord::getRecordTime));
         RealTimeRecord record = new RealTimeRecord();
         if (CollectionUtil.isNotEmpty(recordList)) {
             int size = recordList.size();
