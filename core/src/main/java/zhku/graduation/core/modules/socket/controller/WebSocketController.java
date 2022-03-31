@@ -1,14 +1,15 @@
 package zhku.graduation.core.modules.socket.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.socket.WebSocket;
+import zhku.graduation.core.modules.socket.entity.SocketMsg;
+
+import javax.validation.Valid;
 
 /**
+ * 用于发送socket消息的接口
  * @author qr
  * @date 2022/2/14 12:01
  */
@@ -19,17 +20,16 @@ public class WebSocketController {
     @Autowired
     private WebSocket webSocket;
 
-    @GetMapping("/sendAll")
-    public Result<?> sendAll() {
-        String text = "你们好哇!";
-        webSocket.sendAllMessage(text);
-        return Result.OK(text);
+    @PostMapping("/sendAll")
+    public Result<?> sendAll(@Valid @RequestBody SocketMsg msg) {
+        webSocket.sendAllMessage(msg.getMsg());
+        return Result.OK(msg);
     }
 
     @GetMapping("/sendOne/{username}")
-    public Result<?> sendOneWebSocket(@PathVariable("username") String username) {
-        String text = String.format("你好哇! %s", username);
-        webSocket.sendOneMessage(username,text);
-        return Result.OK(text);
+    public Result<?> sendOneWebSocket(@PathVariable("username") String username,
+                                      @Valid @RequestBody SocketMsg msg) {
+        webSocket.sendOneMessage(username,msg.getMsg());
+        return Result.OK(msg.getMsg());
     }
 }
