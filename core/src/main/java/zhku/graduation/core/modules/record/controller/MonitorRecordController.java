@@ -63,9 +63,8 @@ public class MonitorRecordController extends BaseController {
         Integer orderType = request.getOrderType();
         Integer pageStart = request.getPageStart();
         Integer pageSize = request.getPageSize();
-        Page<MonitorRecordListInfo> result = monitorRecordService.pageMonitorRecords(nodeId, startTime, endTime,
-                orderType, pageStart, pageSize);
-        log.info("分页参数：page: {}，pageSize: {}", request.getPage(), request.getPageSize());
+        Page<MonitorRecordListInfo> result = monitorRecordService.pageMonitorRecords(nodeId, startTime, endTime, orderType, pageStart, pageSize);
+        log.info("分页参数：{}", request);
         return Result.OK(result);
     }
 

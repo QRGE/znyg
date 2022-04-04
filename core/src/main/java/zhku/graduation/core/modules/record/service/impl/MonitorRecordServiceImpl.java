@@ -1,6 +1,8 @@
 package zhku.graduation.core.modules.record.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.date.DateField;
+import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -64,7 +66,8 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
             queryWrapper.ge(MonitorRecord::getRecordTime, startTime);
         }
         if (endTime != null) {
-            queryWrapper.le(MonitorRecord::getRecordTime, endTime);
+            // endTime 加一天, 把今天的记录加进去
+            queryWrapper.le(MonitorRecord::getRecordTime, DateUtil.offset(endTime, DateField.DAY_OF_MONTH, 1));
         }
         long count = count(queryWrapper);
         page.setCount(count);
@@ -75,16 +78,12 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
             queryWrapper.orderByAsc(MonitorRecord::getRecordTime);
         }
         List<MonitorRecord> list = list(queryWrapper);
+        // 设置返回对象
         Map<Integer, String> nodeIdToName = nodeService.getIdToName();
         if (CollectionUtil.isNotEmpty(list)) {
-            List<MonitorRecordListInfo> resultList = list.stream().map(
-                po -> {
-                    MonitorRecordListInfo info = new MonitorRecordListInfo(po);
-                    info.setNodeName(nodeIdToName.get(po.getNodeId()));
-                    return info;
-                }
-            )
-            .collect(Collectors.toList());
+            List<MonitorRecordListInfo> resultList = list.stream()
+                .map(po -> new MonitorRecordListInfo(po, nodeIdToName.get(po.getNodeId())))
+                .collect(Collectors.toList());
             page.setRecords(resultList);
         }
         Long totalPage = count % pageSize == 0 ? count / pageSize : count / pageSize + 1;

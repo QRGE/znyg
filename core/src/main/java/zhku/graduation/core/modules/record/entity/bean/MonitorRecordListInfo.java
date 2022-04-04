@@ -57,9 +57,10 @@ public class MonitorRecordListInfo {
     private String recordTime;
 
 
-    public MonitorRecordListInfo (MonitorRecord po) {
+    public MonitorRecordListInfo (MonitorRecord po, String nodeName) {
         id = po.getId();
         temperature = po.getTemperature();
+        this.nodeName = nodeName;
         nodeId = po.getNodeId();
         heaterAutoStatus = Constant.Status.valueOf(po.getHeaterAutoStatus()).getName();
         heaterStatus = Constant.Status.valueOf(po.getHeaterStatus()).getName();
