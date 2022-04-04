@@ -7,6 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.oas.annotations.EnableOpenApi;
 
 import java.net.InetAddress;
@@ -19,6 +21,8 @@ import java.util.Optional;
 @EnableOpenApi
 @SpringBootApplication
 @ServletComponentScan
+@EnableScheduling // 定时任务
+@EnableTransactionManagement // 事物管理
 @Slf4j
 public class ZnygApp {
 
