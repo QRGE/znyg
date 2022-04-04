@@ -15,7 +15,22 @@ public interface Constant {
 
 	@AllArgsConstructor
 	@Getter
-	public enum OrderType {
+	enum Sex {
+	    MAN(1, "男"),
+		WOMAN(2, "女")
+	    ;
+
+	    int type;
+	    String name;
+
+	    public static Sex valueOf(Integer type) {
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(MAN);
+	    }
+	}
+
+	@AllArgsConstructor
+	@Getter
+	enum OrderType {
 
 	    ASC(1),
 		DESC(2);
@@ -24,6 +39,67 @@ public interface Constant {
 
 	    public static OrderType valueOf(Integer type) {
 	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(ASC);
+	    }
+	}
+
+	@AllArgsConstructor
+	@Getter
+	enum CommandStatus {
+	    NOT_START(0, "未执行"),
+		HAD_SENT(1, "已发送"),
+		FINISHED(2, "已完成");
+
+	    int type;
+	    String name;
+
+	    public static CommandStatus valueOf(Integer type) {
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(NOT_START);
+	    }
+	}
+
+	@AllArgsConstructor
+	@Getter
+	enum Role {
+	    ADMIN(1, "管理员"),
+		COMMON_USER(2, "普通用户")
+	    ;
+
+	    int type;
+	    String name;
+
+	    public static Role valueOf(Integer type) {
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(COMMON_USER);
+	    }
+	}
+
+	@AllArgsConstructor
+	@Getter
+	enum TagType {
+		DANGER(0, "danger"),
+	    PRIMARY(1, "primary"),
+		SUCCESS(2, "success")
+	    ;
+
+	    int type;
+	    String name;
+
+	    public static TagType valueOf(Integer type) {
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(PRIMARY);
+	    }
+	}
+
+	@AllArgsConstructor
+	@Getter
+	enum CommandInstrumentStatus {
+	    OPEN("Y", "开启"),
+		CLOSE("N", "关闭")
+	    ;
+
+	    String type;
+	    String name;
+
+	    public static CommandInstrumentStatus select(String type) {
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(CLOSE);
 	    }
 	}
 

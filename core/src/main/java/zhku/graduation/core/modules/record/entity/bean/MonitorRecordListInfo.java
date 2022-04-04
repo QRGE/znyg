@@ -32,6 +32,9 @@ public class MonitorRecordListInfo {
     @ApiModelProperty("鱼缸节点id")
     private Integer nodeId;
 
+    @ApiModelProperty("节点名称")
+    private String nodeName;
+
     @ApiModelProperty("加热器状态, 0-关闭, 1-开启")
     private String heaterStatus;
 

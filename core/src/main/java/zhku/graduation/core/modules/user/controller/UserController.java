@@ -1,6 +1,8 @@
 package zhku.graduation.core.modules.user.controller;
 
 
+import cn.hutool.core.lang.Validator;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.annotations.Api;
@@ -9,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
-import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.*;
@@ -19,10 +20,8 @@ import zhku.graduation.core.util.RedisUtil;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
-import java.util.List;
 
-import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
-import static zhku.graduation.basic.constant.HttpStatus.ERROR;
+import static zhku.graduation.basic.constant.HttpStatus.*;
 
 /**
  * @author QR
@@ -40,6 +39,22 @@ public class UserController extends BaseController {
     private RedisUtil redisUtil;
     @Autowired
     private IUserService userService;
+
+    @ApiOperation("更新用户密码")
+    @PostMapping("updatePwd")
+    public Result<?> updatePwd(@Valid @RequestBody UpdatePwdBean request){
+        String email = request.getEmail();
+        if (!Validator.isEmail(email)
+            || !userService.isValidUser(request.getUsername())) {
+            return error(PARAM_ERROR);
+        }
+        String realRequest = (String) redisUtil.get(email);
+        if (StrUtil.isBlank(realRequest) || !realRequest.equals(request.getCaptcha())) {
+            return Result.error("验证码无效");
+        }
+        boolean result = userService.updatePwd(request.getNewPwd(), request.getUsername());
+        return result ? Result.OK("修改密码成功！") : error(ERROR);
+    }
 
     @ApiOperation("获取用户信息")
     @GetMapping("info")
@@ -65,10 +80,11 @@ public class UserController extends BaseController {
         JSONObject jsonObject = new JSONObject();
         jsonObject.set("userInfo", userDetail);
         String token = JwtUtil.sign(account, password);
-        redisUtil.set(Constant.TOKEN + "_" + account, token);
-        redisUtil.expire(Constant.TOKEN + "_" + account, JwtUtil.EXPIRE_TIME);
+        // token:token , 可以实现 token 刷新
+        redisUtil.set(token, token);
+        redisUtil.expire(token, JwtUtil.EXPIRE_TIME);
         jsonObject.set("token", token);
-        log.info("账户: {} 登陆", account);
+        log.info("账户: {} 登陆, 生成token: {}", account, token);
         return Result.OK("登陆成功", jsonObject);
     }
 
@@ -94,13 +110,6 @@ public class UserController extends BaseController {
         String password = user.getPassword();
         boolean result = userService.addUser(account, password);
         return result ? Result.OK() : error(ERROR);
-    }
-
-    @ApiOperation(value = "查询用户表列表", response = UserListInfo.class)
-    @PostMapping("list")
-    public Result<?> getUserList(@RequestBody UserListRequest request){
-        List<UserListInfo> list = userService.getUserList(request);
-        return Result.OK(list);
     }
 
     @ApiOperation(value = "分页查询用户表列表", response = UserListInfo.class)

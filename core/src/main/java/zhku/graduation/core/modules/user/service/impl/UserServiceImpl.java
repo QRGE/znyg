@@ -1,6 +1,5 @@
 package zhku.graduation.core.modules.user.service.impl;
 
-import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -8,16 +7,16 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-import zhku.graduation.core.modules.user.entity.bean.*;
+import zhku.graduation.core.modules.user.entity.bean.LoginUser;
+import zhku.graduation.core.modules.user.entity.bean.UserDetail;
+import zhku.graduation.core.modules.user.entity.bean.UserListInfo;
+import zhku.graduation.core.modules.user.entity.bean.UserPageRequest;
 import zhku.graduation.core.modules.user.entity.po.User;
 import zhku.graduation.core.modules.user.mapper.UserMapper;
 import zhku.graduation.core.modules.user.service.IUserService;
 import zhku.graduation.core.util.PasswordUtil;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 /**
@@ -43,7 +42,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if (queryUser == null) {
             return true;
         }
-        return !queryUser.getPassword().equals(SecureUtil.md5(password + queryUser.getSalt()));
+        return !queryUser.getPassword().equals(PasswordUtil.encrypt(account, password, queryUser.getSalt()));
+    }
+
+    @Override
+    public boolean isValidUser(String username) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery(User.class)
+                .eq(User::getUsername, username);
+        User user = getOne(wrapper);
+        return user != null;
     }
 
     @Override
@@ -52,17 +59,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 .eq(User::getUsername, username);
         User user = getOne(queryWrapper);
         return Optional.ofNullable(user).map(u -> new LoginUser().parseFromPO(u)).orElse(null);
-    }
-
-    @Override
-    public List<UserListInfo> getUserList(UserListRequest request) {
-        LambdaQueryWrapper<User> queryWrapper = baseQueryWrapper();
-        List<User> poList = list(queryWrapper);
-        List<UserListInfo> dtoList = new ArrayList<>(poList.size());
-        if (!poList.isEmpty()) {
-            dtoList = poList.stream().map(UserListInfo::new).collect(Collectors.toList());
-        }
-        return dtoList;
     }
 
     @Override
@@ -102,8 +98,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public boolean addUser(String account, String password) {
         String salt = PasswordUtil.getSalt();
-        password = SecureUtil.md5(password + salt);
+        password = PasswordUtil.encrypt(account, password, salt);
         return save(new User(account, password, salt));
+    }
+
+    @Override
+    public boolean updatePwd(String newPwd, String username) {
+        LambdaQueryWrapper<User> wrapper = Wrappers.lambdaQuery(User.class)
+                .eq(User::getUsername, username);
+        User user = getOne(wrapper);
+        String newPassword = PasswordUtil.encrypt(username, newPwd, user.getSalt());
+        user.setPassword(newPassword);
+        return updateById(user);
     }
 
     private LambdaQueryWrapper<User> baseQueryWrapper() {

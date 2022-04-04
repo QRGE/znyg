@@ -1,26 +1,23 @@
 package zhku.graduation.core.modules.record.controller;
 
 
-import cn.hutool.core.date.DateUtil;
-import cn.hutool.json.JSONObject;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
+import zhku.graduation.basic.vo.Page;
 import zhku.graduation.basic.vo.Result;
+import zhku.graduation.core.modules.node.service.INodeService;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
+import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.entity.request.MonitorRecordPageRequest;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 
 import java.util.Date;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 
@@ -31,10 +28,13 @@ import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 @Api(tags = "监测记录表")
 @RestController
 @RequestMapping("/record/")
+@Slf4j
 public class MonitorRecordController extends BaseController {
 
     @Autowired
     private IMonitorRecordService monitorRecordService;
+    @Autowired
+    private INodeService nodeService;
 
     @ApiOperation(value = "查询监测记录表详情", response = MonitorRecordDetail.class)
     @GetMapping("get")
@@ -45,28 +45,11 @@ public class MonitorRecordController extends BaseController {
     }
 
     @ApiOperation("获取某个鱼缸节点的最新的5条数据")
-    @GetMapping("node/{nodeId}")
-    public Result<?> get(@PathVariable Integer nodeId){
-        LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
-                .eq(MonitorRecord::getNodeId, nodeId)
-                .orderByDesc(MonitorRecord::getRecordTime)
-                .last("limit 5");
-        List<MonitorRecord> recordList = monitorRecordService.list(wrapper);
-        JSONObject result = new JSONObject();
-        result.set("temperatures", recordList.stream()
-                .map(MonitorRecord::getTemperature)
-                .collect(Collectors.toList()));
-        result.set("dates", recordList.stream()
-                .map(po -> {
-                    Date recordTime = po.getRecordTime();
-                    return DateUtil.format(recordTime, "HH:mm:ss");
-                })
-                .collect(Collectors.toList()));
-        int first = 0;
-        result.set("heater", recordList.get(first).getHeaterStatus());
-        result.set("light", recordList.get(first).getLightStatus());
-        result.set("degerming", recordList.get(first).getDegermingStatus());
-        return Result.OK(result);
+    @GetMapping("node")
+    public Result<?> getNodeLatestRecord(@RequestParam Integer nodeId){
+        RealTimeRecord record = nodeService.getNodeLatestRecord(nodeId);
+//        log.info("实时数据: nodeId={}, temperature: {}", nodeId, record.getTemperature());
+        return Result.OK(record);
     }
 
     @ApiOperation(value = "分页查询监测记录表列表", response = MonitorRecordListInfo.class)
@@ -75,8 +58,16 @@ public class MonitorRecordController extends BaseController {
         handlePageRequest(request);
         // 默认是正序, 除非传入倒序传入其他乱七八糟的都是正序
         request.handleOrderType();
-        IPage<MonitorRecordListInfo> page = monitorRecordService.pageMonitorRecord(request);
-        return Result.OK(page);
+        Date startTime = request.getStartTime();
+        Date endTime = request.getEndTime();
+        Integer nodeId = request.getNodeId();
+        Integer orderType = request.getOrderType();
+        Integer pageStart = request.getPageStart();
+        Integer pageSize = request.getPageSize();
+        Page<MonitorRecordListInfo> result = monitorRecordService.pageMonitorRecords(nodeId, startTime, endTime,
+                orderType, pageStart, pageSize);
+        log.info("分页参数：page: {}，pageSize: {}", request.getPage(), request.getPageSize());
+        return Result.OK(result);
     }
 
     @ApiOperation("新增或修改监测记录表")
@@ -87,9 +78,9 @@ public class MonitorRecordController extends BaseController {
     }
 
     @ApiOperation("删除监测记录表")
-    @DeleteMapping("remove")
-    public Result<?> removeMonitorRecord(@RequestParam Integer id){
-        boolean result = monitorRecordService.removeMonitorRecord(id);
+    @DeleteMapping("remove/{recordId}")
+    public Result<?> removeMonitorRecord(@PathVariable Integer recordId){
+        boolean result = monitorRecordService.removeMonitorRecord(recordId);
         return result ? Result.OK() : error(ERROR);
     }
 }

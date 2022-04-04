@@ -64,6 +64,7 @@ public class BaseController {
         Integer pageSize = request.getPageSize();
         page = getPage(page, Constant.DEFAULT_PAGE);
         pageSize = getPageSize(pageSize, Constant.DEFAULT_PAGE_SIZE);
+        request.setPageStart((page-1) * pageSize);
         request.setPage(page);
         request.setPageSize(pageSize);
     }

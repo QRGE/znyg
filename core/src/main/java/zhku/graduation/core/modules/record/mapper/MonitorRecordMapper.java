@@ -1,8 +1,11 @@
 package zhku.graduation.core.modules.record.mapper;
 
-import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -15,4 +18,5 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface MonitorRecordMapper extends BaseMapper<MonitorRecord> {
 
+    int countMonitorRecords(@Param("nodeId") Integer nodeId, @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 }
