@@ -41,8 +41,10 @@ public class TemperatureLimitServiceImpl extends ServiceImpl<TemperatureLimitMap
     }
 
     @Override
-    public TemperatureLimitDetail getTemperatureLimit(Integer dataId) {
-        TemperatureLimit temperatureLimit = getById(dataId);
+    public TemperatureLimitDetail getTemperatureLimit(Integer nodeId) {
+        LambdaUpdateWrapper<TemperatureLimit> wrapper = Wrappers.lambdaUpdate(TemperatureLimit.class)
+                .eq(TemperatureLimit::getNodeId, nodeId);
+        TemperatureLimit temperatureLimit = getOne(wrapper);
         return Optional.ofNullable(temperatureLimit)
                         .map(po -> new TemperatureLimitDetail().parseFromPo(po))
                         .orElse(null);

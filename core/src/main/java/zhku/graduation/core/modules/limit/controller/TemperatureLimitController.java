@@ -30,9 +30,12 @@ public class TemperatureLimitController extends BaseController {
     private ITemperatureLimitService temperatureLimitService;
 
     @ApiOperation(value = "查询鱼缸温度限制详情", response = TemperatureLimitDetail.class)
-    @GetMapping("get")
-    public Result<?> getTemperatureLimit(@RequestParam Integer id){
-        TemperatureLimitDetail info = temperatureLimitService.getTemperatureLimit(id);
+    @GetMapping("get/{nodeId}")
+    public Result<?> getTemperatureLimit(@PathVariable(value = "nodeId") Integer nodeId){
+        if (nodeId == null) {
+            return error(PARAM_MISSING);
+        }
+        TemperatureLimitDetail info = temperatureLimitService.getTemperatureLimit(nodeId);
         return Result.OK(info);
     }
 

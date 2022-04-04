@@ -20,7 +20,7 @@ public interface ITemperatureLimitService extends IService<TemperatureLimit> {
 
     List<TemperatureLimitListInfo> getTemperatureLimitList(TemperatureLimitListRequest request);
 
-    TemperatureLimitDetail getTemperatureLimit(Integer dataId);
+    TemperatureLimitDetail getTemperatureLimit(Integer nodeId);
 
     boolean saveOrUpdateTemperatureLimit(TemperatureLimitDetail dto);
 
