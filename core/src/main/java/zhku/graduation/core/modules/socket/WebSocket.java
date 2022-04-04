@@ -18,7 +18,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @date 2022/2/14 11:56
  */
 @Component
-@ServerEndpoint("/socket/{username}")
+@ServerEndpoint("/ws/{username}")
 @Slf4j
 public class WebSocket {
 
