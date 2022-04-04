@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitDetail;
 import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitListInfo;
 import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitListRequest;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
  * @author QR
  * @since 2022-04-04
  */
+@Transactional
 @Service
 public class TemperatureLimitServiceImpl extends ServiceImpl<TemperatureLimitMapper, TemperatureLimit> implements ITemperatureLimitService {
 

@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
 import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
@@ -32,6 +33,7 @@ import java.util.stream.Collectors;
  * @author QR
  * @since 2022-01-29
  */
+@Transactional
 @Service
 public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements INodeService {
 

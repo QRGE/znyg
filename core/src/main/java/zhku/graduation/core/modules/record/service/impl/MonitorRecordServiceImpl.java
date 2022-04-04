@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.vo.Page;
 import zhku.graduation.core.modules.node.service.INodeService;
@@ -33,6 +34,7 @@ import java.util.stream.Collectors;
  * @author QR
  * @since 2022-02-14
  */
+@Transactional
 @Slf4j
 @Service
 public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, MonitorRecord> implements IMonitorRecordService {

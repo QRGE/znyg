@@ -3,6 +3,7 @@ package zhku.graduation.core.modules.command.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebDetail;
 import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
@@ -22,6 +23,7 @@ import java.util.TimerTask;
  * @author QR
  * @since 2022-03-01
  */
+@Transactional
 @Service
 public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMapper, CommandRecordWeb> implements ICommandRecordWebService {
 

@@ -5,6 +5,24 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/znyg?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
 #    url: jdbc:mysql://rm-uf689n11q0q059b678o.mysql.rds.aliyuncs.com:3306/znyg?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    druid:
+      initial-size: 10
+      max-active: 10
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      validation-query: SELECT 1
+      test-while-idle: true
+      # 配置监控服务器
+      stat-view-servlet:
+        #是否允许开启监控
+        enabled: true
+        #登录用户名
+        login-username: qr
+        #登录密码
+        login-password: QRWUDI666
+        #是否允许重置监控数据
+        reset-enable: false
+        #druid访问路径
+        url-pattern: /druid/*
   application:
     name: znyg
   quartz:

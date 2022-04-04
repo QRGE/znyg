@@ -63,6 +63,8 @@ public class ShiroConfig {
         filterUrls.put("/node/**", "anon");
         filterUrls.put("/quartz/**","anon");
         filterUrls.put("/ws/**", "anon");
+        // 数据库链接池
+        filterUrls.put("/druid/**", "anon");
         filterUrls.put("/record/**", "anon");
         filterUrls.put("/user/logout", "logout");
         // 所有的接口都要走 jwt 拦截规则
