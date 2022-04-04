@@ -26,14 +26,14 @@ public class TemperatureLimitDetail {
     private Double temperatureUpperLimit;
 
     @ApiModelProperty("温度下限")
-    private Double temperatureLower;
+    private Double temperatureLowerLimit;
 
 
 
     public TemperatureLimitDetail parseFromPo(TemperatureLimit po) {
         nodeId = po.getNodeId();
         temperatureUpperLimit = po.getTemperatureUpperLimit();
-        temperatureLower = po.getTemperatureLower();
+        temperatureLowerLimit = po.getTemperatureLowerLimit();
         return this;
     }
 }

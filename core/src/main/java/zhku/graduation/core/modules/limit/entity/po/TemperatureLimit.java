@@ -39,8 +39,8 @@ public class TemperatureLimit {
     /**
      * 温度下限
      */
-    @TableField("temperature_lower")
-    private Double temperatureLower;
+    @TableField("temperature_lower_limit")
+    private Double temperatureLowerLimit;
 
     @TableField("create_time")
     private Date createTime;
@@ -58,7 +58,7 @@ public class TemperatureLimit {
     public TemperatureLimit parseFromDTO(TemperatureLimitDetail dto) {
         nodeId = dto.getNodeId();
         temperatureUpperLimit = dto.getTemperatureUpperLimit();
-        temperatureLower = dto.getTemperatureLower();
+        temperatureLowerLimit = dto.getTemperatureLowerLimit();
         return this;
     }
 

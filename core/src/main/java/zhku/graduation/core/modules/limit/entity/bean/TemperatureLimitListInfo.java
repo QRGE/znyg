@@ -5,7 +5,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.limit.entity.po.TemperatureLimit;
-import java.util.Date;
 
 /**
  * <p>
@@ -37,6 +36,6 @@ public class TemperatureLimitListInfo {
         id = po.getId();
         nodeId = po.getNodeId();
         temperatureUpperLimit = po.getTemperatureUpperLimit();
-        temperatureLower = po.getTemperatureLower();
+        temperatureLower = po.getTemperatureLowerLimit();
     }
 }
