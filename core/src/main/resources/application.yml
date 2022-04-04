@@ -28,7 +28,7 @@ spring:
             threadsInheritContextClassLoaderOfInitializingThread: true
 
 server:
-  port: 80
+  port: 10000
   servlet:
     context-path: /znyg
 
