@@ -30,19 +30,6 @@ public class JobInit implements ApplicationRunner {
                 .startNow()
                 .build();
         scheduler.scheduleJob(jobMock, trigger1);
-//        // 推送最新监控记录任务
-//        JobDetail jobSendRecord = JobBuilder.newJob(SendRecordJob.class)
-//                .withIdentity(Constant.JOB_GET_LATEST_RECORD)
-//                .storeDurably()
-//                .build();
-//        CronScheduleBuilder cron2 = CronScheduleBuilder.cronSchedule("0/2 * * * * ? *");
-//        CronTrigger trigger2 = TriggerBuilder.newTrigger()
-//                .forJob(jobSendRecord)
-//                .withIdentity(Constant.TRIGGER_2)
-//                .withSchedule(cron2)
-//                .startNow()
-//                .build();
-//        scheduler.scheduleJob(jobSendRecord, trigger2);
     }
 }
 
