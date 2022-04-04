@@ -40,6 +40,24 @@ public class MonitorRecord {
     private Double temperature;
 
     /**
+     * 加热器自动控制状态
+     */
+    @TableField("heater_auto_status")
+    private Integer heaterAutoStatus;
+
+    /**
+     * 温度上限
+     */
+    @TableField("temperature_upper_limit")
+    private Double temperatureUpperLimit;
+
+    /**
+     * 温度下限
+     */
+    @TableField("temperature_lower_limit")
+    private Double temperatureLowerLimit;
+
+    /**
      * 加热器状态, 0-关闭, 1-开启
      */
     @TableField("heater_status")
@@ -76,7 +94,7 @@ public class MonitorRecord {
         return this;
     }
 
-    public MonitorRecord parseFromDto(MonitorRecordDetail dto) {
+    public MonitorRecord parseFromDTO(MonitorRecordDetail dto) {
         id = dto.getId();
         nodeId = dto.getNodeId();
         temperature = dto.getTemperature();

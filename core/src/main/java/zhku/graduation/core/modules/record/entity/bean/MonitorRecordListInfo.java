@@ -35,6 +35,9 @@ public class MonitorRecordListInfo {
     @ApiModelProperty("节点名称")
     private String nodeName;
 
+    @ApiModelProperty("加热器自动控制状态, 0-关闭, 1-开启")
+    private String heaterAutoStatus;
+
     @ApiModelProperty("加热器状态, 0-关闭, 1-开启")
     private String heaterStatus;
 
@@ -44,6 +47,12 @@ public class MonitorRecordListInfo {
     @ApiModelProperty("除菌器状态, 0-关闭, 1-开启")
     private String degermingStatus;
 
+    @ApiModelProperty("温度上限")
+    private Double upperLimit;
+
+    @ApiModelProperty("温度下限")
+    private Double lowerLimit;
+
     @ApiModelProperty("记录时间")
     private String recordTime;
 
@@ -52,9 +61,12 @@ public class MonitorRecordListInfo {
         id = po.getId();
         temperature = po.getTemperature();
         nodeId = po.getNodeId();
+        heaterAutoStatus = Constant.Status.valueOf(po.getHeaterAutoStatus()).getName();
         heaterStatus = Constant.Status.valueOf(po.getHeaterStatus()).getName();
         lightStatus = Constant.Status.valueOf(po.getLightStatus()).getName();
         degermingStatus = Constant.Status.valueOf(po.getDegermingStatus()).getName();
+        upperLimit = po.getTemperatureUpperLimit();
+        lowerLimit = po.getTemperatureUpperLimit();
         recordTime = DateUtil.format(po.getRecordTime(), Constant.dateTimeFormat);
     }
 }
