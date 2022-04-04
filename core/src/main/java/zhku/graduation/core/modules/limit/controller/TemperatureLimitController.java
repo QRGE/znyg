@@ -23,7 +23,7 @@ import static zhku.graduation.basic.constant.HttpStatus.PARAM_MISSING;
  */
 @Api(tags = "鱼缸温度限制")
 @RestController
-@RequestMapping("/limit/temperature-limit")
+@RequestMapping("/limit/")
 public class TemperatureLimitController extends BaseController {
 
     @Autowired
