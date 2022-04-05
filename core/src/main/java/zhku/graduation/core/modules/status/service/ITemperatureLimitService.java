@@ -1,10 +1,10 @@
-package zhku.graduation.core.modules.limit.service;
+package zhku.graduation.core.modules.status.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitDetail;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitListInfo;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitListRequest;
-import zhku.graduation.core.modules.limit.entity.po.TemperatureLimit;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitDetail;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListInfo;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListRequest;
+import zhku.graduation.core.modules.status.entity.po.NodeStatus;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ import java.util.List;
  * @author QR
  * @since 2022-04-04
  */
-public interface ITemperatureLimitService extends IService<TemperatureLimit> {
+public interface ITemperatureLimitService extends IService<NodeStatus> {
 
     List<TemperatureLimitListInfo> getTemperatureLimitList(TemperatureLimitListRequest request);
 

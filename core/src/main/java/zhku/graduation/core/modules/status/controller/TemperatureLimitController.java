@@ -1,4 +1,4 @@
-package zhku.graduation.core.modules.limit.controller;
+package zhku.graduation.core.modules.status.controller;
 
 
 import io.swagger.annotations.Api;
@@ -7,10 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitDetail;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitListInfo;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitListRequest;
-import zhku.graduation.core.modules.limit.service.ITemperatureLimitService;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitDetail;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListInfo;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListRequest;
+import zhku.graduation.core.modules.status.service.ITemperatureLimitService;
 
 import java.util.List;
 

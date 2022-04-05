@@ -6,11 +6,11 @@ import org.quartz.JobExecutionContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 import org.springframework.stereotype.Component;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitDetail;
-import zhku.graduation.core.modules.limit.service.ITemperatureLimitService;
 import zhku.graduation.core.modules.node.service.INodeService;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitDetail;
+import zhku.graduation.core.modules.status.service.ITemperatureLimitService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,4 +1,4 @@
-package zhku.graduation.core.modules.limit.entity.bean;
+package zhku.graduation.core.modules.status.entity.bean;
 
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;

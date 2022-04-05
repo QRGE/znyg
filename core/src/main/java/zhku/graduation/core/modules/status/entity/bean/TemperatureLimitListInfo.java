@@ -1,10 +1,10 @@
-package zhku.graduation.core.modules.limit.entity.bean;
+package zhku.graduation.core.modules.status.entity.bean;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
-import zhku.graduation.core.modules.limit.entity.po.TemperatureLimit;
+import zhku.graduation.core.modules.status.entity.po.NodeStatus;
 
 /**
  * <p>
@@ -32,7 +32,7 @@ public class TemperatureLimitListInfo {
 
 
 
-    public TemperatureLimitListInfo (TemperatureLimit po) {
+    public TemperatureLimitListInfo (NodeStatus po) {
         id = po.getId();
         nodeId = po.getNodeId();
         temperatureUpperLimit = po.getTemperatureUpperLimit();

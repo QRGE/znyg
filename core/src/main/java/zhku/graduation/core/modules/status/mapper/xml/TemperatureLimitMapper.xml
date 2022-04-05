@@ -3,7 +3,7 @@
 <mapper namespace="zhku.graduation.core.modules.limit.mapper.TemperatureLimitMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="zhku.graduation.core.modules.limit.entity.po.TemperatureLimit">
+    <resultMap id="BaseResultMap" type="zhku.graduation.core.modules.status.entity.po.NodeStatus">
         <id column="id" property="id" />
         <result column="node_id" property="nodeId" />
         <result column="temperature_upper_limit" property="temperatureUpperLimit" />

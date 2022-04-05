@@ -1,9 +1,9 @@
-package zhku.graduation.core.modules.limit.entity.po;
+package zhku.graduation.core.modules.status.entity.po;
 
 import com.baomidou.mybatisplus.annotation.*;
 import lombok.Getter;
 import lombok.Setter;
-import zhku.graduation.core.modules.limit.entity.bean.TemperatureLimitDetail;
+import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitDetail;
 
 import java.util.Date;
 
@@ -18,8 +18,8 @@ import java.util.Date;
  */
 @Getter
 @Setter
-@TableName("znyg_temperature_limit")
-public class TemperatureLimit {
+@TableName("znyg_node_status")
+public class NodeStatus {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
@@ -42,6 +42,24 @@ public class TemperatureLimit {
     @TableField("temperature_lower_limit")
     private Double temperatureLowerLimit;
 
+    /**
+     * 加热器状态
+     */
+    @TableField("heater_status")
+    private Integer heaterStatus;
+
+    /**
+     * 灯光状态
+     */
+    @TableField("light_status")
+    private Integer lightStatus;
+
+    /**
+     * 除菌器状态
+     */
+    @TableField("degerming_status")
+    private Integer degermingStatus;
+
     @TableField("create_time")
     private Date createTime;
 
@@ -49,13 +67,13 @@ public class TemperatureLimit {
     @TableLogic
     private Integer isDel;
 
-    public TemperatureLimit init() {
+    public NodeStatus init() {
         createTime = new Date();
         isDel = 0;
         return this;
     }
 
-    public TemperatureLimit parseFromDTO(TemperatureLimitDetail dto) {
+    public NodeStatus parseFromDTO(TemperatureLimitDetail dto) {
         nodeId = dto.getNodeId();
         temperatureUpperLimit = dto.getTemperatureUpperLimit();
         temperatureLowerLimit = dto.getTemperatureLowerLimit();

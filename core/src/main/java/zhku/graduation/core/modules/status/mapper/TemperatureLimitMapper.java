@@ -1,8 +1,8 @@
-package zhku.graduation.core.modules.limit.mapper;
+package zhku.graduation.core.modules.status.mapper;
 
-import zhku.graduation.core.modules.limit.entity.po.TemperatureLimit;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import zhku.graduation.core.modules.status.entity.po.NodeStatus;
 
 /**
  * <p>
@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Mapper;
  * @since 2022-04-04
  */
 @Mapper
-public interface TemperatureLimitMapper extends BaseMapper<TemperatureLimit> {
+public interface TemperatureLimitMapper extends BaseMapper<NodeStatus> {
 
 }
