@@ -53,7 +53,7 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
                 // 更新执行命令的状态
                 CommandRecordWeb web = getById(newId);
                 if (!web.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
-                    web.setCommandStatus(Constant.CommandStatus.NOT_EXECUTE.getType());
+                    web.setCommandStatus(Constant.CommandStatus.ERROR.getType());
                     updateById(web);
                 }
             }

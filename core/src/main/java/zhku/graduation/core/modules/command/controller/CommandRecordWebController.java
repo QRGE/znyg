@@ -10,6 +10,7 @@ import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebDetail;
+import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
 import zhku.graduation.core.modules.command.entity.request.CommandBody;
 import zhku.graduation.core.modules.command.service.ICommandRecordWebService;
 
@@ -27,9 +28,16 @@ public class CommandRecordWebController extends BaseController {
 
     @ApiOperation(value = "查询Web 端控制命令记录详情", response = CommandRecordWebDetail.class)
     @GetMapping("get")
-    public Result<?> getCommandRecordWeb(){
+    public Result<?> getLatestCommandRecordWeb(){
         CommandRecordWebDetail info = commandRecordWebService.getCommandRecordWeb();
         return Result.OK(info);
+    }
+
+    @ApiOperation(value = "查询Web 端控制命令记录详情", response = CommandRecordWebDetail.class)
+    @GetMapping("get/{id}")
+    public Result<?> getCommandRecordWeb(@PathVariable Integer id){
+        CommandRecordWeb record = commandRecordWebService.getById(id);
+        return record == null ? error(HttpStatus.ERROR) : Result.OK(record.getCommandStatus());
     }
 
     @ApiOperation("新增或修改Web 端控制命令记录")
