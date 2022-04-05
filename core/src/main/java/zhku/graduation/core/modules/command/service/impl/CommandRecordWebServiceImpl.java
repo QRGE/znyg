@@ -38,7 +38,7 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
     }
 
     @Override
-    public boolean saveOrUpdateCommandRecordWeb(String command, Constant.CommandObj obj) {
+    public Integer saveOrUpdateCommandRecordWeb(String command, Constant.CommandObj obj) {
         CommandRecordWeb newCommand = new CommandRecordWeb();
         newCommand.setCommandText(command);
         newCommand.setCommandStatus(Constant.CommandStatus.HAD_SENT.getType());
@@ -57,7 +57,7 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
                 }
             }
         }, 5*1000);
-        return result;
+        return newCommand.getId();
     }
 
     @Override

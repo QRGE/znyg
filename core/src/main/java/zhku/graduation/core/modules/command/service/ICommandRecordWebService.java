@@ -19,8 +19,9 @@ public interface ICommandRecordWebService extends IService<CommandRecordWeb> {
 
     /**
      * 新增或修改控制命令
+     * @return
      */
-    boolean saveOrUpdateCommandRecordWeb(String command, Constant.CommandObj obj);
+    Integer saveOrUpdateCommandRecordWeb(String command, Constant.CommandObj obj);
 
     boolean removeCommandRecordWeb(Integer dataId);
 

@@ -60,16 +60,16 @@ public class TemperatureLimitServiceImpl extends ServiceImpl<TemperatureLimitMap
     }
 
     @Override
-    public boolean saveOrUpdateTemperatureLimit(TemperatureLimitDetail dto) {
+    public Integer saveOrUpdateTemperatureLimit(TemperatureLimitDetail dto) {
         TemperatureLimit temperatureLimit = new TemperatureLimit();
         LambdaUpdateWrapper<TemperatureLimit> updateWrapper = Wrappers.lambdaUpdate(TemperatureLimit.class)
                 .eq(TemperatureLimit::getNodeId, dto.getNodeId());
         temperatureLimit = temperatureLimit.parseFromDTO(dto);
+        saveOrUpdate(temperatureLimit, updateWrapper);
         // 记录控制命令
         String command = CommandUtil.createTemperatureLimitCommand(dto.getNodeId(), dto.getTemperatureUpperLimit(), dto.getTemperatureLowerLimit());
         // 保存控制命令
-        commandRecordWebService.saveOrUpdateCommandRecordWeb(command, Constant.CommandObj.J);
-        return saveOrUpdate(temperatureLimit, updateWrapper);
+        return commandRecordWebService.saveOrUpdateCommandRecordWeb(command, Constant.CommandObj.J);
     }
 
     @Override

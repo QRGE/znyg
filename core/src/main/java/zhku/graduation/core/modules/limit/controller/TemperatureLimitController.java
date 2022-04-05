@@ -52,8 +52,8 @@ public class TemperatureLimitController extends BaseController {
         if (dto.getNodeId() == null) {
             return error(PARAM_MISSING);
         }
-        boolean result = temperatureLimitService.saveOrUpdateTemperatureLimit(dto);
-        return result ? Result.OK() : error(ERROR);
+        Integer id = temperatureLimitService.saveOrUpdateTemperatureLimit(dto);
+        return Result.OK(id);
     }
 
     @ApiOperation("删除鱼缸温度限制")
