@@ -43,21 +43,22 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
         newCommand.setCommandText(command);
         newCommand.setCommandStatus(Constant.CommandStatus.HAD_SENT.getType());
         newCommand.setCommandObj(obj.name());
-        boolean result = save(newCommand);
+        save(newCommand);
+        final Integer newId = newCommand.getId();
         // 5秒后查询状态
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 // 更新执行命令的状态
-                CommandRecordWeb web = getById(newCommand.getId());
+                CommandRecordWeb web = getById(newId);
                 if (!web.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
                     web.setCommandStatus(Constant.CommandStatus.NOT_EXECUTE.getType());
                     updateById(web);
                 }
             }
         }, 5*1000);
-        return newCommand.getId();
+        return newId;
     }
 
     @Override
