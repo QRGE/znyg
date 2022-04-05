@@ -67,7 +67,7 @@ public class MonitorRecordListInfo {
         lightStatus = Constant.Status.valueOf(po.getLightStatus()).getName();
         degermingStatus = Constant.Status.valueOf(po.getDegermingStatus()).getName();
         upperLimit = po.getTemperatureUpperLimit();
-        lowerLimit = po.getTemperatureUpperLimit();
+        lowerLimit = po.getTemperatureLowerLimit();
         recordTime = DateUtil.format(po.getRecordTime(), Constant.dateTimeFormat);
     }
 }
