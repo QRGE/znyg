@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitDetail;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListInfo;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListRequest;
+import zhku.graduation.core.modules.status.entity.bean.request.CommandRequest;
 import zhku.graduation.core.modules.status.entity.po.NodeStatus;
 
 import java.util.List;
@@ -25,4 +26,6 @@ public interface ITemperatureLimitService extends IService<NodeStatus> {
     Integer saveOrUpdateTemperatureLimit(TemperatureLimitDetail dto);
 
     boolean removeTemperatureLimit(Integer dataId);
+
+    Integer saveCommand(CommandRequest request);
 }

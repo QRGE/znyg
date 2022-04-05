@@ -12,6 +12,7 @@ import zhku.graduation.core.modules.command.service.ICommandRecordWebService;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitDetail;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListInfo;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListRequest;
+import zhku.graduation.core.modules.status.entity.bean.request.CommandRequest;
 import zhku.graduation.core.modules.status.entity.po.NodeStatus;
 import zhku.graduation.core.modules.status.mapper.TemperatureLimitMapper;
 import zhku.graduation.core.modules.status.service.ITemperatureLimitService;
@@ -75,6 +76,32 @@ public class TemperatureLimitServiceImpl extends ServiceImpl<TemperatureLimitMap
     @Override
     public boolean removeTemperatureLimit(Integer dataId) {
         return removeById(dataId);
+    }
+
+    @Override
+    public Integer saveCommand(CommandRequest request) {
+        Integer nodeId = request.getNodeId();
+        String commandObj = request.getCommandObj();
+        LambdaQueryWrapper<NodeStatus> wrapper = baseQueryWrapper()
+                .eq(NodeStatus::getNodeId, nodeId);
+        NodeStatus nodeStatus = getOne(wrapper);
+        Constant.CommandObj obj = Constant.CommandObj.valueOf(commandObj);
+        Integer status = request.getStatus();
+        switch (obj) {
+            case J:
+                nodeStatus.setHeaterStatus(status);
+                updateById(nodeStatus);
+                break;
+            case C:
+                nodeStatus.setDegermingStatus(status);
+                updateById(nodeStatus);
+                break;
+            case D:
+                nodeStatus.setLightStatus(status);
+                updateById(nodeStatus);
+                break;
+        }
+        return commandRecordWebService.saveOrUpdateCommandRecordWeb(CommandUtil.createHeaterCommand(nodeId, status, commandObj), obj);
     }
 
     private LambdaQueryWrapper<NodeStatus> baseQueryWrapper() {

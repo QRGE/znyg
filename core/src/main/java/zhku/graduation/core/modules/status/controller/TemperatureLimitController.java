@@ -10,6 +10,7 @@ import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitDetail;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListInfo;
 import zhku.graduation.core.modules.status.entity.bean.TemperatureLimitListRequest;
+import zhku.graduation.core.modules.status.entity.bean.request.CommandRequest;
 import zhku.graduation.core.modules.status.service.ITemperatureLimitService;
 
 import java.util.List;
@@ -37,6 +38,12 @@ public class TemperatureLimitController extends BaseController {
         }
         TemperatureLimitDetail info = temperatureLimitService.getTemperatureLimit(nodeId);
         return Result.OK(info);
+    }
+
+    @PostMapping("command")
+    public Result<?> saveOrUpdate(@RequestBody CommandRequest request){
+        Integer id = temperatureLimitService.saveCommand(request);
+        return Result.OK(id);
     }
 
     @ApiOperation(value = "查询鱼缸温度限制列表", response = TemperatureLimitListInfo.class)
