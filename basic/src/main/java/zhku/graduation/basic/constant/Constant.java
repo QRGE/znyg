@@ -53,15 +53,16 @@ public interface Constant {
 	@AllArgsConstructor
 	@Getter
 	enum CommandStatus {
-	    NOT_START(0, "未执行"),
+	    NOT_EXECUTE(0, "未执行"),
 		HAD_SENT(1, "已发送"),
-		FINISHED(2, "已完成");
+		FINISHED(2, "已完成"),
+		ERROR(3, "执行失败");
 
 	    int type;
 	    String name;
 
 	    public static CommandStatus valueOf(Integer type) {
-	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(NOT_START);
+	        return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(),type)).findAny().orElse(NOT_EXECUTE);
 	    }
 	}
 
