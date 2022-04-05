@@ -38,8 +38,7 @@ public class CommandRecordWebController extends BaseController {
         if (StrUtil.isBlank(body.getCommand())) {
             return error(HttpStatus.PARAM_MISSING);
         }
-        boolean result = commandRecordWebService.saveOrUpdateCommandRecordWeb(body.getCommand());
-        return result ? Result.OK() : error(HttpStatus.ERROR);
+        return Result.OK();
     }
 
     @ApiOperation("删除Web 端控制命令记录")

@@ -1,6 +1,7 @@
 package zhku.graduation.core.modules.command.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebDetail;
 import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
 
@@ -16,7 +17,10 @@ public interface ICommandRecordWebService extends IService<CommandRecordWeb> {
 
     CommandRecordWebDetail getCommandRecordWeb();
 
-    boolean saveOrUpdateCommandRecordWeb(String command);
+    /**
+     * 新增或修改控制命令
+     */
+    boolean saveOrUpdateCommandRecordWeb(String command, Constant.CommandObj obj);
 
     boolean removeCommandRecordWeb(Integer dataId);
 

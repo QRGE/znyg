@@ -25,6 +25,12 @@ public class CommandRecordWeb {
     private Integer id;
 
     /**
+     * 控制对象 控制对象, J-加热器, C-除菌器, D-灯光
+     */
+    @TableField("command_obj")
+    private String commandObj;
+
+    /**
      * 控制命令格式为“KxxddssB”，“K”为数据包开始标志，“xx”为鱼缸编号，范围为“00-99”，“dd”为设置的温度目标值，“ss”分别代表要求灯光和除菌器开启或者关闭，“s”取值为”Y”表示开启，取值为“N”表示关闭，字母“B”为数据包结束标志和表示控制命令来自web程序。
      */
     @TableField("command_text")
@@ -35,6 +41,9 @@ public class CommandRecordWeb {
      */
     @TableField("command_status")
     private Integer commandStatus;
+
+    @TableField("execute_time")
+    private Date executeTime;
 
     /**
      * 创建时间

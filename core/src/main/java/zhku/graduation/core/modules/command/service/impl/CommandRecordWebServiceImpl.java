@@ -38,25 +38,25 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
     }
 
     @Override
-    public boolean saveOrUpdateCommandRecordWeb(String command) {
+    public boolean saveOrUpdateCommandRecordWeb(String command, Constant.CommandObj obj) {
         CommandRecordWeb newCommand = new CommandRecordWeb();
         newCommand.setCommandText(command);
         newCommand.setCommandStatus(Constant.CommandStatus.HAD_SENT.getType());
+        newCommand.setCommandObj(obj.name());
         boolean result = save(newCommand);
-        // 3秒后查询状态
+        // 5秒后查询状态
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                CommandRecordWeb web = getOne(Wrappers.lambdaQuery(CommandRecordWeb.class)
-                        .orderByDesc(CommandRecordWeb::getCreateTime)
-                        .last("limit 1"));
+                // 更新执行命令的状态
+                CommandRecordWeb web = getById(newCommand.getId());
                 if (!web.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
                     web.setCommandStatus(Constant.CommandStatus.NOT_START.getType());
+                    updateById(web);
                 }
-                updateById(web);
             }
-        }, 3000);
+        }, 5*1000);
         return result;
     }
 

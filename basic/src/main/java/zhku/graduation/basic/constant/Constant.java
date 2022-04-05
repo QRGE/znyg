@@ -44,6 +44,14 @@ public interface Constant {
 
 	@AllArgsConstructor
 	@Getter
+	public enum CommandObj {
+	    J, // 加热器
+		C, // 除菌器
+		D // 灯光
+	}
+
+	@AllArgsConstructor
+	@Getter
 	enum CommandStatus {
 	    NOT_START(0, "未执行"),
 		HAD_SENT(1, "已发送"),
