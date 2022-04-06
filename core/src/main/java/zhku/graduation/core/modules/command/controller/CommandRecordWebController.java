@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.controller.BaseController;
+import zhku.graduation.basic.vo.Page;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.command.entity.bean.CommandRecordWebDetail;
 import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
 import zhku.graduation.core.modules.command.entity.request.CommandBody;
+import zhku.graduation.core.modules.command.entity.request.CommandRecordWebPageRequest;
 import zhku.graduation.core.modules.command.service.ICommandRecordWebService;
 
 /**
@@ -31,6 +33,15 @@ public class CommandRecordWebController extends BaseController {
     public Result<?> getLatestCommandRecordWeb(){
         CommandRecordWebDetail info = commandRecordWebService.getCommandRecordWeb();
         return Result.OK(info);
+    }
+
+    @ApiOperation(value = "分页查询控制目标")
+    @GetMapping("page")
+    public Result<?> get(@RequestBody CommandRecordWebPageRequest request){
+        handlePageRequest(request);
+        request.handleOrderType();
+        Page<CommandRecordWebDetail> page = commandRecordWebService.pageCommands(request);
+        return Result.OK(page);
     }
 
     @ApiOperation(value = "查询Web 端控制命令记录详情", response = CommandRecordWebDetail.class)

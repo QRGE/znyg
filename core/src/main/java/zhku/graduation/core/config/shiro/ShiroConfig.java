@@ -63,6 +63,7 @@ public class ShiroConfig {
         filterUrls.put("/node/**", "anon");
         filterUrls.put("/quartz/**","anon");
         filterUrls.put("/ws/**", "anon");
+        filterUrls.put("/command/**", "anon");
         // 数据库链接池
         filterUrls.put("/druid/**", "anon");
         filterUrls.put("/record/**", "anon");

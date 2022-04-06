@@ -20,9 +20,6 @@ import java.util.Date;
 @ApiModel(value = "Web 端控制命令记录分页请求")
 public class CommandRecordWebPageRequest extends BasePageRequest implements BaseTimeRequest {
 
-    @ApiModelProperty("鱼缸节点id")
-    private Integer nodeId;
-
     @ApiModelProperty("开始时间")
     private Date startTime;
 

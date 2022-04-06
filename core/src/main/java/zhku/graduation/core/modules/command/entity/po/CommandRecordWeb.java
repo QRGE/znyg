@@ -24,6 +24,9 @@ public class CommandRecordWeb {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
+    @TableField(value = "node_id")
+    private Integer nodeId;
+
     /**
      * 控制对象 控制对象, J-加热器, C-除菌器, D-灯光
      */
