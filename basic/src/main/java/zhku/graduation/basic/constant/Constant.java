@@ -45,9 +45,16 @@ public interface Constant {
 	@AllArgsConstructor
 	@Getter
 	public enum CommandObj {
-	    J, // 加热器
-		C, // 除菌器
-		D // 灯光
+	    J("J", "加热器"), // 加热器
+		C("C","除菌器"), // 除菌器
+		D("D","灯光"); // 灯光
+
+		String type;
+		String name;
+
+		public static CommandObj value(String type) {
+			return Arrays.stream(values()).filter(c -> Objects.equals(c.getType(), type)).findAny().orElse(null);
+		}
 	}
 
 	@AllArgsConstructor

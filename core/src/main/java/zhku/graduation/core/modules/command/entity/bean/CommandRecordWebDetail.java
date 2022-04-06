@@ -32,15 +32,18 @@ public class CommandRecordWebDetail {
 
     @ApiModelProperty("控制对象")
     private String commandObj;
+    @ApiModelProperty("控制对象文本")
+    private String commandObjText;
 
     @ApiModelProperty("控制命令文本")
     private String commandText;
 
-    @ApiModelProperty("命令状态文本")
-    private String commandStatusText;
 
     @ApiModelProperty("命令状态, 0-未执行, 1-已发送, 2-已执行")
-    private Integer commandStatus;
+    private Integer status;
+    @ApiModelProperty("命令状态文本")
+    private String statusText;
+
 
     @ApiModelProperty
     private String tagType;
@@ -56,9 +59,10 @@ public class CommandRecordWebDetail {
         id = po.getId();
         nodeId = po.getNodeId();
         commandObj = po.getCommandObj();
+        commandObjText = Constant.CommandObj.valueOf(po.getCommandObj()).getName();
         this.commandText = po.getCommandText();
-        commandStatus = po.getCommandStatus();
-        commandStatusText = Constant.CommandStatus.valueOf(po.getCommandStatus()).getName();
+        status = po.getCommandStatus();
+        statusText = Constant.CommandStatus.valueOf(po.getCommandStatus()).getName();
         tagType = Constant.TagType.valueOf(po.getCommandStatus()).getName();
         createTime = po.getCreateTime();
         executeTime = po.getExecuteTime();

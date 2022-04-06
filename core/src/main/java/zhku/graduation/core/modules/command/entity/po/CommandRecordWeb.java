@@ -76,7 +76,7 @@ public class CommandRecordWeb {
     public CommandRecordWeb parseFromDto(CommandRecordWebDetail dto) {
         id = dto.getId();
         commandText = dto.getCommandText();
-        commandStatus = dto.getCommandStatus();
+        commandStatus = dto.getStatus();
         return this;
     }
 
