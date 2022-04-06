@@ -48,6 +48,9 @@ public class CommandRecordWebDetail {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    private Date executeTime;
+
 
     public CommandRecordWebDetail parseFromPo(CommandRecordWeb po) {
         id = po.getId();
@@ -58,6 +61,7 @@ public class CommandRecordWebDetail {
         commandStatusText = Constant.CommandStatus.valueOf(po.getCommandStatus()).getName();
         tagType = Constant.TagType.valueOf(po.getCommandStatus()).getName();
         createTime = po.getCreateTime();
+        executeTime = po.getExecuteTime();
         return this;
     }
 }

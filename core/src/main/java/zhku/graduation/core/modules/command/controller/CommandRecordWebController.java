@@ -36,7 +36,7 @@ public class CommandRecordWebController extends BaseController {
     }
 
     @ApiOperation(value = "分页查询控制目标")
-    @GetMapping("page")
+    @PostMapping("page")
     public Result<?> get(@RequestBody CommandRecordWebPageRequest request){
         handlePageRequest(request);
         request.handleOrderType();
