@@ -80,6 +80,9 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
     public Page<CommandRecordWebDetail> pageCommands(CommandRecordWebPageRequest request) {
         Page<CommandRecordWebDetail> page = new Page<>();
         LambdaQueryWrapper<CommandRecordWeb> wrapper = Wrappers.lambdaQuery(CommandRecordWeb.class);
+        if (request.getNodeId() != null) {
+            wrapper.eq(CommandRecordWeb::getNodeId, request.getNodeId());
+        }
         if (request.getStartTime() != null) {
             wrapper.ge(CommandRecordWeb::getCreateTime, request.getStartTime());
         }
