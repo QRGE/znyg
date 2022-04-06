@@ -54,6 +54,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    public boolean isUserEmail(String username, String email) {
+        UserDetail user = getUserByUsername(username);
+        if (user == null) {
+            return false;
+        }
+        return user.getEMail().equals(email);
+    }
+
+    @Override
     public LoginUser getUser(String username) {
         LambdaQueryWrapper<User> queryWrapper = baseQueryWrapper()
                 .eq(User::getUsername, username);

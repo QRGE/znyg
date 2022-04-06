@@ -31,6 +31,8 @@ public interface IUserService extends IService<User> {
      */
     boolean isValidUser(String username);
 
+    boolean isUserEmail(String username, String email);
+
     /**
      * 通过用户名获取 user 对象
      * @param username 用户名

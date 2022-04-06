@@ -45,7 +45,7 @@ public class UserController extends BaseController {
     public Result<?> updatePwd(@Valid @RequestBody UpdatePwdBean request){
         String email = request.getEmail();
         if (!Validator.isEmail(email)
-            || !userService.isValidUser(request.getUsername())) {
+            || !userService.isUserEmail(request.getUsername(), request.getEmail())) {
             return error(PARAM_ERROR);
         }
         String realRequest = (String) redisUtil.get(email);
