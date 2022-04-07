@@ -53,6 +53,7 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
         newCommand.setCommandText(command);
         newCommand.setCommandStatus(Constant.CommandStatus.HAD_SENT.getType());
         newCommand.setCommandObj(obj.name());
+        newCommand.setNodeId(nodeId);
         save(newCommand);
         final Integer newId = newCommand.getId();
         // 5秒后查询状态
