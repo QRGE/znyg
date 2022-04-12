@@ -1,10 +1,10 @@
 spring:
   datasource:
-    username: root
-    password: QRWUDI666
+    username: qr
+    password: 123456abc!
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/znyg?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
-#    url: jdbc:mysql://rm-uf689n11q0q059b678o.mysql.rds.aliyuncs.com:3306/znyg?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+#    url: jdbc:mysql://localhost:3306/znyg?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://rm-uf689n11q0q059b678o.mysql.rds.aliyuncs.com:3306/znyg?characterEncoding=UTF-8&useUnicode=true&useSSL=false&tinyInt1isBit=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Shanghai
     druid:
       initial-size: 10
       max-active: 10

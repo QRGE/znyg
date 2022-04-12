@@ -89,7 +89,7 @@ public class UserController extends BaseController {
     }
 
     @ApiOperation("用户退出")
-    @GetMapping("logout")
+    @PostMapping("logout")
     public Result<?> logout(){
         return Result.OK("退出成功");
     }

@@ -14,7 +14,7 @@ public class JobInit implements ApplicationRunner {
     private Scheduler scheduler;
 
     @Override
-    public void run(ApplicationArguments args) throws Exception {
+    public void run(ApplicationArguments args) {
         // mock 数据任务
 //        JobDetail jobMock = JobBuilder.newJob(MockRecordJob.class)
 //                .withIdentity(Constant.JOB_MOCK)
