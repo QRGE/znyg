@@ -119,8 +119,8 @@ public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements IN
         RealTimeRecord record = new RealTimeRecord();
         if (CollectionUtil.isNotEmpty(recordList)) {
             int size = recordList.size();
-            List<Double> temperatures = recordList.stream()
-                    .map(MonitorRecord::getTemperature)
+            List<Integer> temperatures = recordList.stream()
+                    .map(r -> r.getTemperature().intValue())
                     .collect(Collectors.toList());
             record.setTemperatures(temperatures);
             List<String> dates = recordList.stream()
