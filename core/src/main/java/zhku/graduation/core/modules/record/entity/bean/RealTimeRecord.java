@@ -21,7 +21,7 @@ public class RealTimeRecord {
 
     private List<String> dates;
 
-    private LatestRecord record;
+    private LatestRecord record = new LatestRecord();
 
     private String heaterStatusText;
 

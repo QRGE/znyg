@@ -1,11 +1,9 @@
 package zhku.graduation.core.modules.record.entity.bean;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
+import cn.hutool.core.date.DateUtil;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
-
-import java.util.Date;
 
 /**
  * @author qr
@@ -18,7 +16,7 @@ public class LatestRecord {
     /**
      * 温度
      */
-    private Double temperature;
+    private String temperature = "未获取";
 
     /**
      * 加热器自动控制状态
@@ -26,14 +24,10 @@ public class LatestRecord {
     private boolean heaterAutoStatus = false;
 
     /**
-     * 温度上限
+     * 温度状态
      */
-    private Integer temperatureUpperLimit;
+    private String temperatureRange = "未获取";
 
-    /**
-     * 温度下限
-     */
-    private Integer temperatureLowerLimit;
 
     private boolean heaterStatus = false;
 
@@ -50,18 +44,22 @@ public class LatestRecord {
     /**
      * 记录时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date recordTime;
+    private String recordTime = "未获取";
 
     public LatestRecord parseFromPO(MonitorRecord po) {
-        this.temperature = po.getTemperature();
+        if (po.getTemperature() != null) {
+            this.temperature = po.getTemperature()+"°C";
+        }
         this.heaterAutoStatus = !po.getHeaterAutoStatus().equals(0);
-        temperatureUpperLimit = po.getTemperatureUpperLimit().intValue();
-        temperatureLowerLimit = po.getTemperatureLowerLimit().intValue();
+        if (po.getTemperatureLowerLimit() != null && po.getTemperatureUpperLimit() != null) {
+            this.temperatureRange = po.getTemperatureLowerLimit().intValue() + " ~ " +po.getTemperatureUpperLimit().intValue();
+        }
         heaterStatus = !po.getHeaterStatus().equals(0);
         lightStatus = !po.getLightStatus().equals(0);
         degermingStatus = !po.getDegermingStatus().equals(0);
-        recordTime = po.getRecordTime();
+        if (po.getRecordTime() != null) {
+            recordTime = DateUtil.format(po.getRecordTime(), "yyyy-MM-dd HH:mm:ss");
+        }
         return this;
     }
 }
