@@ -1,5 +1,6 @@
 package zhku.graduation.core.modules.record.entity.bean;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
@@ -49,6 +50,7 @@ public class LatestRecord {
     /**
      * 记录时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private Date recordTime;
 
     public LatestRecord parseFromPO(MonitorRecord po) {
