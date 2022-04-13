@@ -21,7 +21,7 @@ public interface BaseTimeRequest {
     default void handleOrderType() {
         Integer orderType = this.getOrderType();
         if (orderType == null || orderType != Constant.OrderType.DESC.getType()) {
-            this.setOrderType(Constant.OrderType.ASC.getType());
+            this.setOrderType(Constant.OrderType.DESC.getType());
         }
     }
 }
