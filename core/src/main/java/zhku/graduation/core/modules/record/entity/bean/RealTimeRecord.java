@@ -23,7 +23,7 @@ public class RealTimeRecord {
 
     private LatestRecord record = new LatestRecord();
 
-    private String heaterStatusText;
+    private String heaterStatusText = "关闭";
 
     public RealTimeRecord parseFromPO(MonitorRecord po) {
         this.record = new LatestRecord().parseFromPO(po);

@@ -52,7 +52,7 @@ public class LatestRecord {
         }
         this.heaterAutoStatus = !po.getHeaterAutoStatus().equals(0);
         if (po.getTemperatureLowerLimit() != null && po.getTemperatureUpperLimit() != null) {
-            this.temperatureRange = po.getTemperatureLowerLimit().intValue() + " ~ " +po.getTemperatureUpperLimit().intValue();
+            this.temperatureRange = po.getTemperatureLowerLimit().intValue() + " ~ " +po.getTemperatureUpperLimit().intValue() + "°C";
         }
         heaterStatus = !po.getHeaterStatus().equals(0);
         lightStatus = !po.getLightStatus().equals(0);
