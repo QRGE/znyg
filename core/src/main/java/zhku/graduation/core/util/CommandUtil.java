@@ -9,12 +9,12 @@ public class CommandUtil {
     /**
      * 加热基础控制命令
      */
-    private static final String HEATER_BASIC = "xx J KxxJlluusB 0";
+    private static final String HEATER_BASIC = "KxxJlluusB";
 
     /**
      * 基础命令
      */
-    private static final String BASIC = "xx O KxxOlluusB 0";
+    private static final String BASIC = "KxxOlluusB";
 
     // region 用于替换控制命令重的字符串
     private static final String UP = "uu";
