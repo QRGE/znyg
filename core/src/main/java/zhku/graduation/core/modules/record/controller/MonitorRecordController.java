@@ -12,6 +12,7 @@ import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Page;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.node.service.INodeService;
+import zhku.graduation.core.modules.record.entity.bean.LatestRecord;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
 import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
 import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
@@ -50,7 +51,11 @@ public class MonitorRecordController extends BaseController {
                 .orderByDesc(MonitorRecord::getRecordTime)
                 .last("limit 1");
         MonitorRecord record = monitorRecordService.getOne(wrapper);
-        return Result.OK(record);
+        LatestRecord latestRecord = new LatestRecord();
+        if (record != null) {
+            latestRecord = latestRecord.parseFromPO(record);
+        }
+        return Result.OK(latestRecord);
     }
 
     @ApiOperation("获取某个鱼缸节点的最新的5条数据")
