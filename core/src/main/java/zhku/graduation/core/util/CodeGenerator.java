@@ -27,7 +27,7 @@ public class CodeGenerator {
 
     /***************************************看着改******************************************/
     // 表名
-    private static final String TABLE_NAME = "znyg_temperature_limit";
+    private static final String TABLE_NAME = "znyg_command_record_host";
     // 表前缀
     private static final String TABLE_PREFIX = "znyg_";
     // 模块名
