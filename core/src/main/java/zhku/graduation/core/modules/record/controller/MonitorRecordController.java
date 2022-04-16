@@ -1,6 +1,8 @@
 package zhku.graduation.core.modules.record.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +22,7 @@ import zhku.graduation.core.modules.record.service.IMonitorRecordService;
 import java.util.Date;
 
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
+import static zhku.graduation.basic.constant.HttpStatus.PARAM_MISSING;
 
 /**
  * @author QR
@@ -36,11 +39,17 @@ public class MonitorRecordController extends BaseController {
     @Autowired
     private INodeService nodeService;
 
-    @ApiOperation(value = "查询监测记录表详情", response = MonitorRecordDetail.class)
-    @GetMapping("get")
-    public Result<?> getMonitorRecord(@RequestParam Integer id){
-//        MonitorRecordDetail info = monitorRecordService.getMonitorRecord(id);
-        MonitorRecord record = monitorRecordService.getById(id);
+    @ApiOperation(value = "查询监测记录表的最新数据", response = MonitorRecordDetail.class)
+    @GetMapping("latest")
+    public Result<?> getMonitorRecord(@RequestParam Integer nodeId){
+        if (nodeId == null) {
+            return error(PARAM_MISSING);
+        }
+        LambdaQueryWrapper<MonitorRecord> wrapper = Wrappers.lambdaQuery(MonitorRecord.class)
+                .eq(MonitorRecord::getNodeId, nodeId)
+                .orderByDesc(MonitorRecord::getRecordTime)
+                .last("limit 1");
+        MonitorRecord record = monitorRecordService.getOne(wrapper);
         return Result.OK(record);
     }
 
