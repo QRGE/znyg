@@ -59,6 +59,8 @@ public class CommandRecordHostServiceImpl extends ServiceImpl<CommandRecordHostM
         if (request.getNodeId() != null) {
             wrapper.eq(CommandRecordHost::getNodeId, request.getNodeId());
         }
+        List<Integer> nodeIds = nodeService.getNodeIds();
+        wrapper.in(CommandRecordHost::getNodeId, nodeIds);
         if (request.getStartTime() != null) {
             wrapper.ge(CommandRecordHost::getCreateTime, request.getStartTime());
         }

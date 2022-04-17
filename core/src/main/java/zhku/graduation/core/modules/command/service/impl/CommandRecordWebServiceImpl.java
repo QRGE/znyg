@@ -84,6 +84,8 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
         if (request.getNodeId() != null) {
             wrapper.eq(CommandRecordWeb::getNodeId, request.getNodeId());
         }
+        List<Integer> nodeIds = nodeService.getNodeIds();
+        wrapper.in(CommandRecordWeb::getNodeId, nodeIds);
         if (request.getStartTime() != null) {
             wrapper.ge(CommandRecordWeb::getCreateTime, request.getStartTime());
         }

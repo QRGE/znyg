@@ -64,6 +64,8 @@ public class MonitorRecordServiceImpl extends ServiceImpl<MonitorRecordMapper, M
         if (nodeId != null) {
             queryWrapper.eq(MonitorRecord::getNodeId, nodeId);
         }
+        List<Integer> nodeIds = nodeService.getNodeIds();
+        queryWrapper.in(MonitorRecord::getNodeId, nodeIds);
         if (startTime != null) {
             queryWrapper.ge(MonitorRecord::getRecordTime, startTime);
         }
