@@ -51,7 +51,7 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
     public Integer saveOrUpdateCommandRecordWeb(String command, Constant.CommandObj obj, Integer nodeId) {
         CommandRecordWeb newCommand = new CommandRecordWeb();
         newCommand.setCommandText(command);
-        newCommand.setCommandStatus(Constant.CommandStatus.HAD_SENT.getType());
+        newCommand.setCommandStatus(Constant.CommandStatus.NOT_EXECUTE.getType());
         newCommand.setCommandObj(obj.name());
         newCommand.setNodeId(nodeId);
         save(newCommand);
@@ -64,8 +64,8 @@ public class CommandRecordWebServiceImpl extends ServiceImpl<CommandRecordWebMap
                 // 更新执行命令的状态
                 CommandRecordWeb web = getById(newId);
                 // 命令状态还是已发送说明没有改，修改状态成为未执行
-                if (web.getCommandStatus().equals(Constant.CommandStatus.HAD_SENT.getType())) {
-                    web.setCommandStatus(Constant.CommandStatus.NOT_EXECUTE.getType());
+                if (!web.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
+                    web.setCommandStatus(Constant.CommandStatus.ERROR.getType());
                     updateById(web);
                 }
             }
