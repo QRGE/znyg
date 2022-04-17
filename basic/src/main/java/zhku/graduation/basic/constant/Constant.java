@@ -60,6 +60,7 @@ public interface Constant {
 	@AllArgsConstructor
 	@Getter
 	enum CommandStatus {
+		NOT_EXECUTE(0, "未执行"),
 		HAD_SENT(1, "已发送"),
 		FINISHED(2, "已完成"),
 		ERROR(3, "执行失败");
