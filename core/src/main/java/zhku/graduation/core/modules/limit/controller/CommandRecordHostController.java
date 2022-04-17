@@ -30,6 +30,7 @@ public class CommandRecordHostController extends BaseController {
     @ApiOperation(value = "分页查询上位机 端控制命令记录列表", response = CommandRecordHostListInfo.class)
     @PostMapping("page")
     public Result<?> getCommandRecordHostList(@RequestBody CommandRecordHostPageRequest request){
+        request.handleOrderType();
         handlePageRequest(request);
         Page<CommandRecordHostDetail> page = commandRecordHostService.pageCommandRecordHost(request);
         return Result.OK(page);

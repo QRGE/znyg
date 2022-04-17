@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import zhku.graduation.basic.request.BasePageRequest;
+import zhku.graduation.basic.request.BaseTimeRequest;
 
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import java.util.Date;
 @Setter
 @ToString
 @ApiModel(value = "上位机 端控制命令记录分页请求")
-public class CommandRecordHostPageRequest extends BasePageRequest{
+public class CommandRecordHostPageRequest  extends BasePageRequest implements BaseTimeRequest {
 
     @ApiModelProperty("鱼缸节点id")
     private Integer nodeId;
