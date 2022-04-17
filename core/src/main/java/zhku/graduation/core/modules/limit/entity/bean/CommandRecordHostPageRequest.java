@@ -29,5 +29,5 @@ public class CommandRecordHostPageRequest extends BasePageRequest{
     private Date endTime;
 
     @ApiModelProperty("排序类型, 1-正序, 2-倒序")
-    private Integer orderType;
+    private Integer orderType = 2;
 }
