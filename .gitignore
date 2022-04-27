@@ -1,6 +1,7 @@
 ### 配置文件 ###
-*.yml
-!application-template.yml
+application.yml
+application-dev.yml
+application-prod.yml
 
 HELP.md
 target/
