@@ -110,7 +110,7 @@ public class ShiroRealm extends AuthorizingRealm {
      *    程序会给 token 对应的 k 映射的 v 值重新生成 JWT 并覆盖v值，该缓存生命周期重新计算
      * 4、用户请求 jwt 经超时，并在cache中不存在对应的k，则表示该用户账户空闲超时，返回用户信息已失效，请重新登录。
      */
-    public boolean jwtTokenRefresh(String token, String userName, String passWord) {
+    private boolean jwtTokenRefresh(String token, String userName, String passWord) {
         String cacheToken = String.valueOf(redisUtil.get(token));
         if (StrUtil.isNotBlank(cacheToken)) {
             // 校验token有效性
