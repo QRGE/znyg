@@ -2,6 +2,7 @@ package zhku.graduation.core.config.check;
 
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
+import org.springframework.http.InvalidMediaTypeException;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.controller.BaseController;
-import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.basic.vo.Result;
 
 import static zhku.graduation.basic.constant.HttpStatus.PARAM_MISSING;
@@ -48,12 +48,11 @@ public class ControllerExceptionHandler extends BaseController {
         return error(PARAM_MISSING);
     }
 
-    @ExceptionHandler(InValidTokenException.class)
-    public Result<?> handleInvalidTokenException() {
-        return error(HttpStatus.AUTH_ERROR);
-    }
 
-    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class})
+    /**
+     * 身份校验失败时异常处理
+     */
+    @ExceptionHandler({UnauthorizedException.class, AuthorizationException.class, InvalidMediaTypeException.class})
     public Result<?> handleAuthorizationException(AuthorizationException e){
         return error(HttpStatus.AUTH_ERROR);
     }
