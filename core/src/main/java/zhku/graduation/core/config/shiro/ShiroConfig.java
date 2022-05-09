@@ -58,8 +58,8 @@ public class ShiroConfig {
         shiroFilter.setFilters(filters);
         // 拦截器
         Map<String, String> filterUrls = new LinkedHashMap<>();
-        filterUrls.put("/usr/login", "anon");
-        filterUrls.put("/usr/logout", "anon");
+        filterUrls.put("/user/login", "anon");
+        filterUrls.put("/user/logout", "anon");
 //        filterUrls.put("/user/**", "anon"); // 用户相关
 //        filterUrls.put("/node/**", "anon"); // 鱼缸节点
 //        filterUrls.put("/quartz/**","anon"); // 定时任务
