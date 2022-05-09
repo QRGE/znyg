@@ -58,17 +58,13 @@ public class ShiroConfig {
         shiroFilter.setFilters(filters);
         // 拦截器
         Map<String, String> filterUrls = new LinkedHashMap<>();
-        filterUrls.put("/user/login", "anon");
-        filterUrls.put("/user/**", "anon");
-        filterUrls.put("/node/**", "anon");
-        filterUrls.put("/quartz/**","anon");
-        filterUrls.put("/ws/**", "anon");
-        filterUrls.put("/socket/**", "anon");
-        filterUrls.put("/limit/**", "anon");
-        filterUrls.put("/command/**", "anon");
-        filterUrls.put("/druid/**", "anon");
-        filterUrls.put("/record/**", "anon");
-        filterUrls.put("/user/logout", "logout");
+        filterUrls.put("/user/**", "anon"); // 用户相关
+        filterUrls.put("/node/**", "anon"); // 鱼缸节点
+        filterUrls.put("/quartz/**","anon"); // 定时任务
+        filterUrls.put("/limit/**", "anon"); // 发送命令
+        filterUrls.put("/command/**", "anon"); // 控制命令
+        filterUrls.put("/tool/**", "anon"); // 工具类
+        filterUrls.put("/record/**", "anon"); // 历史记录
         // 所有的接口都要走 jwt 拦截规则
         filterUrls.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterUrls);
