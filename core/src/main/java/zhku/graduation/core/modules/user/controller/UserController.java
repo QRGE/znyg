@@ -21,7 +21,8 @@ import zhku.graduation.core.util.RedisUtil;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
-import static zhku.graduation.basic.constant.HttpStatus.*;
+import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
+import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 
 /**
  * @author QR
@@ -46,7 +47,7 @@ public class UserController extends BaseController {
         String email = request.getEmail();
         if (!Validator.isEmail(email)
             || !userService.isUserEmail(request.getUsername(), request.getEmail())) {
-            return error(PARAM_ERROR);
+            return Result.error("请输入该用户配对的邮箱");
         }
         String realRequest = (String) redisUtil.get(email);
         if (StrUtil.isBlank(realRequest) || !realRequest.equals(request.getCaptcha())) {
