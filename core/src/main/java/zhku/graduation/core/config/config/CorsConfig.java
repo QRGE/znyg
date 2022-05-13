@@ -19,7 +19,7 @@ public class CorsConfig implements WebMvcConfigurer {
                 // OPTIONS 是为了通过预检功能
                 .allowedMethods("GET", "HEAD", "POST", "PUT", "DELETE", "OPTIONS")
                 // 允许携带 cookie
-                .allowCredentials(true)
+                .allowCredentials(false)
                 // 设置遇检请求的有效期
                 .maxAge(3600)
                 .allowedHeaders("*");

@@ -69,9 +69,11 @@ public class MonitorRecordController extends BaseController {
 
     @CrossOrigin
     @RequestMapping(value = "/sse", produces = "text/event-stream;charset=UTF-8")
-    public Result<?> sse() {
+    public String sse() {
         ThreadUtil.sleep(500);
-        return Result.OK(RandomUtil.randomString(10));
+        String randomString = RandomUtil.randomString(10);
+        log.info("随机字符: " + randomString);
+        return randomString;
     }
 
     @ApiOperation(value = "分页查询监测记录表列表", response = MonitorRecordListInfo.class)
