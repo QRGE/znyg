@@ -1,6 +1,8 @@
 package zhku.graduation.core.modules.record.controller;
 
 
+import cn.hutool.core.thread.ThreadUtil;
+import cn.hutool.core.util.RandomUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import io.swagger.annotations.Api;
@@ -63,6 +65,13 @@ public class MonitorRecordController extends BaseController {
     public Result<?> getNodeLatestRecord(@RequestParam Integer nodeId){
         RealTimeRecord record = nodeService.getNodeLatestRecord(nodeId);
         return Result.OK(record);
+    }
+
+    @CrossOrigin
+    @RequestMapping(value = "/sse", produces = "text/event-stream;charset=UTF-8")
+    public Result<?> sse() {
+        ThreadUtil.sleep(500);
+        return Result.OK(RandomUtil.randomString(10));
     }
 
     @ApiOperation(value = "分页查询监测记录表列表", response = MonitorRecordListInfo.class)

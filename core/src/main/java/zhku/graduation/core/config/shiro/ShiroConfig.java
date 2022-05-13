@@ -66,7 +66,7 @@ public class ShiroConfig {
 //        filterUrls.put("/limit/**", "anon"); // 发送命令
 //        filterUrls.put("/command/**", "anon"); // 控制命令
 //        filterUrls.put("/tool/**", "anon"); // 工具类
-//        filterUrls.put("/record/**", "anon"); // 历史记录
+        filterUrls.put("/record/**", "anon"); // 历史记录
         // 所有的接口都要走 jwt 拦截规则
         filterUrls.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterUrls);

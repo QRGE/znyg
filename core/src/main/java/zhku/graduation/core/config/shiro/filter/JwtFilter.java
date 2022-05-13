@@ -5,7 +5,6 @@ import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.web.bind.annotation.RequestMethod;
 import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.constant.HttpStatus;
-import zhku.graduation.basic.exception.InValidTokenException;
 import zhku.graduation.core.config.shiro.JwtToken;
 
 import javax.servlet.ServletRequest;
@@ -33,13 +32,14 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
-        try {
-            executeLogin(request, response);
-            // return true will allow access
-            return true;
-        } catch (Exception e) {
-            throw new InValidTokenException("Token 无效");
-        }
+        executeLogin(request, response);
+        // return true will allow access
+        return true;
+//        try {
+//
+//        } catch (Exception e) {
+//            throw new InValidTokenException("Token 无效");
+//        }
     }
 
     /**
