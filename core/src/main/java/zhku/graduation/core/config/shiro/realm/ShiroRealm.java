@@ -55,7 +55,6 @@ public class ShiroRealm extends AuthorizingRealm {
             username = sysUser.getAccount();
         }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
-        // TODO 权限认证再做判断, 主要判断用户是不是 admin
         log.info("======================用户：{} 进行Shiro权限认证======================", username);
         return info;
     }
@@ -112,7 +111,7 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     private boolean jwtTokenRefresh(String token, String userName, String passWord) {
         String cacheToken = String.valueOf(redisUtil.get(token));
-        if (StrUtil.isNotBlank(cacheToken)) {
+        if (StrUtil.isNotBlank(cacheToken) && !"null".equals(cacheToken)) {
             // 校验token有效性
             if (!JwtUtil.verify(cacheToken, userName, passWord)) {
                 String newAuthorization = JwtUtil.sign(userName, passWord);

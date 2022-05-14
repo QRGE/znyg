@@ -99,6 +99,7 @@ public class UserController extends BaseController {
         if (StrUtil.isNotBlank(token)) {
             redisUtil.del(token);
         }
+        log.info("清除token: {}", token);
         return Result.OK("退出成功");
     }
 
