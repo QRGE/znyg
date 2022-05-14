@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.bind.annotation.*;
+import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.user.entity.bean.*;
@@ -19,6 +20,7 @@ import zhku.graduation.core.util.JwtUtil;
 import zhku.graduation.core.util.RedisUtil;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
@@ -91,7 +93,12 @@ public class UserController extends BaseController {
 
     @ApiOperation("用户退出")
     @PostMapping("logout")
-    public Result<?> logout(){
+    public Result<?> logout(HttpServletRequest request){
+        String token = request.getHeader(Constant.TOKEN);
+        // 清除 token
+        if (StrUtil.isNotBlank(token)) {
+            redisUtil.del(token);
+        }
         return Result.OK("退出成功");
     }
 
