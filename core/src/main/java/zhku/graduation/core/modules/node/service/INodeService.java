@@ -6,6 +6,7 @@ import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
 import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 import zhku.graduation.core.modules.node.entity.po.Node;
+import zhku.graduation.core.modules.record.entity.bean.NodeLatestStatus;
 import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
 
 import java.util.List;
@@ -38,4 +39,9 @@ public interface INodeService extends IService<Node> {
     boolean removeNode(Integer dataId);
 
     RealTimeRecord getNodeLatestRecord(Integer nodeId);
+
+    /**
+     * 查询 node 的最新状态
+     */
+    NodeLatestStatus getNodeLatestStatus(Integer nodeId);
 }

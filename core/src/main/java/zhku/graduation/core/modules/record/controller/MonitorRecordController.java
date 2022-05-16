@@ -14,10 +14,7 @@ import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Page;
 import zhku.graduation.basic.vo.Result;
 import zhku.graduation.core.modules.node.service.INodeService;
-import zhku.graduation.core.modules.record.entity.bean.LatestRecord;
-import zhku.graduation.core.modules.record.entity.bean.MonitorRecordDetail;
-import zhku.graduation.core.modules.record.entity.bean.MonitorRecordListInfo;
-import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
+import zhku.graduation.core.modules.record.entity.bean.*;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.entity.request.MonitorRecordPageRequest;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
@@ -41,6 +38,13 @@ public class MonitorRecordController extends BaseController {
     private IMonitorRecordService monitorRecordService;
     @Autowired
     private INodeService nodeService;
+
+    @ApiOperation(value = "查询监测记录表的最新数据", response = NodeLatestStatus.class)
+    @GetMapping("latest/status")
+    public Result<?> getNodeStatusLatest(@RequestParam Integer nodeId){
+        NodeLatestStatus status = nodeService.getNodeLatestStatus(nodeId);
+        return Result.OK(status);
+    }
 
     @ApiOperation(value = "查询监测记录表的最新数据", response = MonitorRecordDetail.class)
     @GetMapping("latest")

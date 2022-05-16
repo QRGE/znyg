@@ -15,6 +15,9 @@ import zhku.graduation.basic.constant.HttpStatus;
 import zhku.graduation.basic.controller.BaseController;
 import zhku.graduation.basic.vo.Result;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static zhku.graduation.basic.constant.HttpStatus.PARAM_MISSING;
 
 /**
@@ -51,6 +54,7 @@ public class ControllerExceptionHandler extends BaseController {
 
     @ExceptionHandler(MailException.class)
     public Result<?> handleMailException(MailException e) {
+        List<Integer> nums = new ArrayList<>();
         return Result.error(e.getMessage());
     }
 
