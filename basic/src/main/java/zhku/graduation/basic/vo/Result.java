@@ -10,6 +10,8 @@ import zhku.graduation.basic.constant.HttpStatus;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 @SuppressWarnings("unused")
 @ApiModel(value="接口返回对象", description="接口返回对象")
@@ -30,6 +32,15 @@ public class Result<T> implements Serializable {
 
 	@ApiModelProperty(value = "返回数据对象")
 	private T result;
+
+	public Map<String, Object> toMap() {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("success", this.success);
+		map.put("message", this.message);
+		map.put("code", this.code);
+		map.put("result", result);
+		return map;
+	}
 
 	@ApiModelProperty(value = "返回时间")
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Shanghai")

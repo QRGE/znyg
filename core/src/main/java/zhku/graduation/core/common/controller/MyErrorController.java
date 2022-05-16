@@ -8,12 +8,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import zhku.graduation.basic.vo.Result;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
 import java.util.Map;
 
 import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
+import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 
 @RestController
 public class MyErrorController extends BasicErrorController {
@@ -30,17 +31,16 @@ public class MyErrorController extends BasicErrorController {
         getErrorProperties().setIncludeMessage(ErrorProperties.IncludeAttribute.ALWAYS);
         getErrorProperties().setIncludeStacktrace(ErrorProperties.IncludeStacktrace.ALWAYS);
         Map<String, Object> body = getErrorAttributes(request, getErrorAttributeOptions(request, MediaType.ALL));
-        HttpStatus status = getStatus(request);
-        Map<String, Object> map = new HashMap<>();
+        // 请求是成功的，碰到服务器了，只是你返回的code是对应的code
+        HttpStatus status = HttpStatus.OK;
+        Map<String, Object> map;
         String exception = (String) body.get("exception");
         System.out.println(exception);
         // 设置 shiro 验证失败时的请求
         if ("org.apache.shiro.authc.AuthenticationException".equals(exception)) {
-            map.put("code", AUTH_ERROR.getCode());
-            map.put("message", AUTH_ERROR.getMsg());
+            map = Result.error(AUTH_ERROR.getCode(), AUTH_ERROR.getMsg()).toMap();
         }else {
-            map.put("code", body.get("status"));
-            map.put("message", "".equals(body.get("message")) ? "系统错误" : body.get("message"));
+            map = Result.error(ERROR.getCode(), ERROR.getMsg()).toMap();
         }
         return new ResponseEntity<>(map, status);
     }
