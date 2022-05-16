@@ -23,7 +23,6 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import static zhku.graduation.basic.constant.HttpStatus.AUTH_ERROR;
 import static zhku.graduation.basic.constant.HttpStatus.ERROR;
 
 /**
@@ -56,7 +55,7 @@ public class UserController extends BaseController {
             return Result.error("验证码无效");
         }
         boolean result = userService.updatePwd(request.getNewPwd(), request.getUsername());
-        return result ? Result.OK("修改密码成功！") : error(ERROR);
+        return result ? Result.OK("修改密码成功！") : Result.error("修改密码失败！");
     }
 
     @ApiOperation("获取用户信息")
@@ -77,7 +76,7 @@ public class UserController extends BaseController {
         String password = loginInfo.getPassword();
         if (userService.isValidUser(account, password)) {
             log.error("用户：{} 登陆失败", account);
-            return error(AUTH_ERROR);
+            return Result.error("登陆校验失败，请重新登陆");
         }
         UserDetail userDetail = userService.getUserByUsername(account);
         JSONObject jsonObject = new JSONObject();

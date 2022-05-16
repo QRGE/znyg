@@ -1,5 +1,6 @@
 package zhku.graduation.core.util;
 
+import cn.hutool.extra.mail.MailException;
 import com.sun.mail.util.MailSSLSocketFactory;
 import lombok.SneakyThrows;
 
@@ -24,9 +25,13 @@ public class MailTool {
      * @param toEmail 待发送的邮箱
      */
     public static String sendCaptcha(String toEmail) {
-        String captcha = PasswordUtil.getSalt();
-        send("验证码", captcha + "，验证码10分钟内有效", toEmail);
-        return captcha;
+        try {
+            String captcha = PasswordUtil.getSalt();
+            send("验证码", captcha + "，验证码10分钟内有效", toEmail);
+            return captcha;
+        }catch (Exception e) {
+            throw new MailException("发送验证码失败！请输入正确的邮箱");
+        }
     }
 
     @SneakyThrows

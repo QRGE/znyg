@@ -1,5 +1,6 @@
 package zhku.graduation.core.config.check;
 
+import cn.hutool.extra.mail.MailException;
 import org.apache.shiro.authz.AuthorizationException;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.http.InvalidMediaTypeException;
@@ -46,6 +47,11 @@ public class ControllerExceptionHandler extends BaseController {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public Result<?> handleHttpMessageNotReadableException(){
         return error(PARAM_MISSING);
+    }
+
+    @ExceptionHandler(MailException.class)
+    public Result<?> handleMailException(MailException e) {
+        return Result.error(e.getMessage());
     }
 
 
