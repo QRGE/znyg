@@ -62,7 +62,7 @@ public class ShiroConfig {
         filterUrls.put("/user/login", "anon");
         filterUrls.put("/user/logout", "anon");
         filterUrls.put("/tool/**", "anon"); // 工具类, 例如发送邮箱验证码
-//        filterUrls.put("/user/**", "anon"); // 用户相关
+        filterUrls.put("/user/updatePwd", "anon"); // 修改密码
 //        filterUrls.put("/node/**", "anon"); // 鱼缸节点
 //        filterUrls.put("/quartz/**","anon"); // 定时任务
 //        filterUrls.put("/limit/**", "anon"); // 发送命令
