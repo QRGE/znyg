@@ -30,6 +30,7 @@ public class LatestRecord {
 
 
     private boolean heaterStatus = false;
+    private String heaterStatusText = "关闭";
 
     /**
      * 灯光状态, 0-关闭, 1-开启
@@ -55,6 +56,9 @@ public class LatestRecord {
             this.temperatureRange = po.getTemperatureLowerLimit().intValue() + " ~ " +po.getTemperatureUpperLimit().intValue() + "°C";
         }
         heaterStatus = !po.getHeaterStatus().equals(0);
+        if (!po.getHeaterAutoStatus().equals(0)) {
+            this.heaterStatusText = "开启";
+        }
         lightStatus = !po.getLightStatus().equals(0);
         degermingStatus = !po.getDegermingStatus().equals(0);
         if (po.getRecordTime() != null) {
