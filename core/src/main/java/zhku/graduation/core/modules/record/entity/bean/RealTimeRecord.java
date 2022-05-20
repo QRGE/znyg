@@ -3,7 +3,6 @@ package zhku.graduation.core.modules.record.entity.bean;
 import io.swagger.annotations.ApiModel;
 import lombok.Getter;
 import lombok.Setter;
-import zhku.graduation.basic.constant.Constant;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 
 import java.util.List;
@@ -23,11 +22,8 @@ public class RealTimeRecord {
 
     private LatestRecord record = new LatestRecord();
 
-    private String heaterStatusText = "关闭";
-
     public RealTimeRecord parseFromPO(MonitorRecord po) {
         this.record = new LatestRecord().parseFromPO(po);
-        this.heaterStatusText = Constant.Status.valueOf(po.getHeaterStatus()).getName();
         return this;
     }
 }
