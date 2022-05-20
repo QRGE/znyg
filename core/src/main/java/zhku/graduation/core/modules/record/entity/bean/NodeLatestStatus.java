@@ -26,6 +26,12 @@ public class NodeLatestStatus {
     @ApiModelProperty("灯光状态")
     private Boolean lightStatus = false;
 
+    @ApiModelProperty("水温范围上限")
+    private Integer up;
+
+    @ApiModelProperty("水温范围下限")
+    private Integer low;
+
     public NodeLatestStatus(Integer nodeId) {
         this.nodeId = nodeId;
     }

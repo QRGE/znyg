@@ -28,24 +28,12 @@ public class TemperatureLimitDetail {
     @ApiModelProperty("温度下限")
     private Double temperatureLowerLimit;
 
-    @ApiModelProperty("加热器状态，1-开启，0-关闭")
-    private Integer heater;
-
-    @ApiModelProperty("灯光状态，1-开启，0-关闭")
-    private Integer light;
-
-    @ApiModelProperty("除菌器状态，1-开启，0-关闭")
-    private Integer degerming;
-
 
 
     public TemperatureLimitDetail parseFromPo(NodeStatus po) {
         nodeId = po.getNodeId();
         temperatureUpperLimit = po.getTemperatureUpperLimit();
         temperatureLowerLimit = po.getTemperatureLowerLimit();
-        heater = po.getHeaterStatus();
-        light = po.getLightStatus();
-        degerming = po.getDegermingStatus();
         return this;
     }
 }
