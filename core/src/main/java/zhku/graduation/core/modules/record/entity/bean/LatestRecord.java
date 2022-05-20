@@ -49,7 +49,7 @@ public class LatestRecord {
 
     public LatestRecord parseFromPO(MonitorRecord po) {
         if (po.getTemperature() != null) {
-            this.temperature = po.getTemperature()+"°C";
+            this.temperature = po.getTemperature() + "°C";
         }
         this.heaterAutoStatus = !po.getHeaterAutoStatus().equals(0);
         if (po.getTemperatureLowerLimit() != null && po.getTemperatureUpperLimit() != null) {
@@ -57,10 +57,10 @@ public class LatestRecord {
         }
         heaterStatus = !po.getHeaterStatus().equals(0);
         // 查询鱼缸的自动加热状态
-        if (!po.getHeaterAutoStatus().equals(0)) {
-            this.heaterStatusText = "开启";
-        }else {
+        if (po.getHeaterStatus().equals(0)) {
             this.heaterStatusText = "关闭";
+        }else {
+            this.heaterStatusText = "开启";
         }
         lightStatus = !po.getLightStatus().equals(0);
         degermingStatus = !po.getDegermingStatus().equals(0);

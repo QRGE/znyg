@@ -11,8 +11,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import zhku.graduation.basic.constant.Constant;
-import zhku.graduation.core.modules.command.entity.po.CommandRecordWeb;
 import zhku.graduation.core.modules.command.service.ICommandRecordWebService;
 import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
@@ -20,7 +18,6 @@ import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 import zhku.graduation.core.modules.node.entity.po.Node;
 import zhku.graduation.core.modules.node.mapper.NodeMapper;
 import zhku.graduation.core.modules.node.service.INodeService;
-import zhku.graduation.core.modules.record.entity.bean.NodeLatestStatus;
 import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
 import zhku.graduation.core.modules.record.entity.po.MonitorRecord;
 import zhku.graduation.core.modules.record.service.IMonitorRecordService;
@@ -139,39 +136,6 @@ public class NodeServiceImpl extends ServiceImpl<NodeMapper, Node> implements IN
             record = record.parseFromPO(recordList.get(size-1));
         }
         return record;
-    }
-
-    @Override
-    public NodeLatestStatus getNodeLatestStatus(Integer nodeId) {
-        NodeLatestStatus status = new NodeLatestStatus(nodeId);
-        LambdaQueryWrapper<CommandRecordWeb> wrapper = Wrappers.lambdaQuery(CommandRecordWeb.class)
-                .eq(CommandRecordWeb::getNodeId, nodeId)
-                .eq(CommandRecordWeb::getCommandObj, Constant.CommandObj.J.getType())
-                .orderByDesc(CommandRecordWeb::getCreateTime)
-                .last("limit 1");
-        CommandRecordWeb heaterCommand = commandRecordWebService.getOne(wrapper);
-        if (heaterCommand != null && heaterCommand.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
-            status.setHeaterStatus(true);
-        }
-        LambdaQueryWrapper<CommandRecordWeb> wrapper2 = Wrappers.lambdaQuery(CommandRecordWeb.class)
-                .eq(CommandRecordWeb::getNodeId, nodeId)
-                .eq(CommandRecordWeb::getCommandObj, Constant.CommandObj.C.getType())
-                .orderByDesc(CommandRecordWeb::getCreateTime)
-                .last("limit 1");
-        CommandRecordWeb degermingStatus = commandRecordWebService.getOne(wrapper2);
-        if (degermingStatus != null && degermingStatus.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
-            status.setDegermingStatus(true);
-        }
-        LambdaQueryWrapper<CommandRecordWeb> wrapper3 = Wrappers.lambdaQuery(CommandRecordWeb.class)
-                .eq(CommandRecordWeb::getNodeId, nodeId)
-                .eq(CommandRecordWeb::getCommandObj, Constant.CommandObj.D.getType())
-                .orderByDesc(CommandRecordWeb::getCreateTime)
-                .last("limit 1");
-        CommandRecordWeb lightCommand = commandRecordWebService.getOne(wrapper3);
-        if (lightCommand != null && lightCommand.getCommandStatus().equals(Constant.CommandStatus.FINISHED.getType())) {
-            status.setLightStatus(true);
-        }
-        return status;
     }
 
     private LambdaQueryWrapper<Node> baseQueryWrapper() {
