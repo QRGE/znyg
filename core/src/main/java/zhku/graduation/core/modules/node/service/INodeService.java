@@ -6,6 +6,7 @@ import zhku.graduation.core.modules.node.entity.bean.NodeDetail;
 import zhku.graduation.core.modules.node.entity.bean.NodeListInfo;
 import zhku.graduation.core.modules.node.entity.bean.NodePageRequest;
 import zhku.graduation.core.modules.node.entity.po.Node;
+import zhku.graduation.core.modules.record.entity.bean.NodeLatestStatus;
 import zhku.graduation.core.modules.record.entity.bean.RealTimeRecord;
 
 import java.util.List;
@@ -39,4 +40,8 @@ public interface INodeService extends IService<Node> {
 
     RealTimeRecord getNodeLatestRecord(Integer nodeId);
 
+    /**
+     * 获取某个鱼缸节点最新的控制状态
+     */
+    NodeLatestStatus getNodeLatestStatus(Integer nodeId);
 }

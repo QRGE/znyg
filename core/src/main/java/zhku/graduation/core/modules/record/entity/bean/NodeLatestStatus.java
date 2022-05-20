@@ -18,13 +18,13 @@ public class NodeLatestStatus {
     private Integer nodeId;
 
     @ApiModelProperty("自动加热状态")
-    private Boolean heaterAutoStatus = false;
+    private Boolean heaterStatus = false;
 
     @ApiModelProperty("除菌器状态")
     private Boolean degermingStatus = false;
 
-    @ApiModelProperty("加热器状态")
-    private String heaterStatus = "未获取";
+    @ApiModelProperty("灯光状态")
+    private Boolean lightStatus = false;
 
     public NodeLatestStatus(Integer nodeId) {
         this.nodeId = nodeId;
