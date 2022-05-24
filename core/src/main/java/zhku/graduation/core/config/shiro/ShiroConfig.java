@@ -63,11 +63,11 @@ public class ShiroConfig {
         filterUrls.put("/user/logout", "anon");
         filterUrls.put("/tool/**", "anon"); // 工具类, 例如发送邮箱验证码
         filterUrls.put("/user/updatePwd", "anon"); // 修改密码
-//        filterUrls.put("/node/**", "anon"); // 鱼缸节点
-//        filterUrls.put("/quartz/**","anon"); // 定时任务
-//        filterUrls.put("/limit/**", "anon"); // 发送命令
-//        filterUrls.put("/command/**", "anon"); // 控制命令
-//        filterUrls.put("/record/**", "anon"); // 历史记录
+        filterUrls.put("/node/**", "anon"); // 鱼缸节点
+        filterUrls.put("/quartz/**","anon"); // 定时任务
+        filterUrls.put("/limit/**", "anon"); // 发送命令
+        filterUrls.put("/command/**", "anon"); // 控制命令
+        filterUrls.put("/record/**", "anon"); // 历史记录
         // 所有的接口都要走 jwt 拦截规则
         filterUrls.put("/**", "jwt");
         shiroFilter.setFilterChainDefinitionMap(filterUrls);
